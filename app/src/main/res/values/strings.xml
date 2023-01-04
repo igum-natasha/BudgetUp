@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">BudgetUp</string>
+    <string name="skip">skip</string>
+    <string name="next">next</string>
+
+    <string name="title_onboarding1">Painless budgeting</string>
+    <string name="title_onboarding2">The whole picture in one place</string>
+    <string name="title_onboarding3">Analysis of data for any period of time</string>
+
+    <string name="desc_onboarding1">Control expenses for different categories. It takes seconds to record daily transactions</string>
+    <string name="desc_onboarding2">One report to give a clear view on your spending patterns </string>
+    <string name="desc_onboarding3">Easily and quickly analysis your expenses and profit</string>
+</resources>
