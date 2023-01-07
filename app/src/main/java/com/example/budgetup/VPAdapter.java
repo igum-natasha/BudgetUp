@@ -6,35 +6,35 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class VPAdapter extends FragmentPagerAdapter {
 
-    private final ArrayList<Fragment> fragmentList = new ArrayList<>();
-    private final ArrayList<String> fragmentTitle = new ArrayList<>();
-    public VPAdapter(@NonNull FragmentManager fm, int behavior) {
-        super(fm, behavior);
-    }
+  private final ArrayList<Fragment> fragmentList = new ArrayList<>();
+  private final ArrayList<String> fragmentTitle = new ArrayList<>();
 
-    @NonNull
-    @Override
-    public Fragment getItem(int position) {
-        return fragmentList.get(position);
-    }
+  public VPAdapter(@NonNull FragmentManager fm, int behavior) {
+    super(fm, behavior);
+  }
 
-    @Override
-    public int getCount() {
-        return fragmentList.size();
-    }
+  @NonNull
+  @Override
+  public Fragment getItem(int position) {
+    return fragmentList.get(position);
+  }
 
-    public void addFragment(Fragment fragment, String title) {
-        fragmentList.add(fragment);
-        fragmentTitle.add(title);
-    }
+  @Override
+  public int getCount() {
+    return fragmentList.size();
+  }
 
-    @NonNull
-    @Override
-    public CharSequence getPageTitle(int position) {
-        return fragmentTitle.get(position);
-    }
+  public void addFragment(Fragment fragment, String title) {
+    fragmentList.add(fragment);
+    fragmentTitle.add(title);
+  }
+
+  @NonNull
+  @Override
+  public CharSequence getPageTitle(int position) {
+    return fragmentTitle.get(position);
+  }
 }
