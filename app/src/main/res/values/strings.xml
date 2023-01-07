@@ -4,6 +4,18 @@
     <string name="next">next</string>
     <string name="profile">Profile</string>
     <string name="hi">Hi, user!</string>
+    <string name="user">User</string>
+    <string name="user_email">User Email</string>
+    <string name="google">Google account</string>
+    <string name="google_title">Backup &amp; Restore</string>
+    <string name="google_desc">Synchronize your data</string>
+    <string name="sync">Google account sync</string>
+    <string name="setting">Settings</string>
+    <string name="language">Language</string>
+    <string name="share">Share with friends</string>
+    <string name="questions">FAQ &amp; Questions</string>
+    <string name="delete">Delete all data</string>
+
 
     <string name="title_onboarding1">Painless budgeting</string>
     <string name="title_onboarding2">The whole picture in one place</string>
