@@ -10,7 +10,7 @@
         android:id="@+id/imageTitle"
         android:layout_width="match_parent"
         android:layout_height="350dp"
-        android:layout_marginTop="10dp"
+        android:alpha="0.8"
         android:src="@drawable/onboarding1" />
 
     <TextView
@@ -18,12 +18,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:fontFamily="@font/poppins_semibold"
+        android:fontFamily="@font/poppins"
         android:text="@string/title_onboarding1"
         android:textColor="@color/base_900"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:textSize="24dp" />
+        android:textSize="24sp" />
 
     <TextView
         android:id="@+id/textDescription"
@@ -35,6 +35,6 @@
         android:textColor="@color/base_900"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:textSize="16dp" />
+        android:textSize="16sp" />
 
 </LinearLayout>
