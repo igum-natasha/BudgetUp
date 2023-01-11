@@ -38,8 +38,7 @@
             android:layout_marginStart="16dp"
             android:background="#00FFFFFF"
             android:descendantFocusability="blocksDescendants"
-            android:orientation="vertical"
-            android:layout_marginLeft="16dp">
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/userName"
@@ -80,6 +79,7 @@
         app:shadowRadius="10dp">
 
         <LinearLayout
+            android:id="@+id/google"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clickable="true"
@@ -210,7 +210,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/messageCenter"
+                android:id="@+id/share"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:clickable="true"

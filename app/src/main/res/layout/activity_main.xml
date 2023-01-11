@@ -8,15 +8,14 @@
 
     <Button
         android:id="@+id/btnSkip"
-        android:layout_width="wrap_content"
+        android:layout_width="70dp"
         android:layout_height="40dp"
         android:text="@string/skip"
-        android:background="@drawable/button_text"
+        android:background="@android:color/transparent"
         android:textColor="@color/primary_400"
         android:textSize="16sp"
         android:fontFamily="@font/poppins"
 
-        android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -58,7 +57,7 @@
         android:orientation="horizontal"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="48dp"
+        android:layout_marginBottom="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         />

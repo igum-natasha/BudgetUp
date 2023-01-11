@@ -10,29 +10,20 @@
         android:layout_height="wrap_content"
         android:padding="16dp">
 
-        <ImageButton
-            android:id="@+id/exit_icon"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_alignParentEnd="true"
-            android:background="@color/base_50"
-            android:scaleType="fitCenter"
-            android:src="@drawable/logout"
-            app:tint="@color/base_900" />
         <TextView
-            android:id="@+id/text"
+            android:id="@+id/login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_toEndOf="@+id/left_icon"
+            android:layout_toEndOf="@+id/back_icon"
             android:scaleType="fitCenter"
             android:fontFamily="@font/poppins"
             android:textColor="@color/base_900"
-            android:text="@string/profile"
+            android:text="@string/regist_title"
             android:textSize="16sp" />
 
         <ImageButton
-            android:id="@+id/left_icon"
+            android:id="@+id/back_icon"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:background="@color/base_50"
@@ -41,5 +32,4 @@
             app:tint="@color/base_900" />
 
     </RelativeLayout>
-
 </RelativeLayout>

@@ -3,22 +3,31 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Android_app/BudgetUp/app/src/main/res/drawable/background_dialog.xml" value="0.37864583333333335" />
+        <entry key="..\:/Android_app/BudgetUp/app/src/main/res/drawable/background_edit_text.xml" value="0.37864583333333335" />
         <entry key="..\:/Android_app/BudgetUp/app/src/main/res/drawable/button_border.xml" value="0.37864583333333335" />
         <entry key="..\:/Android_app/BudgetUp/app/src/main/res/drawable/button_primary.xml" value="0.21875" />
         <entry key="..\:/Android_app/BudgetUp/app/src/main/res/drawable/button_secondary.xml" value="0.21875" />
         <entry key="..\:/Android_app/BudgetUp/app/src/main/res/drawable/button_text.xml" value="0.21875" />
         <entry key="..\:/Android_app/BudgetUp/app/src/main/res/drawable/ic_launcher_background.xml" value="0.21875" />
         <entry key="..\:/Android_app/BudgetUp/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.21875" />
+        <entry key="..\:/Android_app/BudgetUp/app/src/main/res/drawable/login_toolbar.xml" value="0.37864583333333335" />
+        <entry key="..\:/Android_app/BudgetUp/app/src/main/res/layout/activity_first.xml" value="0.22" />
         <entry key="..\:/Android_app/BudgetUp/app/src/main/res/layout/activity_home.xml" value="0.2966751918158568" />
-        <entry key="..\:/Android_app/BudgetUp/app/src/main/res/layout/activity_main.xml" value="0.2957427536231884" />
+        <entry key="..\:/Android_app/BudgetUp/app/src/main/res/layout/activity_login.xml" value="0.3625" />
+        <entry key="..\:/Android_app/BudgetUp/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Android_app/BudgetUp/app/src/main/res/layout/activity_onboarding.xml" value="0.3625" />
         <entry key="..\:/Android_app/BudgetUp/app/src/main/res/layout/activity_profile.xml" value="0.3625" />
+        <entry key="..\:/Android_app/BudgetUp/app/src/main/res/layout/activity_registration.xml" value="0.33" />
         <entry key="..\:/Android_app/BudgetUp/app/src/main/res/layout/activity_splash.xml" value="0.22" />
         <entry key="..\:/Android_app/BudgetUp/app/src/main/res/layout/activity_statistics.xml" value="0.3625" />
+        <entry key="..\:/Android_app/BudgetUp/app/src/main/res/layout/delete_data_dialog.xml" value="0.3625" />
         <entry key="..\:/Android_app/BudgetUp/app/src/main/res/layout/fragment_journal.xml" value="0.3197463768115942" />
         <entry key="..\:/Android_app/BudgetUp/app/src/main/res/layout/fragment_statistics.xml" value="0.3197463768115942" />
         <entry key="..\:/Android_app/BudgetUp/app/src/main/res/layout/home_toolbar.xml" value="0.3625" />
+        <entry key="..\:/Android_app/BudgetUp/app/src/main/res/layout/login_toolbar.xml" value="0.3625" />
         <entry key="..\:/Android_app/BudgetUp/app/src/main/res/layout/profile_toolbar.xml" value="0.3625" />
+        <entry key="..\:/Android_app/BudgetUp/app/src/main/res/layout/registration_toolbar.xml" value="0.3625" />
         <entry key="..\:/Android_app/BudgetUp/app/src/main/res/layout/slider_layout.xml" value="0.3625" />
         <entry key="..\:/Android_app/BudgetUp/app/src/main/res/menu/button_navigation.xml" value="0.3625" />
       </map>
