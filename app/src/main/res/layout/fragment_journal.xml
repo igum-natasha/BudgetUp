@@ -6,13 +6,12 @@
     tools:context=".JournalFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <com.github.mikephil.charting.charts.BarChart
+        android:id="@+id/barChart"
+        android:layout_height="400dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Journal"
-        android:fontFamily="@font/poppins"
-        android:gravity="center"
-        android:textColor="@color/base_900"
-        android:textSize="40sp"/>
+        android:layout_marginTop="100dp"
+        android:padding="16dp"
+        />
 
 </FrameLayout>
