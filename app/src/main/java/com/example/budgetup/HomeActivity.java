@@ -14,7 +14,6 @@ import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
@@ -61,12 +60,13 @@ public class HomeActivity extends AppCompatActivity {
     expenses.add(new PieEntry(100, "House"));
     expenses.add(new PieEntry(350, "Transport"));
     int[] colors = {
-            getResources().getColor(R.color.menu_1),
-            getResources().getColor(R.color.menu_2),
-            getResources().getColor(R.color.menu_3),
-            getResources().getColor(R.color.menu_4),
-            getResources().getColor(R.color.menu_5),
-            getResources().getColor(R.color.menu_6)};
+      getResources().getColor(R.color.menu_1),
+      getResources().getColor(R.color.menu_2),
+      getResources().getColor(R.color.menu_3),
+      getResources().getColor(R.color.menu_4),
+      getResources().getColor(R.color.menu_5),
+      getResources().getColor(R.color.menu_6)
+    };
     PieDataSet pieDataSet = new PieDataSet(expenses, "Expenses");
     pieDataSet.setColors(colors);
     pieDataSet.setDrawValues(false);
@@ -75,14 +75,12 @@ public class HomeActivity extends AppCompatActivity {
     Legend l = pieChart.getLegend();
     l.setEnabled(false);
     pieChart.setData(pieData);
-//    pieChart.setDrawEntryLabels(false);
+    //    pieChart.setDrawEntryLabels(false);
     pieChart.setEntryLabelColor(getResources().getColor(R.color.base_600));
     pieChart.getDescription().setEnabled(false);
     pieChart.setCenterText("RUB 2814");
     pieChart.setCenterTextSize(18f);
     pieChart.setCenterTextColor(getResources().getColor(R.color.error_800));
     pieChart.animate();
-
-
   }
 }

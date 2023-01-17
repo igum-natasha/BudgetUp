@@ -9,28 +9,19 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.charts.BarLineChartBase;
-import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
-import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.formatter.IAxisValueFormatter;
-import com.github.mikephil.charting.formatter.IValueFormatter;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
-import com.github.mikephil.charting.formatter.ValueFormatter;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 
 public class JournalFragment extends Fragment {
 
   private View view;
+
   @Override
   public View onCreateView(
       LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -62,19 +53,20 @@ public class JournalFragment extends Fragment {
 
     BarDataSet barDataSet = new BarDataSet(expenses, "Expenses");
     int[] colors = {
-            getResources().getColor(R.color.menu_1),
-            getResources().getColor(R.color.menu_2),
-            getResources().getColor(R.color.menu_3),
-            getResources().getColor(R.color.menu_4),
-            getResources().getColor(R.color.menu_5),
-            getResources().getColor(R.color.menu_6)};
+      getResources().getColor(R.color.menu_1),
+      getResources().getColor(R.color.menu_2),
+      getResources().getColor(R.color.menu_3),
+      getResources().getColor(R.color.menu_4),
+      getResources().getColor(R.color.menu_5),
+      getResources().getColor(R.color.menu_6)
+    };
     barDataSet.setColors(colors);
     barDataSet.setDrawValues(false);
 
     BarData barData = new BarData(barDataSet);
     Legend l = barChart.getLegend();
     l.setEnabled(false);
-    xAxis.setPosition ( XAxis.XAxisPosition.BOTTOM);
+    xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
     xAxis.setDrawGridLines(false);
     xAxis.setDrawAxisLine(false);
     xAxis.setGranularity(1f);
