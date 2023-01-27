@@ -4,7 +4,6 @@ import static com.github.mikephil.charting.utils.ColorTemplate.*;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,16 +23,15 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class HomeActivity extends AppCompatActivity {
 
-//  private List<Expense> expenses;
-  private String [][] expenses;
+  //  private List<Expense> expenses;
+  private String[][] expenses;
   private RecyclerView rv;
   TextView tvInfoExp, tvToday;
   Button btnTrack;
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -66,16 +64,17 @@ public class HomeActivity extends AppCompatActivity {
   }
 
   private void initializeData() {
-//    AppDatabase db = AppDatabase.build(getApplicationContext());
-//    expenses = db.expenseDao().getAll();
+    //    AppDatabase db = AppDatabase.build(getApplicationContext());
+    //    expenses = db.expenseDao().getAll();
     Resources resources = getApplicationContext().getResources();
     int resourceId =
-            resources.getIdentifier(
-                    "food", "drawable", getApplicationContext().getPackageName());
-    expenses = new String[][]{
-            {"Magnit", "-1000 RUB", Integer.toString(resourceId)},
-            {"Sportmaster", "-2800 RUB", Integer.toString(resourceId)},
-            {"Petrol", "-2500 RUB", Integer.toString(resourceId)}};
+        resources.getIdentifier("food", "drawable", getApplicationContext().getPackageName());
+    expenses =
+        new String[][] {
+          {"Magnit", "-1000 RUB", Integer.toString(resourceId)},
+          {"Sportmaster", "-2800 RUB", Integer.toString(resourceId)},
+          {"Petrol", "-2500 RUB", Integer.toString(resourceId)}
+        };
     if (expenses.length == 0) {
       tvToday.setVisibility(View.INVISIBLE);
       tvInfoExp.setVisibility(View.VISIBLE);
@@ -87,17 +86,15 @@ public class HomeActivity extends AppCompatActivity {
     RVAdapterToday adapter = new RVAdapterToday(expenses);
     rv.setAdapter(adapter);
     adapter.setOnItemClickListener(
-            new RVAdapterToday.ClickListener() {
-              @Override
-              public void onItemClick(int position, View v) {
-//                 expenseInfoDialog.show();
-              }
+        new RVAdapterToday.ClickListener() {
+          @Override
+          public void onItemClick(int position, View v) {
+            //                 expenseInfoDialog.show();
+          }
 
-              @Override
-              public void onItemLongClick(int position, View v) {
-
-              }
-            });
+          @Override
+          public void onItemLongClick(int position, View v) {}
+        });
   }
 
   private void showExpenses() {
