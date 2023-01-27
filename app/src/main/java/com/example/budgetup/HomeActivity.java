@@ -4,10 +4,17 @@ import static com.github.mikephil.charting.utils.ColorTemplate.*;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
@@ -17,15 +24,23 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class HomeActivity extends AppCompatActivity {
 
+//  private List<Expense> expenses;
+  private String [][] expenses;
+  private RecyclerView rv;
+  TextView tvInfoExp, tvToday;
+  Button btnTrack;
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_home);
-
+    initViews();
     initPieChart();
+    showExpenses();
     BottomNavigationView nav_view = findViewById(R.id.navigationView);
     nav_view.setSelectedItemId(R.id.home);
     nav_view.setOnNavigationItemSelectedListener(
@@ -48,6 +63,60 @@ public class HomeActivity extends AppCompatActivity {
             return false;
           }
         });
+  }
+
+  private void initializeData() {
+//    AppDatabase db = AppDatabase.build(getApplicationContext());
+//    expenses = db.expenseDao().getAll();
+    Resources resources = getApplicationContext().getResources();
+    int resourceId =
+            resources.getIdentifier(
+                    "food", "drawable", getApplicationContext().getPackageName());
+    expenses = new String[][]{
+            {"Magnit", "-1000 RUB", Integer.toString(resourceId)},
+            {"Sportmaster", "-2800 RUB", Integer.toString(resourceId)},
+            {"Petrol", "-2500 RUB", Integer.toString(resourceId)}};
+    if (expenses.length == 0) {
+      tvToday.setVisibility(View.INVISIBLE);
+      tvInfoExp.setVisibility(View.VISIBLE);
+      btnTrack.setVisibility(View.VISIBLE);
+    }
+  }
+
+  private void initializeAdapter() {
+    RVAdapterToday adapter = new RVAdapterToday(expenses);
+    rv.setAdapter(adapter);
+    adapter.setOnItemClickListener(
+            new RVAdapterToday.ClickListener() {
+              @Override
+              public void onItemClick(int position, View v) {
+//                 expenseInfoDialog.show();
+              }
+
+              @Override
+              public void onItemLongClick(int position, View v) {
+
+              }
+            });
+  }
+
+  private void showExpenses() {
+    rv = findViewById(R.id.rv);
+
+    LinearLayoutManager llm = new LinearLayoutManager(this);
+    rv.setLayoutManager(llm);
+    rv.setHasFixedSize(true);
+
+    initializeData();
+    initializeAdapter();
+  }
+
+  private void initViews() {
+    tvToday = findViewById(R.id.tvToday);
+    btnTrack = findViewById(R.id.btnTrack);
+    tvInfoExp = findViewById(R.id.tvInfoExp);
+    tvInfoExp.setVisibility(View.INVISIBLE);
+    btnTrack.setVisibility(View.INVISIBLE);
   }
 
   private void initPieChart() {

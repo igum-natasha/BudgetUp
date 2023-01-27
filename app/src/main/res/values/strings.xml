@@ -28,6 +28,10 @@
     <string name="ent_name">name</string>
     <string name="regist_title">Registration</string>
     <string name="titlePassword">Password</string>
+    <string name="today">Today</string>
+    <string name="expense_name">Magnit</string>
+    <string name="no_exp_today">You need at least 1 day’s expenses data to unlock you budget statistics</string>
+    <string name="track_now">track now</string>
 
 
     <string name="title_onboarding1">Painless budgeting</string>

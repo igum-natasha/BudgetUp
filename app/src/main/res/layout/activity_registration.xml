@@ -17,6 +17,8 @@
         android:background="@drawable/registration_screen"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
@@ -25,7 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="114dp"
+        android:layout_marginBottom="110dp"
         android:text="@string/sign_up"
         android:textColorHint="@color/base_600"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -132,7 +134,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins"
-            android:text="@string/titleEmail"
+            android:text="@string/titlePassword"
             android:textColor="@color/base_900"
             android:textSize="14sp" />
 

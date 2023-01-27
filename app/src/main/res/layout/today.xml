@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/cv"
+        tools:ignore="MissingConstraints">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:gravity="center_vertical"
+            android:padding="16dp"
+            >
+
+            <ImageView
+                android:id="@+id/expensePhoto"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/food" />
+
+            <LinearLayout
+                android:layout_width="260dp"
+                android:layout_height="46dp"
+                android:orientation="vertical"
+                android:gravity="center_vertical">
+                <TextView
+                    android:id="@+id/expenseName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="22dp"
+                    android:paddingLeft="12dp"
+                    android:fontFamily="@font/poppins"
+                    android:textColor="@color/base_900"
+                    android:text="@string/expense_name"
+                    android:textSize="16sp"/>
+                <TextView
+                    android:id="@+id/expenseCost"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="12dp"
+                    android:fontFamily="@font/poppins"
+                    android:textColor="@color/base_900"
+                    android:text="@string/expense_name"
+                    android:textSize="12sp"/>
+            </LinearLayout>
+            <ImageView
+                android:id="@+id/right_icon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/right" />
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>
