@@ -70,7 +70,7 @@ public class RVAdapterCalendar extends RecyclerView.Adapter<RVAdapterCalendar.Ca
   }
 
   @Override
-  public void onBindViewHolder(RVAdapterCalendar.CalendarViewHolder ViewHolder, int i) {
+  public void onBindViewHolder(CalendarViewHolder ViewHolder, int i) {
     //        int img = expenses.get(i).getImage();
     //        deviceViewHolder.expenseName.setText(expenses.get(i).getExpenseName());
     //        deviceViewHolder.expenseCost.setText(expenses.get(i).getExpenseCost());
@@ -93,10 +93,10 @@ public class RVAdapterCalendar extends RecyclerView.Adapter<RVAdapterCalendar.Ca
               monthDayList.get(item).setTextColor(view.getResources().getColor(R.color.base_800));
             }
             linearLayoutList
-                .get(i)
+                .get(ViewHolder.getAdapterPosition())
                 .setBackgroundColor(view.getResources().getColor(R.color.primary_400));
-            weekNameList.get(i).setTextColor(view.getResources().getColor(R.color.base_100));
-            monthDayList.get(i).setTextColor(view.getResources().getColor(R.color.base_100));
+            weekNameList.get(ViewHolder.getAdapterPosition()).setTextColor(view.getResources().getColor(R.color.base_100));
+            monthDayList.get(ViewHolder.getAdapterPosition()).setTextColor(view.getResources().getColor(R.color.base_100));
           }
         });
   }
