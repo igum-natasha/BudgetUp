@@ -10,10 +10,10 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 
-public class RVAdapterToday extends RecyclerView.Adapter<RVAdapterToday.DeviceViewHolder> {
+public class RVAdapterToday extends RecyclerView.Adapter<RVAdapterToday.TodayViewHolder> {
   private static ClickListener clickListener;
 
-  public static class DeviceViewHolder extends RecyclerView.ViewHolder
+  public static class TodayViewHolder extends RecyclerView.ViewHolder
       implements View.OnClickListener, View.OnLongClickListener {
 
     CardView cv;
@@ -21,7 +21,7 @@ public class RVAdapterToday extends RecyclerView.Adapter<RVAdapterToday.DeviceVi
     ImageView expensePhoto;
     TextView expenseCost;
 
-    DeviceViewHolder(View itemView) {
+    TodayViewHolder(View itemView) {
       super(itemView);
       itemView.setOnClickListener(this);
       itemView.setOnLongClickListener(this);
@@ -56,22 +56,22 @@ public class RVAdapterToday extends RecyclerView.Adapter<RVAdapterToday.DeviceVi
   }
 
   @Override
-  public DeviceViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+  public TodayViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
     View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.today, viewGroup, false);
-    DeviceViewHolder dev = new DeviceViewHolder(v);
-    return dev;
+    TodayViewHolder today = new TodayViewHolder(v);
+    return today;
   }
 
   @Override
-  public void onBindViewHolder(DeviceViewHolder deviceViewHolder, int i) {
+  public void onBindViewHolder(TodayViewHolder ViewHolder, int i) {
     //        int img = expenses.get(i).getImage();
     //        deviceViewHolder.expenseName.setText(expenses.get(i).getExpenseName());
     //        deviceViewHolder.expenseCost.setText(expenses.get(i).getExpenseCost());
     //        deviceViewHolder.expensePhoto.setBackgroundResource(img);
     int img = Integer.parseInt(expenses[i][2]);
-    deviceViewHolder.expenseName.setText(expenses[i][0]);
-    deviceViewHolder.expenseCost.setText(expenses[i][1]);
-    deviceViewHolder.expensePhoto.setBackgroundResource(img);
+    ViewHolder.expenseName.setText(expenses[i][0]);
+    ViewHolder.expenseCost.setText(expenses[i][1]);
+    ViewHolder.expensePhoto.setBackgroundResource(img);
   }
 
   @Override

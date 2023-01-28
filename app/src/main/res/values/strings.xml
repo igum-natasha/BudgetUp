@@ -32,6 +32,11 @@
     <string name="expense_name">Magnit</string>
     <string name="no_exp_today">You need at least 1 day’s expenses data to unlock you budget statistics</string>
     <string name="track_now">track now</string>
+    <string name="month">May</string>
+    <string name="month_day">30</string>
+    <string name="expense">Expenses</string>
+    <string name="count">1500 RUB</string>
+    <string name="week">Mon</string>
 
 
     <string name="title_onboarding1">Painless budgeting</string>

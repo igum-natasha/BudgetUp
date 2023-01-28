@@ -1,17 +1,147 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".JournalFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <com.github.mikephil.charting.charts.BarChart
-        android:id="@+id/barChart"
-        android:layout_height="400dp"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv"
         android:layout_width="match_parent"
-        android:layout_marginTop="100dp"
-        android:padding="16dp"
-        />
+        android:layout_height="90dp"
+        android:layout_marginTop="60dp"
+        android:padding="4dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
-</FrameLayout>
+    <com.loopeer.shadow.ShadowView
+        android:id="@+id/shadowViewBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cornerRadius="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rv"
+        app:shadowMargin="8dp"
+        app:shadowRadius="8dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="360dp"
+            android:background="@drawable/back_bar"
+            app:layout_constraintTop_toBottomOf="@id/rv"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <LinearLayout
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/month_background"
+                android:alpha="0.8"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginBottom="12dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/monthName"
+                    android:layout_width="40dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:fontFamily="@font/poppins"
+                    android:gravity="center"
+                    android:text="@string/month"
+                    android:textColor="@color/base_500"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/monthDay"
+                    android:layout_width="40dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:fontFamily="@font/poppins"
+                    android:gravity="center"
+                    android:text="@string/month_day"
+                    android:textColor="@color/base_700"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <com.github.mikephil.charting.charts.BarChart
+                android:id="@+id/barChart"
+                android:layout_width="match_parent"
+                android:layout_height="260dp"
+                android:layout_marginTop="80dp"
+                android:padding="16dp" />
+
+            <LinearLayout
+                android:layout_width="100dp"
+                android:layout_height="42dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/expenseName"
+                    android:layout_width="100dp"
+                    android:layout_height="20dp"
+                    android:fontFamily="@font/poppins"
+                    android:gravity="right"
+                    android:text="@string/expense"
+                    android:textColor="@color/base_500"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/expenseCount"
+                    android:layout_width="100dp"
+                    android:layout_height="20dp"
+                    android:fontFamily="@font/poppins"
+                    android:gravity="right"
+                    android:text="@string/count"
+                    android:textColor="@color/base_900"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+        </RelativeLayout>
+    </com.loopeer.shadow.ShadowView>
+
+    <TextView
+        android:id="@+id/tvToday"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:paddingStart="16dp"
+        android:fontFamily="@font/poppins"
+        android:textSize="16sp"
+        android:textColor="@color/base_900"
+        android:text="@string/today"
+        app:layout_constraintTop_toBottomOf="@id/shadowViewBar"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <com.loopeer.shadow.ShadowView
+        android:id="@+id/shadowView"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        app:cornerRadius="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvToday"
+        app:shadowMargin="8dp"
+        app:shadowRadius="8dp">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvToday"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:ignore="MissingConstraints" />
+    </com.loopeer.shadow.ShadowView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

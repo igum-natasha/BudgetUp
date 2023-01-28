@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.loopeer.shadow.ShadowView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    app:cornerRadius="18dp"
+    app:shadowMargin="4dp"
+    app:shadowRadius="18dp">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvCal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:id="@+id/calLinear"
+            android:layout_width="42dp"
+            android:layout_height="70dp"
+            android:background="@color/primary_100"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/weekName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/week"
+                android:textColor="@color/base_900"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/monthDay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/month_day"
+                android:textColor="@color/base_900"
+                android:textSize="14sp" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+</com.loopeer.shadow.ShadowView>
