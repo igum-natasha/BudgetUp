@@ -9,7 +9,6 @@ import android.widget.TextView;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-
 public class RVAdapterToday extends RecyclerView.Adapter<RVAdapterToday.TodayViewHolder> {
   private static ClickListener clickListener;
 

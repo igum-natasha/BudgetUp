@@ -1,6 +1,5 @@
 package com.example.budgetup;
 
-import android.annotation.SuppressLint;
 import android.content.res.Resources;
 import android.os.Bundle;
 
@@ -12,8 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.BarChart;
@@ -89,7 +86,7 @@ public class JournalFragment extends Fragment {
     xAxis.setLabelCount(xAxisLabel.size());
     barChart.getAxisLeft().setGridColor(getResources().getColor(R.color.primary_200));
     barChart.getAxisLeft().setTextColor(getResources().getColor(R.color.base_500));
-//    barChart.getAxisLeft().setDrawGridLines(false);
+    //    barChart.getAxisLeft().setDrawGridLines(false);
     barChart.getAxisRight().setEnabled(false);
     barChart.setFitBars(true);
     barChart.setData(barData);
@@ -101,32 +98,30 @@ public class JournalFragment extends Fragment {
     //    AppDatabase db = AppDatabase.build(getApplicationContext());
     //    expenses = db.expenseDao().getAll();
     days =
-            new String[][] {
-                    {"Mon", "30"}, {"Tue", "31"}, {"Wed", "1"}, {"Thu", "2"}, {"Fri", "3"},
-                    {"Sat", "4"}, {"Sun", "5"}, {"Mon", "6"}, {"Tue", "7"}, {"Wed", "8"},
-
-            };
+        new String[][] {
+          {"Mon", "30"}, {"Tue", "31"}, {"Wed", "1"}, {"Thu", "2"}, {"Fri", "3"},
+          {"Sat", "4"}, {"Sun", "5"}, {"Mon", "6"}, {"Tue", "7"}, {"Wed", "8"},
+        };
   }
 
   private void initializeAdapter() {
     RVAdapterCalendar adapter = new RVAdapterCalendar(days);
     rv.setAdapter(adapter);
-    adapter.setOnItemClickListener(new RVAdapterCalendar.ClickListener() {
-      @Override
-      public void onItemClick(int position, View v) {
-      }
+    adapter.setOnItemClickListener(
+        new RVAdapterCalendar.ClickListener() {
+          @Override
+          public void onItemClick(int position, View v) {}
 
-      @Override
-      public void onItemLongClick(int position, View v) {
-
-      }
-    });
+          @Override
+          public void onItemLongClick(int position, View v) {}
+        });
   }
 
   private void showCalendar() {
     rv = view.findViewById(R.id.rv);
 
-    GridLayoutManager llm = new GridLayoutManager(view.getContext(), 1, GridLayoutManager.HORIZONTAL, false);
+    GridLayoutManager llm =
+        new GridLayoutManager(view.getContext(), 1, GridLayoutManager.HORIZONTAL, false);
     rv.setLayoutManager(llm);
     rv.setHasFixedSize(true);
 
@@ -139,15 +134,15 @@ public class JournalFragment extends Fragment {
     //    expenses = db.expenseDao().getAll();
     Resources resources = view.getResources();
     int resourceId =
-            resources.getIdentifier("food", "drawable", view.getContext().getPackageName());
+        resources.getIdentifier("food", "drawable", view.getContext().getPackageName());
     expenses =
-            new String[][] {
-                    {"Magnit", "-1000 RUB", Integer.toString(resourceId)},
-                    {"Sportmaster", "-2800 RUB", Integer.toString(resourceId)},
-                    {"Petrol", "-2500 RUB", Integer.toString(resourceId)}
-            };
+        new String[][] {
+          {"Magnit", "-1000 RUB", Integer.toString(resourceId)},
+          {"Sportmaster", "-2800 RUB", Integer.toString(resourceId)},
+          {"Petrol", "-2500 RUB", Integer.toString(resourceId)}
+        };
     if (expenses.length == 0) {
-//      deleteDialog.show();
+      //      deleteDialog.show();
       // TODO: dialog
     }
   }
@@ -156,15 +151,15 @@ public class JournalFragment extends Fragment {
     RVAdapterToday adapter = new RVAdapterToday(expenses);
     rvToday.setAdapter(adapter);
     adapter.setOnItemClickListener(
-            new RVAdapterToday.ClickListener() {
-              @Override
-              public void onItemClick(int position, View v) {
-                //                 expenseInfoDialog.show();
-              }
+        new RVAdapterToday.ClickListener() {
+          @Override
+          public void onItemClick(int position, View v) {
+            //                 expenseInfoDialog.show();
+          }
 
-              @Override
-              public void onItemLongClick(int position, View v) {}
-            });
+          @Override
+          public void onItemLongClick(int position, View v) {}
+        });
   }
 
   private void showExpenses() {
@@ -182,5 +177,4 @@ public class JournalFragment extends Fragment {
     tvMonthDay = view.findViewById(R.id.monthDay);
     tvWeekName = view.findViewById(R.id.weekName);
   }
-
 }
