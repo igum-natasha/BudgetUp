@@ -1,11 +1,9 @@
 package com.example.budgetup;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,8 +18,6 @@ import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
-import com.github.mikephil.charting.utils.ColorTemplate;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 
@@ -31,6 +27,7 @@ public class StatisticsFragment extends Fragment {
 
   private String[][] days;
   private RecyclerView rv;
+
   @Override
   public View onCreateView(
       LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -65,13 +62,13 @@ public class StatisticsFragment extends Fragment {
 
     BarDataSet barDataSet = new BarDataSet(expenses, "Expenses");
     int[] colors = {
-            getResources().getColor(R.color.menu_1),
-            getResources().getColor(R.color.menu_2),
-            getResources().getColor(R.color.menu_3),
-            getResources().getColor(R.color.menu_4),
-            getResources().getColor(R.color.menu_5),
-            getResources().getColor(R.color.menu_6),
-            getResources().getColor(R.color.error_100)
+      getResources().getColor(R.color.menu_1),
+      getResources().getColor(R.color.menu_2),
+      getResources().getColor(R.color.menu_3),
+      getResources().getColor(R.color.menu_4),
+      getResources().getColor(R.color.menu_5),
+      getResources().getColor(R.color.menu_6),
+      getResources().getColor(R.color.error_100)
     };
     barDataSet.setColors(colors);
     barDataSet.setDrawValues(false);
@@ -97,29 +94,23 @@ public class StatisticsFragment extends Fragment {
   private void initializeData() {
     //    AppDatabase db = AppDatabase.build(getApplicationContext());
     //    expenses = db.expenseDao().getAll();
-    days =
-            new String[][] {
-                    {"Food"}, {"Car"}, {"Gifts"}
-            };
+    days = new String[][] {{"Food"}, {"Car"}, {"Gifts"}};
   }
 
   @SuppressLint("ClickableViewAccessibility")
   private void initializeAdapter() {
     RVAdapterCategory adapter = new RVAdapterCategory(days);
     rv.setAdapter(adapter);
-    adapter.setOnItemClickListener(new RVAdapterCategory.ClickListener() {
-      @Override
-      public void onItemClick(int position, View v) {
+    adapter.setOnItemClickListener(
+        new RVAdapterCategory.ClickListener() {
+          @Override
+          public void onItemClick(int position, View v) {}
 
-      }
-
-      @Override
-      public void onItemLongClick(int position, View v) {
-
-      }
-    });
-//    BottomNavigationView nav_view = StatisticsActivity.getNavigationview();
-//    rv.setOnTouchListener(new TranslateAnimUtil(this.getContext(), nav_view));
+          @Override
+          public void onItemLongClick(int position, View v) {}
+        });
+    //    BottomNavigationView nav_view = StatisticsActivity.getNavigationview();
+    //    rv.setOnTouchListener(new TranslateAnimUtil(this.getContext(), nav_view));
   }
 
   private void showCategories() {

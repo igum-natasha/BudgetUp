@@ -95,8 +95,12 @@ public class RVAdapterCalendar extends RecyclerView.Adapter<RVAdapterCalendar.Ca
             linearLayoutList
                 .get(ViewHolder.getAdapterPosition())
                 .setBackgroundColor(view.getResources().getColor(R.color.primary_400));
-            weekNameList.get(ViewHolder.getAdapterPosition()).setTextColor(view.getResources().getColor(R.color.base_100));
-            monthDayList.get(ViewHolder.getAdapterPosition()).setTextColor(view.getResources().getColor(R.color.base_100));
+            weekNameList
+                .get(ViewHolder.getAdapterPosition())
+                .setTextColor(view.getResources().getColor(R.color.base_100));
+            monthDayList
+                .get(ViewHolder.getAdapterPosition())
+                .setTextColor(view.getResources().getColor(R.color.base_100));
           }
         });
   }

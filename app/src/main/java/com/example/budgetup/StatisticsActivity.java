@@ -64,5 +64,4 @@ public class StatisticsActivity extends AppCompatActivity {
   public static BottomNavigationView getNavigationview() {
     return nav_view;
   }
-
 }

@@ -1,96 +1,96 @@
 package com.example.budgetup;
 
 import android.content.Context;
-import android.graphics.drawable.Animatable;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
-public class TranslateAnimUtil implements View.OnTouchListener{
+public class TranslateAnimUtil implements View.OnTouchListener {
 
-    private GestureDetector gestureDetector;
+  private GestureDetector gestureDetector;
 
-    public TranslateAnimUtil(Context context, View viewAnimation) {
-        gestureDetector = new GestureDetector(context, new SimpleGestureDetector(viewAnimation));
+  public TranslateAnimUtil(Context context, View viewAnimation) {
+    gestureDetector = new GestureDetector(context, new SimpleGestureDetector(viewAnimation));
+  }
+
+  @Override
+  public boolean onTouch(View view, MotionEvent motionEvent) {
+    return gestureDetector.onTouchEvent(motionEvent);
+  }
+
+  public class SimpleGestureDetector extends GestureDetector.SimpleOnGestureListener {
+    private View viewAnimation;
+    private boolean isFinishAnimation = true;
+
+    public SimpleGestureDetector(View viewAnimation) {
+      this.viewAnimation = viewAnimation;
     }
 
     @Override
-    public boolean onTouch(View view, MotionEvent motionEvent) {
-        return gestureDetector.onTouchEvent(motionEvent);
+    public boolean onScroll(MotionEvent e1, MotionEvent e2, float distX, float distY) {
+      if (distY > 0) {
+        hiddenView();
+      } else {
+        showView();
+      }
+      return super.onScroll(e1, e2, distX, distY);
     }
 
-    public class SimpleGestureDetector extends GestureDetector.SimpleOnGestureListener {
-        private View viewAnimation;
-        private boolean isFinishAnimation = true;
-
-        public SimpleGestureDetector(View viewAnimation) {
-            this.viewAnimation = viewAnimation;
-        }
-        @Override
-        public boolean onScroll(MotionEvent e1, MotionEvent e2, float distX, float distY) {
-            if (distY > 0) {
-                hiddenView();
-            } else {
-                showView();
+    private void hiddenView() {
+      if (viewAnimation == null || viewAnimation.getVisibility() == View.GONE) {
+        return;
+      }
+      Animation animationDown =
+          AnimationUtils.loadAnimation(viewAnimation.getContext(), R.anim.move_down);
+      animationDown.setAnimationListener(
+          new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+              viewAnimation.setVisibility(View.VISIBLE);
+              isFinishAnimation = false;
             }
-            return super.onScroll(e1, e2, distX, distY);
-        }
 
-        private void hiddenView() {
-            if (viewAnimation == null || viewAnimation.getVisibility() == View.GONE) {
-                return;
+            @Override
+            public void onAnimationEnd(Animation animation) {
+              viewAnimation.setVisibility(View.GONE);
+              isFinishAnimation = true;
             }
-            Animation animationDown = AnimationUtils.loadAnimation(viewAnimation.getContext(), R.anim.move_down);
-            animationDown.setAnimationListener(new Animation.AnimationListener() {
-                @Override
-                public void onAnimationStart(Animation animation) {
-                    viewAnimation.setVisibility(View.VISIBLE);
-                    isFinishAnimation = false;
-                }
 
-                @Override
-                public void onAnimationEnd(Animation animation) {
-                    viewAnimation.setVisibility(View.GONE);
-                    isFinishAnimation = true;
-                }
-
-                @Override
-                public void onAnimationRepeat(Animation animation) {
-
-                }
-            });
-            if (isFinishAnimation) {
-                viewAnimation.startAnimation((animationDown));
-            }
-        }
-
-        private void showView() {
-            if (viewAnimation == null || viewAnimation.getVisibility() == View.VISIBLE) {
-                return;
-            }
-            Animation animationUp = AnimationUtils.loadAnimation(viewAnimation.getContext(), R.anim.move_up);
-            animationUp.setAnimationListener(new Animation.AnimationListener() {
-                @Override
-                public void onAnimationStart(Animation animation) {
-                    viewAnimation.setVisibility(View.VISIBLE);
-                    isFinishAnimation = false;
-                }
-
-                @Override
-                public void onAnimationEnd(Animation animation) {
-                    isFinishAnimation = true;
-                }
-
-                @Override
-                public void onAnimationRepeat(Animation animation) {
-
-                }
-            });
-            if (isFinishAnimation) {
-                viewAnimation.startAnimation((animationUp));
-            }
-        }
+            @Override
+            public void onAnimationRepeat(Animation animation) {}
+          });
+      if (isFinishAnimation) {
+        viewAnimation.startAnimation((animationDown));
+      }
     }
+
+    private void showView() {
+      if (viewAnimation == null || viewAnimation.getVisibility() == View.VISIBLE) {
+        return;
+      }
+      Animation animationUp =
+          AnimationUtils.loadAnimation(viewAnimation.getContext(), R.anim.move_up);
+      animationUp.setAnimationListener(
+          new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+              viewAnimation.setVisibility(View.VISIBLE);
+              isFinishAnimation = false;
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+              isFinishAnimation = true;
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {}
+          });
+      if (isFinishAnimation) {
+        viewAnimation.startAnimation((animationUp));
+      }
+    }
+  }
 }
