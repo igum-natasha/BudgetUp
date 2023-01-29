@@ -37,6 +37,9 @@
     <string name="expense">Expenses</string>
     <string name="count">1500 RUB</string>
     <string name="week">Mon</string>
+    <string name="average">Average</string>
+    <string name="min">min</string>
+    <string name="category_title">Category: Food</string>
 
 
     <string name="title_onboarding1">Painless budgeting</string>

@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    tools:context=".StatisticsFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
+    <TextView
+        android:id="@+id/categTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/category_title"
+        android:fontFamily="@font/poppins"
+        android:textSize="14sp"
+        android:textColor="@color/base_600"
+        android:paddingTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <com.loopeer.shadow.ShadowView
         android:id="@+id/shadowViewBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cornerRadius="16dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rv"
+        app:layout_constraintTop_toBottomOf="@+id/categTitle"
         app:shadowMargin="8dp"
         app:shadowRadius="8dp">
         <RelativeLayout
@@ -138,14 +138,4 @@
         </RelativeLayout>
     </com.loopeer.shadow.ShadowView>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvCateg"
-        android:layout_width="match_parent"
-        android:layout_height="1300dp"
-        android:paddingBottom="50dp"
-        android:nestedScrollingEnabled="false"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/shadowViewBar" />
 </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>

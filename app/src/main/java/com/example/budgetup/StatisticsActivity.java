@@ -16,13 +16,14 @@ public class StatisticsActivity extends AppCompatActivity {
 
   private TabLayout tabLayout;
   private ViewPager viewPager;
+  static BottomNavigationView nav_view;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_statistics);
 
-    BottomNavigationView nav_view = findViewById(R.id.navigationView);
+    nav_view = findViewById(R.id.navigationView);
 
     nav_view.setSelectedItemId(R.id.statistic);
     nav_view.setOnNavigationItemSelectedListener(
@@ -59,4 +60,9 @@ public class StatisticsActivity extends AppCompatActivity {
     vpAdapter.addFragment(new StatisticsFragment(), "Statistics");
     viewPager.setAdapter(vpAdapter);
   }
+
+  public static BottomNavigationView getNavigationview() {
+    return nav_view;
+  }
+
 }
