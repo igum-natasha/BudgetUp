@@ -10,13 +10,72 @@
     android:layout_height="wrap_content"
     tools:context=".StatisticsFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
+    <com.google.android.material.button.MaterialButtonToggleGroup
+        android:id="@+id/toggleGroup"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:gravity="center"
+        android:paddingTop="50dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:singleSelection="true">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button1"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:text="@string/weekTitle"
+            android:fontFamily="@font/poppins"
+            android:gravity="center"
+            app:cornerRadius="18dp"
+            android:textSize="14sp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button2"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins"
+            android:text="@string/monthTitle"
+            app:cornerRadius="18dp"
+            android:textSize="14sp" />
+    </com.google.android.material.button.MaterialButtonToggleGroup>
+    <LinearLayout
+        android:id="@+id/linearLayoutDays"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toggleGroup" >
+        <ImageButton
+            android:id="@+id/left"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/left"
+            android:background="@color/base_50"
+            app:tint="@color/base_900"
+            android:padding="16dp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvDays"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:nestedScrollingEnabled="false"/>
+        <ImageButton
+            android:id="@+id/right"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/right"
+            android:background="@color/base_50"
+            app:tint="@color/base_900"
+            android:padding="16dp"/>
+    </LinearLayout>
 
     <com.loopeer.shadow.ShadowView
         android:id="@+id/shadowViewBar"
@@ -25,7 +84,7 @@
         app:cornerRadius="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rv"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutDays"
         app:shadowMargin="8dp"
         app:shadowRadius="8dp">
         <RelativeLayout

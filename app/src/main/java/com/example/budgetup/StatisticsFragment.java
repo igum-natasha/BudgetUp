@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Legend;
@@ -18,15 +20,19 @@ import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
+import com.google.android.material.button.MaterialButtonToggleGroup;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class StatisticsFragment extends Fragment {
 
   private View view;
 
-  private String[][] days;
+  private String[][] daysExpenses, days;
   private RecyclerView rv;
+  private RecyclerView rvDays;
+  private ImageButton btnLeft, btnRight;
 
   @Override
   public View onCreateView(
@@ -34,7 +40,26 @@ public class StatisticsFragment extends Fragment {
     // Inflate the layout for this fragment
     view = inflater.inflate(R.layout.fragment_statistics, container, false);
     initBarChart();
+    initViews();
+    showDays();
     showCategories();
+    MaterialButtonToggleGroup toggleGroup = view.findViewById(R.id.toggleGroup);
+    toggleGroup.check(R.id.button1);
+    toggleGroup.addOnButtonCheckedListener(
+            new MaterialButtonToggleGroup.OnButtonCheckedListener() {
+              @Override
+              public void onButtonChecked(
+                      MaterialButtonToggleGroup group, int checkedId, boolean isChecked) {
+                switch (checkedId) {
+                  case R.id.button1:
+                    Toast.makeText(view.getContext(), getResources().getString(R.string.weekTitle), Toast.LENGTH_LONG).show();
+                    break;
+                  case R.id.button2:
+                    Toast.makeText(view.getContext(), getResources().getString(R.string.monthTitle), Toast.LENGTH_LONG).show();
+                    break;
+                }
+              }
+            });
     return view;
   }
 
@@ -91,15 +116,19 @@ public class StatisticsFragment extends Fragment {
     barChart.animateY(1500);
   }
 
+  private void initViews() {
+    btnLeft = view.findViewById(R.id.left);
+    btnRight = view.findViewById(R.id.right);
+  }
   private void initializeData() {
     //    AppDatabase db = AppDatabase.build(getApplicationContext());
     //    expenses = db.expenseDao().getAll();
-    days = new String[][] {{"Food"}, {"Car"}, {"Gifts"}};
+    daysExpenses = new String[][] {{"Food"}, {"Car"}, {"Gifts"}};
   }
 
   @SuppressLint("ClickableViewAccessibility")
   private void initializeAdapter() {
-    RVAdapterCategory adapter = new RVAdapterCategory(days);
+    RVAdapterCategory adapter = new RVAdapterCategory(daysExpenses);
     rv.setAdapter(adapter);
     adapter.setOnItemClickListener(
         new RVAdapterCategory.ClickListener() {
@@ -122,5 +151,56 @@ public class StatisticsFragment extends Fragment {
 
     initializeData();
     initializeAdapter();
+  }
+
+  private void initializeDataDays() {
+    //    AppDatabase db = AppDatabase.build(getApplicationContext());
+    //    expenses = db.expenseDao().getAll();
+    days = new String[][] {{"May", "2023"}, {"June", "2023"}, {"July", "2023"}};
+  }
+
+  @SuppressLint("ClickableViewAccessibility")
+  private void initializeAdapterDays() {
+    RVAdapterDays adapter = new RVAdapterDays(days);
+    rvDays.setAdapter(adapter);
+    adapter.setOnItemClickListener(new RVAdapterDays.ClickListener() {
+      @Override
+      public void onItemClick(int position, View v) {
+
+      }
+
+      @Override
+      public void onItemLongClick(int position, View v) {
+
+      }
+    });
+    //    BottomNavigationView nav_view = StatisticsActivity.getNavigationview();
+    //    rv.setOnTouchListener(new TranslateAnimUtil(this.getContext(), nav_view));
+  }
+
+  private void showDays() {
+    rvDays = view.findViewById(R.id.rvDays);
+
+    LinearLayoutManager llm = new LinearLayoutManager(view.getContext(), LinearLayoutManager.HORIZONTAL, false);
+    rvDays.setLayoutManager(llm);
+    rvDays.setHasFixedSize(true);
+    btnLeft.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        int newPosition = llm.findFirstVisibleItemPosition() - 1;
+        llm.scrollToPositionWithOffset(newPosition, 0);
+      }
+    });
+    btnRight.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        int newPosition = llm.findFirstVisibleItemPosition() + 1;
+        llm.scrollToPositionWithOffset(newPosition, 0);
+      }
+    });
+
+
+    initializeDataDays();
+    initializeAdapterDays();
   }
 }

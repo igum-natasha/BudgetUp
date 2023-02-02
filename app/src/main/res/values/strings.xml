@@ -40,6 +40,9 @@
     <string name="average">Average</string>
     <string name="min">min</string>
     <string name="category_title">Category: Food</string>
+    <string name="year">2023</string>
+    <string name="monthTitle">Month</string>
+    <string name="weekTitle">Week</string>
 
 
     <string name="title_onboarding1">Painless budgeting</string>
