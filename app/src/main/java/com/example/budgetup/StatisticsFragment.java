@@ -23,7 +23,6 @@ import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.google.android.material.button.MaterialButtonToggleGroup;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class StatisticsFragment extends Fragment {
 
@@ -46,20 +45,28 @@ public class StatisticsFragment extends Fragment {
     MaterialButtonToggleGroup toggleGroup = view.findViewById(R.id.toggleGroup);
     toggleGroup.check(R.id.button1);
     toggleGroup.addOnButtonCheckedListener(
-            new MaterialButtonToggleGroup.OnButtonCheckedListener() {
-              @Override
-              public void onButtonChecked(
-                      MaterialButtonToggleGroup group, int checkedId, boolean isChecked) {
-                switch (checkedId) {
-                  case R.id.button1:
-                    Toast.makeText(view.getContext(), getResources().getString(R.string.weekTitle), Toast.LENGTH_LONG).show();
-                    break;
-                  case R.id.button2:
-                    Toast.makeText(view.getContext(), getResources().getString(R.string.monthTitle), Toast.LENGTH_LONG).show();
-                    break;
-                }
-              }
-            });
+        new MaterialButtonToggleGroup.OnButtonCheckedListener() {
+          @Override
+          public void onButtonChecked(
+              MaterialButtonToggleGroup group, int checkedId, boolean isChecked) {
+            switch (checkedId) {
+              case R.id.button1:
+                Toast.makeText(
+                        view.getContext(),
+                        getResources().getString(R.string.weekTitle),
+                        Toast.LENGTH_LONG)
+                    .show();
+                break;
+              case R.id.button2:
+                Toast.makeText(
+                        view.getContext(),
+                        getResources().getString(R.string.monthTitle),
+                        Toast.LENGTH_LONG)
+                    .show();
+                break;
+            }
+          }
+        });
     return view;
   }
 
@@ -120,6 +127,7 @@ public class StatisticsFragment extends Fragment {
     btnLeft = view.findViewById(R.id.left);
     btnRight = view.findViewById(R.id.right);
   }
+
   private void initializeData() {
     //    AppDatabase db = AppDatabase.build(getApplicationContext());
     //    expenses = db.expenseDao().getAll();
@@ -163,17 +171,14 @@ public class StatisticsFragment extends Fragment {
   private void initializeAdapterDays() {
     RVAdapterDays adapter = new RVAdapterDays(days);
     rvDays.setAdapter(adapter);
-    adapter.setOnItemClickListener(new RVAdapterDays.ClickListener() {
-      @Override
-      public void onItemClick(int position, View v) {
+    adapter.setOnItemClickListener(
+        new RVAdapterDays.ClickListener() {
+          @Override
+          public void onItemClick(int position, View v) {}
 
-      }
-
-      @Override
-      public void onItemLongClick(int position, View v) {
-
-      }
-    });
+          @Override
+          public void onItemLongClick(int position, View v) {}
+        });
     //    BottomNavigationView nav_view = StatisticsActivity.getNavigationview();
     //    rv.setOnTouchListener(new TranslateAnimUtil(this.getContext(), nav_view));
   }
@@ -181,24 +186,26 @@ public class StatisticsFragment extends Fragment {
   private void showDays() {
     rvDays = view.findViewById(R.id.rvDays);
 
-    LinearLayoutManager llm = new LinearLayoutManager(view.getContext(), LinearLayoutManager.HORIZONTAL, false);
+    LinearLayoutManager llm =
+        new LinearLayoutManager(view.getContext(), LinearLayoutManager.HORIZONTAL, false);
     rvDays.setLayoutManager(llm);
     rvDays.setHasFixedSize(true);
-    btnLeft.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View view) {
-        int newPosition = llm.findFirstVisibleItemPosition() - 1;
-        llm.scrollToPositionWithOffset(newPosition, 0);
-      }
-    });
-    btnRight.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View view) {
-        int newPosition = llm.findFirstVisibleItemPosition() + 1;
-        llm.scrollToPositionWithOffset(newPosition, 0);
-      }
-    });
-
+    btnLeft.setOnClickListener(
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+            int newPosition = llm.findFirstVisibleItemPosition() - 1;
+            llm.scrollToPositionWithOffset(newPosition, 0);
+          }
+        });
+    btnRight.setOnClickListener(
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+            int newPosition = llm.findFirstVisibleItemPosition() + 1;
+            llm.scrollToPositionWithOffset(newPosition, 0);
+          }
+        });
 
     initializeDataDays();
     initializeAdapterDays();
