@@ -5,8 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
-import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -45,19 +43,21 @@ public class ProfileActivity extends AppCompatActivity {
             deleteDialog.show();
           }
         });
-    languageLayout.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
+    languageLayout.setOnClickListener(
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
             languageDialog.show();
-        }
-    });
+          }
+        });
 
-    questionsLayout.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
+    questionsLayout.setOnClickListener(
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
             questionsDialog.show();
-        }
-    });
+          }
+        });
     BottomNavigationView nav_view = findViewById(R.id.navigationView);
 
     nav_view.setSelectedItemId(R.id.account);
@@ -107,115 +107,106 @@ public class ProfileActivity extends AppCompatActivity {
         });
   }
 
-    @SuppressLint({"UseCompatLoadingForDrawables", "UseSwitchCompatOrMaterialCode"})
-    private void defineLanguageDialog() {
-        languageDialog = new Dialog(ProfileActivity.this);
-        languageDialog.setContentView(R.layout.language_dialog);
-        languageDialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.background_dialog));
-        languageDialog
-                .getWindow()
-                .setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        languageDialog.setCancelable(false);
-        Switch rus = languageDialog.findViewById(R.id.swRus);
-        Switch eng = languageDialog.findViewById(R.id.swEng);
-        ImageButton close = languageDialog.findViewById(R.id.close_icon);
-        String lng = Locale.getDefault().getLanguage();
-        if ("en".equals(lng)) {
-            eng.setChecked(true);
-        } else {
-            rus.setChecked(true);
-        }
-        rus.setOnCheckedChangeListener(
-                new CompoundButton.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                        if (b) {
-                            language = "ru";
-//                            Locale locale = new Locale(language);
-//                            Resources resources = getResources();
-//                            Configuration configuration = resources.getConfiguration();
-//                            configuration.setLocale(locale);
-//                            resources.updateConfiguration(configuration, resources.getDisplayMetrics());
-//                            startActivity(new Intent(ProfileActivity.this, HomeActivity.class));
-                            Toast.makeText(
-                                    ProfileActivity.this,
-                                    language,
-                                    Toast.LENGTH_LONG)
-                                    .show();
-                            eng.setChecked(false);
-                        } else {
-                            eng.setChecked(true);
-                        }
-                    }
-                });
-        eng.setOnCheckedChangeListener(
-                new CompoundButton.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                        if (b) {
-                            language = "en";
-                            Toast.makeText(
-                                    ProfileActivity.this,
-                                    language,
-                                    Toast.LENGTH_LONG)
-                                    .show();
-                            rus.setChecked(false);
-                        } else {
-                            rus.setChecked(true);
-                        }
-                    }
-                });
-
-        close.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                languageDialog.dismiss();
+  @SuppressLint({"UseCompatLoadingForDrawables", "UseSwitchCompatOrMaterialCode"})
+  private void defineLanguageDialog() {
+    languageDialog = new Dialog(ProfileActivity.this);
+    languageDialog.setContentView(R.layout.language_dialog);
+    languageDialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.background_dialog));
+    languageDialog
+        .getWindow()
+        .setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+    languageDialog.setCancelable(false);
+    Switch rus = languageDialog.findViewById(R.id.swRus);
+    Switch eng = languageDialog.findViewById(R.id.swEng);
+    ImageButton close = languageDialog.findViewById(R.id.close_icon);
+    String lng = Locale.getDefault().getLanguage();
+    if ("en".equals(lng)) {
+      eng.setChecked(true);
+    } else {
+      rus.setChecked(true);
+    }
+    rus.setOnCheckedChangeListener(
+        new CompoundButton.OnCheckedChangeListener() {
+          @Override
+          public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+            if (b) {
+              language = "ru";
+              //                            Locale locale = new Locale(language);
+              //                            Resources resources = getResources();
+              //                            Configuration configuration =
+              // resources.getConfiguration();
+              //                            configuration.setLocale(locale);
+              //                            resources.updateConfiguration(configuration,
+              // resources.getDisplayMetrics());
+              //                            startActivity(new Intent(ProfileActivity.this,
+              // HomeActivity.class));
+              Toast.makeText(ProfileActivity.this, language, Toast.LENGTH_LONG).show();
+              eng.setChecked(false);
+            } else {
+              eng.setChecked(true);
             }
+          }
+        });
+    eng.setOnCheckedChangeListener(
+        new CompoundButton.OnCheckedChangeListener() {
+          @Override
+          public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+            if (b) {
+              language = "en";
+              Toast.makeText(ProfileActivity.this, language, Toast.LENGTH_LONG).show();
+              rus.setChecked(false);
+            } else {
+              rus.setChecked(true);
+            }
+          }
         });
 
+    close.setOnClickListener(
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+            languageDialog.dismiss();
+          }
+        });
+  }
 
-    }
-
-    @SuppressLint("UseCompatLoadingForDrawables")
-    private void defineQuestionsDialog() {
-        questionsDialog = new Dialog(ProfileActivity.this);
-        questionsDialog.setContentView(R.layout.feedback_dialog);
-        questionsDialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.background_dialog));
-        questionsDialog
-                .getWindow()
-                .setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        questionsDialog.setCancelable(false);
-        Button send = questionsDialog.findViewById(R.id.btnSend);
-        ImageButton close = questionsDialog.findViewById(R.id.close_icon);
-        EditText feedback = questionsDialog.findViewById(R.id.entFeedback);
-        close.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        questionsDialog.dismiss();
-                    }
-                });
-        send.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent intent = new Intent(Intent.ACTION_SENDTO);
-                        intent.putExtra(Intent.EXTRA_EMAIL, "igum.natasha@gmail.com"); // TODO: get email from db
-                        intent.putExtra(Intent.EXTRA_SUBJECT, "Feedback");
-                        intent.putExtra(Intent.EXTRA_TEXT, feedback.getText().toString());
-                        intent.setData(Uri.parse("mailto: igum.natasha@gmail.com"));
-                        if(intent.resolveActivity(getPackageManager()) != null) {
-                            startActivity(intent);
-                        } else {
-                            Toast.makeText(
-                                    ProfileActivity.this,
-                                    "Please fill field",
-                                    Toast.LENGTH_LONG)
-                                    .show();
-                        }
-                    }
-                });
-    }
+  @SuppressLint("UseCompatLoadingForDrawables")
+  private void defineQuestionsDialog() {
+    questionsDialog = new Dialog(ProfileActivity.this);
+    questionsDialog.setContentView(R.layout.feedback_dialog);
+    questionsDialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.background_dialog));
+    questionsDialog
+        .getWindow()
+        .setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+    questionsDialog.setCancelable(false);
+    Button send = questionsDialog.findViewById(R.id.btnSend);
+    ImageButton close = questionsDialog.findViewById(R.id.close_icon);
+    EditText feedback = questionsDialog.findViewById(R.id.entFeedback);
+    close.setOnClickListener(
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+            questionsDialog.dismiss();
+          }
+        });
+    send.setOnClickListener(
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+            Intent intent = new Intent(Intent.ACTION_SENDTO);
+            intent.putExtra(
+                Intent.EXTRA_EMAIL, "igum.natasha@gmail.com"); // TODO: get email from db
+            intent.putExtra(Intent.EXTRA_SUBJECT, "Feedback");
+            intent.putExtra(Intent.EXTRA_TEXT, feedback.getText().toString());
+            intent.setData(Uri.parse("mailto: igum.natasha@gmail.com"));
+            if (intent.resolveActivity(getPackageManager()) != null) {
+              startActivity(intent);
+            } else {
+              Toast.makeText(ProfileActivity.this, "Please fill field", Toast.LENGTH_LONG).show();
+            }
+          }
+        });
+  }
 
   private void initViews() {
 

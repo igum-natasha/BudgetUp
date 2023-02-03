@@ -48,12 +48,13 @@ public class HomeActivity extends AppCompatActivity {
     showExpenses();
     defineAddDialog();
 
-    btnAdd.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View view) {
-        addDialog.show();
-      }
-    });
+    btnAdd.setOnClickListener(
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+            addDialog.show();
+          }
+        });
     BottomNavigationView nav_view = findViewById(R.id.navigationView);
     nav_view.setSelectedItemId(R.id.home);
     nav_view.setOnNavigationItemSelectedListener(
@@ -167,33 +168,35 @@ public class HomeActivity extends AppCompatActivity {
     pieChart.animate();
   }
 
-
   @SuppressLint("UseCompatLoadingForDrawables")
   private void defineAddDialog() {
     addDialog = new Dialog(HomeActivity.this);
     addDialog.setContentView(R.layout.add_dialog);
     addDialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.background_dialog));
     addDialog
-            .getWindow()
-            .setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        .getWindow()
+        .setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
     addDialog.setCancelable(false);
     LinearLayout income = addDialog.findViewById(R.id.layoutIncome);
     LinearLayout expense = addDialog.findViewById(R.id.layoutExpense);
     income.setOnClickListener(
-            new View.OnClickListener() {
-              @Override
-              public void onClick(View view) {
-                Intent intent = new Intent(HomeActivity.this, StatisticsActivity.class); // TODO: Add income activity
-                startActivity(intent);
-              }
-            });
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+            Intent intent =
+                new Intent(
+                    HomeActivity.this, StatisticsActivity.class); // TODO: Add income activity
+            startActivity(intent);
+          }
+        });
     expense.setOnClickListener(
-            new View.OnClickListener() {
-              @Override
-              public void onClick(View view) {
-                Intent intent = new Intent(HomeActivity.this, ProfileActivity.class); // TODO: Add expense activity
-                startActivity(intent);
-              }
-            });
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+            Intent intent =
+                new Intent(HomeActivity.this, ProfileActivity.class); // TODO: Add expense activity
+            startActivity(intent);
+          }
+        });
   }
 }
