@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="350dp"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center"
+    android:background="@color/base_50">
+
+    <TextView
+        android:id="@+id/languageTitle"
+        android:layout_width="match_parent"
+        android:layout_height="22dp"
+        android:fontFamily="@font/poppins"
+        android:text="@string/feedback_title"
+        android:textColor="@color/base_900"
+        android:textSize="14sp"
+        android:layout_margin="12dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <ImageButton
+        android:id="@+id/close_icon"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:background="@color/base_50"
+        android:scaleType="fitCenter"
+        android:src="@drawable/close"
+        android:layout_margin="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/base_700" />
+
+    <EditText
+        android:id="@+id/entFeedback"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_margin="12dp"
+        android:background="@drawable/feedback_background"
+        android:gravity="left"
+        android:hint="@string/feedback_et"
+        android:importantForAutofill="yes"
+        android:inputType="textNoSuggestions"
+        android:padding="8dp"
+        android:textColorHint="@color/base_600"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/languageTitle" />
+
+    <Button
+        android:id="@+id/btnSend"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:text="@string/send"
+        android:layout_margin="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/entFeedback" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,12 +7,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.PieChart;
@@ -30,7 +35,9 @@ public class HomeActivity extends AppCompatActivity {
   private String[][] expenses;
   private RecyclerView rv;
   TextView tvInfoExp, tvToday;
+  Dialog addDialog;
   Button btnTrack;
+  ImageButton btnAdd;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +46,14 @@ public class HomeActivity extends AppCompatActivity {
     initViews();
     initPieChart();
     showExpenses();
+    defineAddDialog();
+
+    btnAdd.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        addDialog.show();
+      }
+    });
     BottomNavigationView nav_view = findViewById(R.id.navigationView);
     nav_view.setSelectedItemId(R.id.home);
     nav_view.setOnNavigationItemSelectedListener(
@@ -112,6 +127,8 @@ public class HomeActivity extends AppCompatActivity {
     tvToday = findViewById(R.id.tvToday);
     btnTrack = findViewById(R.id.btnTrack);
     tvInfoExp = findViewById(R.id.tvInfoExp);
+    btnAdd = findViewById(R.id.plus_icon);
+
     tvInfoExp.setVisibility(View.INVISIBLE);
     btnTrack.setVisibility(View.INVISIBLE);
   }
@@ -148,5 +165,35 @@ public class HomeActivity extends AppCompatActivity {
     pieChart.setCenterTextSize(18f);
     pieChart.setCenterTextColor(getResources().getColor(R.color.error_800));
     pieChart.animate();
+  }
+
+
+  @SuppressLint("UseCompatLoadingForDrawables")
+  private void defineAddDialog() {
+    addDialog = new Dialog(HomeActivity.this);
+    addDialog.setContentView(R.layout.add_dialog);
+    addDialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.background_dialog));
+    addDialog
+            .getWindow()
+            .setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+    addDialog.setCancelable(false);
+    LinearLayout income = addDialog.findViewById(R.id.layoutIncome);
+    LinearLayout expense = addDialog.findViewById(R.id.layoutExpense);
+    income.setOnClickListener(
+            new View.OnClickListener() {
+              @Override
+              public void onClick(View view) {
+                Intent intent = new Intent(HomeActivity.this, StatisticsActivity.class); // TODO: Add income activity
+                startActivity(intent);
+              }
+            });
+    expense.setOnClickListener(
+            new View.OnClickListener() {
+              @Override
+              public void onClick(View view) {
+                Intent intent = new Intent(HomeActivity.this, ProfileActivity.class); // TODO: Add expense activity
+                startActivity(intent);
+              }
+            });
   }
 }
