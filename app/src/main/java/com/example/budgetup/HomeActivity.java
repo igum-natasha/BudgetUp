@@ -184,8 +184,7 @@ public class HomeActivity extends AppCompatActivity {
           @Override
           public void onClick(View view) {
             Intent intent =
-                new Intent(
-                    HomeActivity.this, NewIncomeActivity.class); // TODO: Add income activity
+                new Intent(HomeActivity.this, NewIncomeActivity.class); // TODO: Add income activity
             startActivity(intent);
           }
         });

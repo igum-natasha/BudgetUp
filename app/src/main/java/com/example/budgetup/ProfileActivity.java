@@ -58,21 +58,22 @@ public class ProfileActivity extends AppCompatActivity {
             questionsDialog.show();
           }
         });
-    shareLayout.setOnClickListener(new View.OnClickListener() {
-        @SuppressLint("QueryPermissionsNeeded")
-        @Override
-        public void onClick(View view) {
+    shareLayout.setOnClickListener(
+        new View.OnClickListener() {
+          @SuppressLint("QueryPermissionsNeeded")
+          @Override
+          public void onClick(View view) {
             Intent intent = new Intent(Intent.ACTION_SENDTO);
             intent.putExtra(
-                    Intent.EXTRA_EMAIL, "igum.natasha@gmail.com"); // TODO: get email from db
+                Intent.EXTRA_EMAIL, "igum.natasha@gmail.com"); // TODO: get email from db
             intent.putExtra(Intent.EXTRA_SUBJECT, getResources().getString(R.string.app_name));
             intent.putExtra(Intent.EXTRA_TEXT, getResources().getString(R.string.share_email));
             intent.setData(Uri.parse("mailto: igum.natasha@gmail.com"));
             if (intent.resolveActivity(getPackageManager()) != null) {
-                startActivity(intent);
+              startActivity(intent);
             }
-        }
-    });
+          }
+        });
     BottomNavigationView nav_view = findViewById(R.id.navigationView);
 
     nav_view.setSelectedItemId(R.id.account);
