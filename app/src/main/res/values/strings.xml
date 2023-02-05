@@ -52,6 +52,13 @@
     <string name="feedback_title">Feedback</string>
     <string name="feedback_et">Feedback or suggestion</string>
     <string name="send">send</string>
+    <string name="share_email">My budget monitoring and planning skills have improved significantly with \'Budget Up\'! Download it now and you\'ll see the changes, too. https://github.com/igum-natasha/BudgetUp</string>
+    <string name="new_income">New income</string>
+    <string name="ent_income">Income value</string>
+    <string name="date_exmp">Wednesday, May 26</string>
+    <string name="menu_title">Select payment</string>
+    <string name="note">Note</string>
+    <string name="ch_category">Choose category</string>
 
 
     <string name="title_onboarding1">Painless budgeting</string>

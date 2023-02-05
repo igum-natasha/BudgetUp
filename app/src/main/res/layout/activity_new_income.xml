@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".NewIncomeActivity">
+
+    <include
+        android:id="@+id/include"
+        layout="@layout/new_item_toolbar" />
+
+    <LinearLayout
+        android:id="@+id/date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/include"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+            android:id="@+id/dateIcon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_margin="2dp"
+            android:background="@color/base_50"
+            android:scaleType="fitCenter"
+            app:tint="@color/base_700"
+            android:src="@drawable/calendar" />
+
+        <TextView
+            android:id="@+id/dateTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="22dp"
+            android:textColor="@color/base_700"
+            android:textSize="16sp"
+            android:text="@string/date_exmp"/>
+
+    </LinearLayout>
+
+    <com.loopeer.shadow.ShadowView
+        android:id="@+id/shadowView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cornerRadius="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/date"
+        app:shadowMargin="16dp"
+        app:shadowRadius="4dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/primary_100">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:text="@string/ent_income"
+            android:fontFamily="@font/poppins"
+            android:textSize="14sp"
+            android:textColor="@color/base_900"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="8dp"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+            <EditText
+                android:id="@+id/entIncomeCount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_edit_text"
+                android:hint="0"
+                android:importantForAutofill="yes"
+                android:inputType="number"
+                android:padding="8dp"
+                android:textColorHint="@color/base_500"
+                android:textSize="16sp"
+                android:layout_margin="8dp"
+                />
+            <ImageButton
+                android:id="@+id/btnBackspace"
+                android:layout_marginLeft="-40dp"
+                android:src="@drawable/backspace"
+                android:background="@color/base_50"
+                android:scaleType="fitCenter"
+                app:tint="@color/base_700"
+                android:layout_width="24dp"
+                android:layout_height="24dp" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+    </com.loopeer.shadow.ShadowView>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/paymentMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:hint="@string/menu_title"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/shadowView">
+
+        <AutoCompleteTextView
+            android:id="@+id/autoComplete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins"
+            android:textSize="14sp"
+            android:textColor="@color/base_900"
+            android:inputType="none"/>
+
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="36dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/paymentMenu">
+    <EditText
+        android:id="@+id/entNote"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:hint="@string/note"
+        android:background="@drawable/feedback_background"
+        android:importantForAutofill="yes"
+        android:inputType="none"
+        android:padding="8dp"
+        android:textColorHint="@color/base_500"
+        android:textSize="16sp"
+        />
+        <ImageButton
+            android:id="@+id/btnOk"
+            android:layout_marginLeft="-40dp"
+            android:src="@drawable/right"
+            android:background="@color/base_100"
+            android:scaleType="fitCenter"
+            app:tint="@color/base_700"
+            android:layout_width="24dp"
+            android:layout_height="24dp" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnCategory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/ch_category"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/navigationView"/>
+
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/navigationView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/button_navigation"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
