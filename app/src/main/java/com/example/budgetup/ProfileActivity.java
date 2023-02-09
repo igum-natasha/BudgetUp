@@ -123,11 +123,11 @@ public class ProfileActivity extends AppCompatActivity {
           @Override
           public void onClick(View view) {
             db.userDao().deleteByEmail(user.getEmail());
-              Toast.makeText(
-                      ProfileActivity.this,
-                      getResources().getString(R.string.delete_suc),
-                      Toast.LENGTH_LONG)
-                      .show();
+            Toast.makeText(
+                    ProfileActivity.this,
+                    getResources().getString(R.string.delete_suc),
+                    Toast.LENGTH_LONG)
+                .show();
             startActivity(new Intent(ProfileActivity.this, FirstActivity.class));
             // TODO: delete data from db and cloud
 
@@ -191,7 +191,6 @@ public class ProfileActivity extends AppCompatActivity {
           }
         });
 
-
     close.setOnClickListener(
         new View.OnClickListener() {
           @Override
@@ -225,8 +224,7 @@ public class ProfileActivity extends AppCompatActivity {
           @Override
           public void onClick(View view) {
             Intent intent = new Intent(Intent.ACTION_SENDTO);
-            intent.putExtra(
-                Intent.EXTRA_EMAIL, user.getEmail());
+            intent.putExtra(Intent.EXTRA_EMAIL, user.getEmail());
             intent.putExtra(Intent.EXTRA_SUBJECT, "Feedback");
             intent.putExtra(Intent.EXTRA_TEXT, feedback.getText().toString());
             intent.setData(Uri.parse("mailto: igum.natasha@gmail.com"));

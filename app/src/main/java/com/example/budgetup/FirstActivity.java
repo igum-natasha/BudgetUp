@@ -16,19 +16,22 @@ public class FirstActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_first);
     initViews();
-    btnRegister.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View view) {
-        startActivity(new Intent(FirstActivity.this, RegistrationActivity.class));
-      }
-    });
-    btnLogin.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View view) {
-        startActivity(new Intent(FirstActivity.this, LoginActivity.class));
-      }
-    });
+    btnRegister.setOnClickListener(
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+            startActivity(new Intent(FirstActivity.this, RegistrationActivity.class));
+          }
+        });
+    btnLogin.setOnClickListener(
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+            startActivity(new Intent(FirstActivity.this, LoginActivity.class));
+          }
+        });
   }
+
   private void initViews() {
     btnLogin = findViewById(R.id.btnLogin);
     btnRegister = findViewById(R.id.btnRedister);

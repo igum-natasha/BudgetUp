@@ -7,22 +7,22 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
 @Database(
-        entities = {User.class},
-        version = 1,
-        exportSchema = false)
+    entities = {User.class},
+    version = 1,
+    exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
-    private static AppDatabase db;
+  private static AppDatabase db;
 
-    public abstract UserDao userDao();
+  public abstract UserDao userDao();
 
-    public static AppDatabase build(Context context) {
-        if (db == null) {
-            db =
-                Room.databaseBuilder(context.getApplicationContext(), AppDatabase.class, "database")
-                        .fallbackToDestructiveMigration()
-                        .allowMainThreadQueries()
-                        .build();
-        }
-        return db;
+  public static AppDatabase build(Context context) {
+    if (db == null) {
+      db =
+          Room.databaseBuilder(context.getApplicationContext(), AppDatabase.class, "database")
+              .fallbackToDestructiveMigration()
+              .allowMainThreadQueries()
+              .build();
     }
+    return db;
+  }
 }
