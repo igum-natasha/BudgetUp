@@ -59,7 +59,11 @@
     <string name="menu_title">Select payment</string>
     <string name="note">Note</string>
     <string name="ch_category">Choose category</string>
-
+    <string name="login_suc">Login successful!</string>
+    <string name="login_fail">Login failed with error! Try again!</string>
+    <string name="regist_fail">Registration failed! Please fill all fields!</string>
+    <string name="regist_suc">Registration successful!</string>
+    <string name="delete_suc">Data delete successful!</string>
 
     <string name="title_onboarding1">Painless budgeting</string>
     <string name="title_onboarding2">The whole picture in one place</string>

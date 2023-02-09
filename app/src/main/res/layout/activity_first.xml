@@ -18,7 +18,7 @@
 
 
     <Button
-        android:id="@+id/btnPreLogin"
+        android:id="@+id/btnLogin"
         android:layout_width="match_parent"
         android:layout_height="46dp"
         android:layout_marginStart="16dp"
@@ -26,13 +26,13 @@
         android:layout_marginBottom="8dp"
         android:text="@string/sign_in"
         android:fontFamily="@font/poppins"
-        app:layout_constraintBottom_toTopOf="@+id/btnPreRedister"
+        app:layout_constraintBottom_toTopOf="@+id/btnRedister"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/btnPreRedister"
+        android:id="@+id/btnRedister"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginStart="16dp"

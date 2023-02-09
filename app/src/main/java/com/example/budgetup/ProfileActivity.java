@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -26,7 +27,10 @@ public class ProfileActivity extends AppCompatActivity {
   Dialog deleteDialog, languageDialog, questionsDialog;
   ImageButton btnExit, btnBack;
   LinearLayout backupGoogle, deleteDataLayout, languageLayout, shareLayout, questionsLayout;
+  TextView userName, userEmail;
   String language;
+  User user;
+  AppDatabase db;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -118,7 +122,15 @@ public class ProfileActivity extends AppCompatActivity {
         new View.OnClickListener() {
           @Override
           public void onClick(View view) {
-            deleteDialog.dismiss(); // TODO: delete data from db and cloud
+            db.userDao().deleteByEmail(user.getEmail());
+              Toast.makeText(
+                      ProfileActivity.this,
+                      getResources().getString(R.string.delete_suc),
+                      Toast.LENGTH_LONG)
+                      .show();
+            startActivity(new Intent(ProfileActivity.this, FirstActivity.class));
+            // TODO: delete data from db and cloud
+
           }
         });
   }
@@ -157,6 +169,7 @@ public class ProfileActivity extends AppCompatActivity {
               //                            startActivity(new Intent(ProfileActivity.this,
               // HomeActivity.class));
               Toast.makeText(ProfileActivity.this, language, Toast.LENGTH_LONG).show();
+              user.setLanguage(language);
               eng.setChecked(false);
             } else {
               eng.setChecked(true);
@@ -170,12 +183,14 @@ public class ProfileActivity extends AppCompatActivity {
             if (b) {
               language = "en";
               Toast.makeText(ProfileActivity.this, language, Toast.LENGTH_LONG).show();
+              user.setLanguage(language);
               rus.setChecked(false);
             } else {
               rus.setChecked(true);
             }
           }
         });
+
 
     close.setOnClickListener(
         new View.OnClickListener() {
@@ -211,7 +226,7 @@ public class ProfileActivity extends AppCompatActivity {
           public void onClick(View view) {
             Intent intent = new Intent(Intent.ACTION_SENDTO);
             intent.putExtra(
-                Intent.EXTRA_EMAIL, "igum.natasha@gmail.com"); // TODO: get email from db
+                Intent.EXTRA_EMAIL, user.getEmail());
             intent.putExtra(Intent.EXTRA_SUBJECT, "Feedback");
             intent.putExtra(Intent.EXTRA_TEXT, feedback.getText().toString());
             intent.setData(Uri.parse("mailto: igum.natasha@gmail.com"));
@@ -225,7 +240,12 @@ public class ProfileActivity extends AppCompatActivity {
   }
 
   private void initViews() {
-
+    db = AppDatabase.build(getApplicationContext());
+    user = db.userDao().getByStatus("online");
+    userName = findViewById(R.id.userName);
+    userName.setText(user.getName());
+    userEmail = findViewById(R.id.userEmail);
+    userEmail.setText(user.getEmail());
     btnBack = findViewById(R.id.left_icon);
     btnExit = findViewById(R.id.exit_icon);
     backupGoogle = findViewById(R.id.google);
