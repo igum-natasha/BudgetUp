@@ -5,9 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
@@ -17,8 +15,6 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
@@ -89,43 +85,47 @@ public class NewIncomeActivity extends AppCompatActivity {
           }
         });
   }
-    @SuppressLint("UseCompatLoadingForDrawables")
-    private void defineCategoryDialog() {
-        categoryDialog = new Dialog(NewIncomeActivity.this);
-        categoryDialog.setContentView(R.layout.category_dialog);
-        categoryDialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.background_dialog));
-        categoryDialog
-                .getWindow()
-                .setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        categoryDialog.setCancelable(false);
-        ImageButton close = categoryDialog.findViewById(R.id.closeIcon);
-        RadioGroup radGrp = categoryDialog.findViewById(R.id.radioGroup);
-        radGrp.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup arg0, int id) {
-                switch(id) {
-                    case R.id.radioDep:
-                        category = "Deposits";
-                        break;
-                    case R.id.radioSal:
-                        category = "Salary";
-                        break;
-                    case R.id.radioSav:
-                        category = "Savings";
-                        break;
-                    default:
-                        break;
-                }
-                categoryDialog.dismiss();
-            }});
-        close.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        categoryDialog.dismiss();
-                    }
-                });
-    }
+
+  @SuppressLint("UseCompatLoadingForDrawables")
+  private void defineCategoryDialog() {
+    categoryDialog = new Dialog(NewIncomeActivity.this);
+    categoryDialog.setContentView(R.layout.category_dialog);
+    categoryDialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.background_dialog));
+    categoryDialog
+        .getWindow()
+        .setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+    categoryDialog.setCancelable(false);
+    ImageButton close = categoryDialog.findViewById(R.id.closeIcon);
+    RadioGroup radGrp = categoryDialog.findViewById(R.id.radioGroup);
+    radGrp.setOnCheckedChangeListener(
+        new RadioGroup.OnCheckedChangeListener() {
+          @Override
+          public void onCheckedChanged(RadioGroup arg0, int id) {
+            switch (id) {
+              case R.id.radioDep:
+                category = "Deposits";
+                break;
+              case R.id.radioSal:
+                category = "Salary";
+                break;
+              case R.id.radioSav:
+                category = "Savings";
+                break;
+              default:
+                break;
+            }
+            categoryDialog.dismiss();
+          }
+        });
+    close.setOnClickListener(
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+            categoryDialog.dismiss();
+          }
+        });
+  }
+
   private void initViews() {
     autoCompleteTextView = findViewById(R.id.autoComplete);
     entIncomeCount = findViewById(R.id.entIncomeCount);
