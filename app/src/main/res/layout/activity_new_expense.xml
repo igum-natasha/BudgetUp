@@ -8,7 +8,7 @@
 
     <include
         android:id="@+id/include"
-        layout="@layout/new_income_toolbar" />
+        layout="@layout/new_expense_toolbar" />
 
     <LinearLayout
         android:id="@+id/date"
@@ -50,53 +50,53 @@
         app:layout_constraintTop_toBottomOf="@id/date"
         app:shadowMargin="16dp"
         app:shadowRadius="4dp">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="@color/primary_100">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="20dp"
-            android:text="@string/ent_income"
-            android:fontFamily="@font/poppins"
-            android:textSize="14sp"
-            android:textColor="@color/base_900"
-            android:layout_marginTop="8dp"
-            android:layout_marginStart="8dp"
-            />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
-            <EditText
-                android:id="@+id/entIncomeCount"
+            android:orientation="vertical"
+            android:background="@color/primary_100">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:text="@string/ent_expense"
+                android:fontFamily="@font/poppins"
+                android:textSize="14sp"
+                android:textColor="@color/base_900"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="8dp"
+                />
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/background_edit_text"
-                android:hint="0"
-                android:importantForAutofill="yes"
-                android:inputType="number"
-                android:padding="8dp"
-                android:textColorHint="@color/base_500"
-                android:textSize="16sp"
-                android:layout_margin="8dp"
-                />
-            <ImageButton
-                android:id="@+id/btnBackspace"
-                android:layout_marginLeft="-40dp"
-                android:src="@drawable/backspace"
-                android:background="@color/base_50"
-                android:scaleType="fitCenter"
-                app:tint="@color/base_700"
-                android:layout_width="24dp"
-                android:layout_height="24dp" />
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+                <EditText
+                    android:id="@+id/entIncomeCount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/background_edit_text"
+                    android:hint="0"
+                    android:importantForAutofill="yes"
+                    android:inputType="number"
+                    android:padding="8dp"
+                    android:textColorHint="@color/base_500"
+                    android:textSize="16sp"
+                    android:layout_margin="8dp"
+                    />
+                <ImageButton
+                    android:id="@+id/btnBackspace"
+                    android:layout_marginLeft="-40dp"
+                    android:src="@drawable/backspace"
+                    android:background="@color/base_50"
+                    android:scaleType="fitCenter"
+                    app:tint="@color/base_700"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp" />
+            </LinearLayout>
+
+
         </LinearLayout>
-
-
-    </LinearLayout>
     </com.loopeer.shadow.ShadowView>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -134,18 +134,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/paymentMenu">
-    <EditText
-        android:id="@+id/entNote"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:hint="@string/note"
-        android:background="@drawable/feedback_background"
-        android:importantForAutofill="yes"
-        android:inputType="none"
-        android:padding="8dp"
-        android:textColorHint="@color/base_500"
-        android:textSize="16sp"
-        />
+        <EditText
+            android:id="@+id/entNote"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="@string/note"
+            android:background="@drawable/feedback_background"
+            android:importantForAutofill="yes"
+            android:inputType="none"
+            android:padding="8dp"
+            android:textColorHint="@color/base_500"
+            android:textSize="16sp"
+            />
         <ImageButton
             android:id="@+id/btnOk"
             android:layout_marginLeft="-40dp"

@@ -193,7 +193,7 @@ public class HomeActivity extends AppCompatActivity {
           @Override
           public void onClick(View view) {
             Intent intent =
-                new Intent(HomeActivity.this, ProfileActivity.class); // TODO: Add expense activity
+                new Intent(HomeActivity.this, NewExpenseActivity.class); // TODO: Add expense activity
             startActivity(intent);
           }
         });

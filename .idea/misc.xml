@@ -23,6 +23,7 @@
         <entry key="..\:/Android_app/BudgetUp/app/src/main/res/layout/activity_home.xml" value="0.2966751918158568" />
         <entry key="..\:/Android_app/BudgetUp/app/src/main/res/layout/activity_login.xml" value="0.3625" />
         <entry key="..\:/Android_app/BudgetUp/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Android_app/BudgetUp/app/src/main/res/layout/activity_new_expense.xml" value="0.33" />
         <entry key="..\:/Android_app/BudgetUp/app/src/main/res/layout/activity_new_income.xml" value="0.31741573033707865" />
         <entry key="..\:/Android_app/BudgetUp/app/src/main/res/layout/activity_onboarding.xml" value="0.3625" />
         <entry key="..\:/Android_app/BudgetUp/app/src/main/res/layout/activity_profile.xml" value="0.3625" />
@@ -31,6 +32,7 @@
         <entry key="..\:/Android_app/BudgetUp/app/src/main/res/layout/activity_statistics.xml" value="0.3625" />
         <entry key="..\:/Android_app/BudgetUp/app/src/main/res/layout/add_dialog.xml" value="0.5" />
         <entry key="..\:/Android_app/BudgetUp/app/src/main/res/layout/calendar_item.xml" value="0.5216316440049443" />
+        <entry key="..\:/Android_app/BudgetUp/app/src/main/res/layout/category_dialog.xml" value="0.33" />
         <entry key="..\:/Android_app/BudgetUp/app/src/main/res/layout/category_item.xml" value="0.425" />
         <entry key="..\:/Android_app/BudgetUp/app/src/main/res/layout/day_item.xml" value="0.25" />
         <entry key="..\:/Android_app/BudgetUp/app/src/main/res/layout/delete_data_dialog.xml" value="0.3625" />
@@ -41,6 +43,7 @@
         <entry key="..\:/Android_app/BudgetUp/app/src/main/res/layout/language_dialog.xml" value="0.33" />
         <entry key="..\:/Android_app/BudgetUp/app/src/main/res/layout/list_item.xml" value="0.20208333333333334" />
         <entry key="..\:/Android_app/BudgetUp/app/src/main/res/layout/login_toolbar.xml" value="0.3625" />
+        <entry key="..\:/Android_app/BudgetUp/app/src/main/res/layout/new_expense_toolbar.xml" value="0.25" />
         <entry key="..\:/Android_app/BudgetUp/app/src/main/res/layout/new_item_toolbar.xml" value="0.5" />
         <entry key="..\:/Android_app/BudgetUp/app/src/main/res/layout/profile_toolbar.xml" value="0.3625" />
         <entry key="..\:/Android_app/BudgetUp/app/src/main/res/layout/registration_toolbar.xml" value="0.3625" />

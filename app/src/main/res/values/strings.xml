@@ -54,7 +54,9 @@
     <string name="send">send</string>
     <string name="share_email">My budget monitoring and planning skills have improved significantly with \'Budget Up\'! Download it now and you\'ll see the changes, too. https://github.com/igum-natasha/BudgetUp</string>
     <string name="new_income">New income</string>
+    <string name="new_expense">New expense</string>
     <string name="ent_income">Income value</string>
+    <string name="ent_expense">Expense value</string>
     <string name="date_exmp">Wednesday, May 26</string>
     <string name="menu_title">Select payment</string>
     <string name="note">Note</string>
@@ -64,6 +66,9 @@
     <string name="regist_fail">Registration failed! Please fill all fields!</string>
     <string name="regist_suc">Registration successful!</string>
     <string name="delete_suc">Data delete successful!</string>
+    <string name="deposits">Deposits</string>
+    <string name="salary">Salary</string>
+    <string name="savings">Savings</string>
 
     <string name="title_onboarding1">Painless budgeting</string>
     <string name="title_onboarding2">The whole picture in one place</string>
