@@ -22,12 +22,13 @@ import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class JournalFragment extends Fragment {
 
   private View view;
   private String[][] days;
-  private String[][] expenses;
+  private List<Expense> expenses;
   private RecyclerView rvToday;
   private RecyclerView rv;
   TextView tvWeekName, tvMonthDay;
@@ -130,18 +131,18 @@ public class JournalFragment extends Fragment {
   }
 
   private void initializeDataToday() {
-    //    AppDatabase db = AppDatabase.build(getApplicationContext());
-    //    expenses = db.expenseDao().getAll();
-    Resources resources = view.getResources();
-    int resourceId =
-        resources.getIdentifier("food", "drawable", view.getContext().getPackageName());
-    expenses =
-        new String[][] {
-          {"Magnit", "-1000 RUB", Integer.toString(resourceId)},
-          {"Sportmaster", "-2800 RUB", Integer.toString(resourceId)},
-          {"Petrol", "-2500 RUB", Integer.toString(resourceId)}
-        };
-    if (expenses.length == 0) {
+    AppDatabase db = AppDatabase.build(view.getContext());
+    expenses = db.expenseDao().getAll();
+//    Resources resources = view.getResources();
+//    int resourceId =
+//        resources.getIdentifier("food", "drawable", view.getContext().getPackageName());
+//    expenses =
+//        new String[][] {
+//          {"Magnit", "-1000 RUB", Integer.toString(resourceId)},
+//          {"Sportmaster", "-2800 RUB", Integer.toString(resourceId)},
+//          {"Petrol", "-2500 RUB", Integer.toString(resourceId)}
+//        };
+    if (expenses.isEmpty()) {
       //      deleteDialog.show();
       // TODO: dialog
     }

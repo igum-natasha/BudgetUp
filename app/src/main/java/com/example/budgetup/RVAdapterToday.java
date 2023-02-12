@@ -1,5 +1,6 @@
 package com.example.budgetup;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,8 @@ import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.List;
 
 public class RVAdapterToday extends RecyclerView.Adapter<RVAdapterToday.TodayViewHolder> {
   private static ClickListener clickListener;
@@ -42,10 +45,9 @@ public class RVAdapterToday extends RecyclerView.Adapter<RVAdapterToday.TodayVie
     }
   }
 
-  //    List<Expense> expenses;
-  String[][] expenses;
+  List<Expense> expenses;
 
-  RVAdapterToday(String[][] expenses) {
+  RVAdapterToday(List<Expense> expenses) {
     this.expenses = expenses;
   }
 
@@ -61,21 +63,21 @@ public class RVAdapterToday extends RecyclerView.Adapter<RVAdapterToday.TodayVie
     return today;
   }
 
+  @SuppressLint("SetTextI18n")
   @Override
   public void onBindViewHolder(TodayViewHolder ViewHolder, int i) {
     //        int img = expenses.get(i).getImage();
     //        deviceViewHolder.expenseName.setText(expenses.get(i).getExpenseName());
     //        deviceViewHolder.expenseCost.setText(expenses.get(i).getExpenseCost());
     //        deviceViewHolder.expensePhoto.setBackgroundResource(img);
-    int img = Integer.parseInt(expenses[i][2]);
-    ViewHolder.expenseName.setText(expenses[i][0]);
-    ViewHolder.expenseCost.setText(expenses[i][1]);
-    ViewHolder.expensePhoto.setBackgroundResource(img);
+    ViewHolder.expenseName.setText(expenses.get(i).getNote());
+    ViewHolder.expenseCost.setText(expenses.get(i).getValue() + " " + expenses.get(i).getCurrency());
+    ViewHolder.expensePhoto.setBackgroundResource(expenses.get(i).getImage());
   }
 
   @Override
   public int getItemCount() {
-    return expenses.length;
+    return expenses.size();
   }
 
   public void setOnItemClickListener(ClickListener clickListener) {

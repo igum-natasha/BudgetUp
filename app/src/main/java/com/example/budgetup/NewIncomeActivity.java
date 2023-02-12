@@ -89,7 +89,7 @@ public class NewIncomeActivity extends AppCompatActivity {
   @SuppressLint("UseCompatLoadingForDrawables")
   private void defineCategoryDialog() {
     categoryDialog = new Dialog(NewIncomeActivity.this);
-    categoryDialog.setContentView(R.layout.category_dialog);
+    categoryDialog.setContentView(R.layout.category_income_dialog);
     categoryDialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.background_dialog));
     categoryDialog
         .getWindow()

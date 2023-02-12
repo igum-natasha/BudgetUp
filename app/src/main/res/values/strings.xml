@@ -69,7 +69,20 @@
     <string name="deposits">Deposits</string>
     <string name="salary">Salary</string>
     <string name="savings">Savings</string>
-
+    <string name="car">Car</string>
+    <string name="communications">Communications</string>
+    <string name="restaurants">Restaurants</string>
+    <string name="clothes">Clothes</string>
+    <string name="gifts">Gifts</string>
+    <string name="food">Food</string>
+    <string name="health">Health</string>
+    <string name="house">House</string>
+    <string name="sports">Sports</string>
+    <string name="pets">Pets</string>
+    <string name="transport">Transport</string>
+    <string name="entertainment">Entertainment</string>
+    <string name="expense_add_suc">Expense has been added successfully!</string>
+    
     <string name="title_onboarding1">Painless budgeting</string>
     <string name="title_onboarding2">The whole picture in one place</string>
     <string name="title_onboarding3">Analysis of data for any period of time</string>

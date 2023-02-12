@@ -28,11 +28,11 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class HomeActivity extends AppCompatActivity {
 
-  //  private List<Expense> expenses;
-  private String[][] expenses;
+  private List<Expense> expenses;
   private RecyclerView rv;
   TextView tvInfoExp, tvToday;
   Dialog addDialog;
@@ -80,18 +80,18 @@ public class HomeActivity extends AppCompatActivity {
   }
 
   private void initializeData() {
-    //    AppDatabase db = AppDatabase.build(getApplicationContext());
-    //    expenses = db.expenseDao().getAll();
+    AppDatabase db = AppDatabase.build(getApplicationContext());
+    expenses = db.expenseDao().getAll();
     Resources resources = getApplicationContext().getResources();
     int resourceId =
         resources.getIdentifier("food", "drawable", getApplicationContext().getPackageName());
-    expenses =
-        new String[][] {
-          {"Magnit", "-1000 RUB", Integer.toString(resourceId)},
-          {"Sportmaster", "-2800 RUB", Integer.toString(resourceId)},
-          {"Petrol", "-2500 RUB", Integer.toString(resourceId)}
-        };
-    if (expenses.length == 0) {
+//    expenses =
+//        new String[][] {
+//          {"Magnit", "-1000 RUB", Integer.toString(resourceId)},
+//          {"Sportmaster", "-2800 RUB", Integer.toString(resourceId)},
+//          {"Petrol", "-2500 RUB", Integer.toString(resourceId)}
+//        };
+    if (expenses.isEmpty()) {
       tvToday.setVisibility(View.INVISIBLE);
       tvInfoExp.setVisibility(View.VISIBLE);
       btnTrack.setVisibility(View.VISIBLE);
