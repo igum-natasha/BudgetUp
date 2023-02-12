@@ -1,6 +1,5 @@
 package com.example.budgetup;
 
-import android.content.res.Resources;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -133,15 +132,15 @@ public class JournalFragment extends Fragment {
   private void initializeDataToday() {
     AppDatabase db = AppDatabase.build(view.getContext());
     expenses = db.expenseDao().getAll();
-//    Resources resources = view.getResources();
-//    int resourceId =
-//        resources.getIdentifier("food", "drawable", view.getContext().getPackageName());
-//    expenses =
-//        new String[][] {
-//          {"Magnit", "-1000 RUB", Integer.toString(resourceId)},
-//          {"Sportmaster", "-2800 RUB", Integer.toString(resourceId)},
-//          {"Petrol", "-2500 RUB", Integer.toString(resourceId)}
-//        };
+    //    Resources resources = view.getResources();
+    //    int resourceId =
+    //        resources.getIdentifier("food", "drawable", view.getContext().getPackageName());
+    //    expenses =
+    //        new String[][] {
+    //          {"Magnit", "-1000 RUB", Integer.toString(resourceId)},
+    //          {"Sportmaster", "-2800 RUB", Integer.toString(resourceId)},
+    //          {"Petrol", "-2500 RUB", Integer.toString(resourceId)}
+    //        };
     if (expenses.isEmpty()) {
       //      deleteDialog.show();
       // TODO: dialog

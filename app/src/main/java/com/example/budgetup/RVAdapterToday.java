@@ -71,7 +71,8 @@ public class RVAdapterToday extends RecyclerView.Adapter<RVAdapterToday.TodayVie
     //        deviceViewHolder.expenseCost.setText(expenses.get(i).getExpenseCost());
     //        deviceViewHolder.expensePhoto.setBackgroundResource(img);
     ViewHolder.expenseName.setText(expenses.get(i).getNote());
-    ViewHolder.expenseCost.setText(expenses.get(i).getValue() + " " + expenses.get(i).getCurrency());
+    ViewHolder.expenseCost.setText(
+        expenses.get(i).getValue() + " " + expenses.get(i).getCurrency());
     ViewHolder.expensePhoto.setBackgroundResource(expenses.get(i).getImage());
   }
 

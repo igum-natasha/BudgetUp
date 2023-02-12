@@ -9,18 +9,18 @@ import java.util.List;
 
 @Dao
 public interface ExpenseDao {
-    @Query("DELETE FROM expenses WHERE userEmail LIKE :email")
-    void deleteByEmail(String email);
+  @Query("DELETE FROM expenses WHERE userEmail LIKE :email")
+  void deleteByEmail(String email);
 
-    @Query("SELECT * FROM expenses")
-    List<Expense> getAll();
+  @Query("SELECT * FROM expenses")
+  List<Expense> getAll();
 
-    @Query("SELECT * FROM expenses WHERE userEmail LIKE :email")
-    Expense getByEmail(String email);
+  @Query("SELECT * FROM expenses WHERE userEmail LIKE :email")
+  Expense getByEmail(String email);
 
-    @Query("SELECT * FROM expenses WHERE date BETWEEN :dayStart AND :dayEnd")
-    Expense getByDate(long dayStart, long dayEnd);
+  @Query("SELECT * FROM expenses WHERE date BETWEEN :dayStart AND :dayEnd")
+  Expense getByDate(long dayStart, long dayEnd);
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertExpense(Expense expense);
+  @Insert(onConflict = OnConflictStrategy.REPLACE)
+  void insertExpense(Expense expense);
 }

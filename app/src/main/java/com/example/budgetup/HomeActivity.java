@@ -85,12 +85,12 @@ public class HomeActivity extends AppCompatActivity {
     Resources resources = getApplicationContext().getResources();
     int resourceId =
         resources.getIdentifier("food", "drawable", getApplicationContext().getPackageName());
-//    expenses =
-//        new String[][] {
-//          {"Magnit", "-1000 RUB", Integer.toString(resourceId)},
-//          {"Sportmaster", "-2800 RUB", Integer.toString(resourceId)},
-//          {"Petrol", "-2500 RUB", Integer.toString(resourceId)}
-//        };
+    //    expenses =
+    //        new String[][] {
+    //          {"Magnit", "-1000 RUB", Integer.toString(resourceId)},
+    //          {"Sportmaster", "-2800 RUB", Integer.toString(resourceId)},
+    //          {"Petrol", "-2500 RUB", Integer.toString(resourceId)}
+    //        };
     if (expenses.isEmpty()) {
       tvToday.setVisibility(View.INVISIBLE);
       tvInfoExp.setVisibility(View.VISIBLE);
