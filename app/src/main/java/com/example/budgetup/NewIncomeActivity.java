@@ -111,31 +111,31 @@ public class NewIncomeActivity extends AppCompatActivity {
               default:
                 break;
             }
-              Date date = new Date();
-              long dateLong = date.getTime();
-              AppDatabase db = AppDatabase.build(getApplicationContext());
-              User user = db.userDao().getByStatus("online");
-              Expense expense = new Expense();
-              expense.setId(UUID.randomUUID().toString());
-              expense.setDate(dateLong);
-              expense.setCategory(category);
-              expense.setCurrency("RUB");
-              expense.setNote(entNote.getText().toString());
-              expense.setValue(entIncomeCount.getText().toString());
-              expense.setUserEmail(user.getEmail());
-              expense.setPayment(payment);
-              image =
-                      getResources()
-                              .getIdentifier(category, "drawable", getApplicationContext().getPackageName());
-              expense.setImage(image);
-              db.expenseDao().insertExpense(expense);
-              categoryDialog.dismiss();
-              Toast.makeText(
-                      NewIncomeActivity.this,
-                      getResources().getString(R.string.income_add_suc),
-                      Toast.LENGTH_LONG)
-                      .show();
-              startActivity(new Intent(NewIncomeActivity.this, HomeActivity.class));
+            Date date = new Date();
+            long dateLong = date.getTime();
+            AppDatabase db = AppDatabase.build(getApplicationContext());
+            User user = db.userDao().getByStatus("online");
+            Expense expense = new Expense();
+            expense.setId(UUID.randomUUID().toString());
+            expense.setDate(dateLong);
+            expense.setCategory(category);
+            expense.setCurrency("RUB");
+            expense.setNote(entNote.getText().toString());
+            expense.setValue(entIncomeCount.getText().toString());
+            expense.setUserEmail(user.getEmail());
+            expense.setPayment(payment);
+            image =
+                getResources()
+                    .getIdentifier(category, "drawable", getApplicationContext().getPackageName());
+            expense.setImage(image);
+            db.expenseDao().insertExpense(expense);
+            categoryDialog.dismiss();
+            Toast.makeText(
+                    NewIncomeActivity.this,
+                    getResources().getString(R.string.income_add_suc),
+                    Toast.LENGTH_LONG)
+                .show();
+            startActivity(new Intent(NewIncomeActivity.this, HomeActivity.class));
           }
         });
     close.setOnClickListener(

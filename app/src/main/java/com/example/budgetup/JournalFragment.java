@@ -51,16 +51,18 @@ public class JournalFragment extends Fragment {
     BarChart barChart = (BarChart) view.findViewById(R.id.barChart);
     String category;
     ArrayList<BarEntry> data_expenses = new ArrayList<>();
-    ArrayList<String> xAxisLabel = new ArrayList<>(Arrays.asList("food", "clothes", "car", "gift", "house", "transport"));
+    ArrayList<String> xAxisLabel =
+        new ArrayList<>(Arrays.asList("food", "clothes", "car", "gift", "house", "transport"));
     float[] sumByCategory = {0, 0, 0, 0, 0, 0};
     float maxSum = 0, sum = 0;
-    for(int i = 0; i < expenses.size(); i++) {
+    for (int i = 0; i < expenses.size(); i++) {
       category = expenses.get(i).getCategory();
       if (xAxisLabel.contains(category)) {
-        sumByCategory[xAxisLabel.indexOf(category)] += Float.parseFloat(expenses.get(i).getValue().replace('-', ' '));
+        sumByCategory[xAxisLabel.indexOf(category)] +=
+            Float.parseFloat(expenses.get(i).getValue().replace('-', ' '));
       }
     }
-    for(int i = 0; i < sumByCategory.length; i++){
+    for (int i = 0; i < sumByCategory.length; i++) {
       data_expenses.add(new BarEntry(i, sumByCategory[i]));
       if (sumByCategory[i] > maxSum) {
         maxSum = sumByCategory[i];

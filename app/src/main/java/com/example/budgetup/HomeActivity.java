@@ -1,6 +1,5 @@
 package com.example.budgetup;
 
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -9,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -131,24 +129,27 @@ public class HomeActivity extends AppCompatActivity {
     PieChart pieChart = findViewById(R.id.pieChart);
     ArrayList<PieEntry> data_expenses = new ArrayList<>();
     int[] palette = {
-            getResources().getColor(R.color.menu_1),
-            getResources().getColor(R.color.menu_2),
-            getResources().getColor(R.color.menu_3),
-            getResources().getColor(R.color.menu_4),
-            getResources().getColor(R.color.menu_5),
-            getResources().getColor(R.color.menu_6),
-            getResources().getColor(R.color.menu_7)
+      getResources().getColor(R.color.menu_1),
+      getResources().getColor(R.color.menu_2),
+      getResources().getColor(R.color.menu_3),
+      getResources().getColor(R.color.menu_4),
+      getResources().getColor(R.color.menu_5),
+      getResources().getColor(R.color.menu_6),
+      getResources().getColor(R.color.menu_7)
     };
     int[] colors = new int[expenses.size()];
     float max_income = 0, max_expense = 0;
     String currency = expenses.get(0).getCurrency();
-    for(int i = 0; i < expenses.size(); i++) {
+    for (int i = 0; i < expenses.size(); i++) {
       float value = Float.parseFloat(expenses.get(i).getValue());
-      data_expenses.add(new PieEntry(Float.parseFloat(expenses.get(i).getValue().replace('-', ' ')), expenses.get(i).getCategory()));
-      if ( value > 0 ) {
+      data_expenses.add(
+          new PieEntry(
+              Float.parseFloat(expenses.get(i).getValue().replace('-', ' ')),
+              expenses.get(i).getCategory()));
+      if (value > 0) {
         max_income += value;
       }
-      if (value < 0 ) {
+      if (value < 0) {
         max_expense += value;
       }
       colors[i] = palette[i];
