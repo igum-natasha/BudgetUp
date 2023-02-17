@@ -1,6 +1,5 @@
 package com.example.budgetup;
 
-import static com.github.mikephil.charting.utils.ColorTemplate.*;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,11 +28,13 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class HomeActivity extends AppCompatActivity {
 
   private List<Expense> expenses;
   private RecyclerView rv;
+  final Random random = new Random();
   TextView tvInfoExp, tvToday;
   Dialog addDialog;
   Button btnTrack;
@@ -44,7 +45,6 @@ public class HomeActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_home);
     initViews();
-    initPieChart();
     showExpenses();
     defineAddDialog();
 
@@ -82,19 +82,12 @@ public class HomeActivity extends AppCompatActivity {
   private void initializeData() {
     AppDatabase db = AppDatabase.build(getApplicationContext());
     expenses = db.expenseDao().getAll();
-    Resources resources = getApplicationContext().getResources();
-    int resourceId =
-        resources.getIdentifier("food", "drawable", getApplicationContext().getPackageName());
-    //    expenses =
-    //        new String[][] {
-    //          {"Magnit", "-1000 RUB", Integer.toString(resourceId)},
-    //          {"Sportmaster", "-2800 RUB", Integer.toString(resourceId)},
-    //          {"Petrol", "-2500 RUB", Integer.toString(resourceId)}
-    //        };
     if (expenses.isEmpty()) {
       tvToday.setVisibility(View.INVISIBLE);
       tvInfoExp.setVisibility(View.VISIBLE);
       btnTrack.setVisibility(View.VISIBLE);
+    } else {
+      initPieChart();
     }
   }
 
@@ -129,29 +122,38 @@ public class HomeActivity extends AppCompatActivity {
     btnTrack = findViewById(R.id.btnTrack);
     tvInfoExp = findViewById(R.id.tvInfoExp);
     btnAdd = findViewById(R.id.plus_icon);
-
     tvInfoExp.setVisibility(View.INVISIBLE);
     btnTrack.setVisibility(View.INVISIBLE);
   }
 
+  @SuppressLint("DefaultLocale")
   private void initPieChart() {
     PieChart pieChart = findViewById(R.id.pieChart);
-    ArrayList<PieEntry> expenses = new ArrayList<>();
-    expenses.add(new PieEntry(508, "Food"));
-    expenses.add(new PieEntry(306, "Clothes"));
-    expenses.add(new PieEntry(150, "Car"));
-    expenses.add(new PieEntry(1400, "Gifts"));
-    expenses.add(new PieEntry(100, "House"));
-    expenses.add(new PieEntry(350, "Transport"));
-    int[] colors = {
-      getResources().getColor(R.color.menu_1),
-      getResources().getColor(R.color.menu_2),
-      getResources().getColor(R.color.menu_3),
-      getResources().getColor(R.color.menu_4),
-      getResources().getColor(R.color.menu_5),
-      getResources().getColor(R.color.menu_6)
+    ArrayList<PieEntry> data_expenses = new ArrayList<>();
+    int[] palette = {
+            getResources().getColor(R.color.menu_1),
+            getResources().getColor(R.color.menu_2),
+            getResources().getColor(R.color.menu_3),
+            getResources().getColor(R.color.menu_4),
+            getResources().getColor(R.color.menu_5),
+            getResources().getColor(R.color.menu_6),
+            getResources().getColor(R.color.menu_7)
     };
-    PieDataSet pieDataSet = new PieDataSet(expenses, "Expenses");
+    int[] colors = new int[expenses.size()];
+    float max_income = 0, max_expense = 0;
+    String currency = expenses.get(0).getCurrency();
+    for(int i = 0; i < expenses.size(); i++) {
+      float value = Float.parseFloat(expenses.get(i).getValue());
+      data_expenses.add(new PieEntry(Float.parseFloat(expenses.get(i).getValue().replace('-', ' ')), expenses.get(i).getCategory()));
+      if ( value > 0 ) {
+        max_income += value;
+      }
+      if (value < 0 ) {
+        max_expense += value;
+      }
+      colors[i] = palette[i];
+    }
+    PieDataSet pieDataSet = new PieDataSet(data_expenses, "Expenses");
     pieDataSet.setColors(colors);
     pieDataSet.setDrawValues(false);
 
@@ -159,12 +161,12 @@ public class HomeActivity extends AppCompatActivity {
     Legend l = pieChart.getLegend();
     l.setEnabled(false);
     pieChart.setData(pieData);
-    //    pieChart.setDrawEntryLabels(false);
     pieChart.setEntryLabelColor(getResources().getColor(R.color.base_600));
     pieChart.getDescription().setEnabled(false);
-    pieChart.setCenterText("RUB 2814");
+    String text = String.format("%s %.2f\n%s %.2f", currency, max_income, currency, max_expense);
+    pieChart.setCenterText(text);
     pieChart.setCenterTextSize(18f);
-    pieChart.setCenterTextColor(getResources().getColor(R.color.error_800));
+    pieChart.setCenterTextColor(getResources().getColor(R.color.primary_400));
     pieChart.animate();
   }
 

@@ -149,7 +149,7 @@ public class NewExpenseActivity extends AppCompatActivity {
             expense.setCategory(category);
             expense.setCurrency("RUB");
             expense.setNote(entNote.getText().toString());
-            expense.setValue(entCount.getText().toString());
+            expense.setValue("-" + entCount.getText().toString());
             expense.setUserEmail(user.getEmail());
             expense.setPayment(payment);
             image =

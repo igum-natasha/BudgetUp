@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,10 +19,14 @@ import android.widget.ImageButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import java.util.Date;
+import java.util.UUID;
+
 public class NewIncomeActivity extends AppCompatActivity {
 
   String[] paymentItem = {"Cash", "Credit card"};
-  String result, category;
+  String payment, category;
+  int image;
   AutoCompleteTextView autoCompleteTextView;
   ArrayAdapter<String> arrayAdapter;
   EditText entIncomeCount, entNote;
@@ -42,12 +47,6 @@ public class NewIncomeActivity extends AppCompatActivity {
           @Override
           public void onClick(View view) {
             categoryDialog.show();
-            result += entIncomeCount.getText().toString();
-            result += "\n";
-            result += entNote.getText().toString();
-            result += category;
-
-            Toast.makeText(NewIncomeActivity.this, "Result: " + result, Toast.LENGTH_SHORT).show();
           }
         });
     btnBackspace.setOnClickListener(
@@ -79,9 +78,7 @@ public class NewIncomeActivity extends AppCompatActivity {
         new AdapterView.OnItemClickListener() {
           @Override
           public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-            result = adapterView.getItemAtPosition(i).toString() + "\n";
-            //                Toast.makeText(NewIncomeActivity.this, "Item: " + item,
-            // Toast.LENGTH_SHORT).show();
+            payment = adapterView.getItemAtPosition(i).toString() + "\n";
           }
         });
   }
@@ -103,18 +100,42 @@ public class NewIncomeActivity extends AppCompatActivity {
           public void onCheckedChanged(RadioGroup arg0, int id) {
             switch (id) {
               case R.id.radioDep:
-                category = "Deposits";
+                category = "deposit";
                 break;
               case R.id.radioSal:
-                category = "Salary";
+                category = "salary";
                 break;
               case R.id.radioSav:
-                category = "Savings";
+                category = "savings";
                 break;
               default:
                 break;
             }
-            categoryDialog.dismiss();
+              Date date = new Date();
+              long dateLong = date.getTime();
+              AppDatabase db = AppDatabase.build(getApplicationContext());
+              User user = db.userDao().getByStatus("online");
+              Expense expense = new Expense();
+              expense.setId(UUID.randomUUID().toString());
+              expense.setDate(dateLong);
+              expense.setCategory(category);
+              expense.setCurrency("RUB");
+              expense.setNote(entNote.getText().toString());
+              expense.setValue(entIncomeCount.getText().toString());
+              expense.setUserEmail(user.getEmail());
+              expense.setPayment(payment);
+              image =
+                      getResources()
+                              .getIdentifier(category, "drawable", getApplicationContext().getPackageName());
+              expense.setImage(image);
+              db.expenseDao().insertExpense(expense);
+              categoryDialog.dismiss();
+              Toast.makeText(
+                      NewIncomeActivity.this,
+                      getResources().getString(R.string.income_add_suc),
+                      Toast.LENGTH_LONG)
+                      .show();
+              startActivity(new Intent(NewIncomeActivity.this, HomeActivity.class));
           }
         });
     close.setOnClickListener(
