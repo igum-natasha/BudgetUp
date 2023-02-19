@@ -42,12 +42,13 @@ public class NewExpenseActivity extends AppCompatActivity {
     definePaymentMenu();
     defineCategoryDialog();
 
-    btnBack.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View view) {
-        startActivity(new Intent(NewExpenseActivity.this, HomeActivity.class));
-      }
-    });
+    btnBack.setOnClickListener(
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+            startActivity(new Intent(NewExpenseActivity.this, HomeActivity.class));
+          }
+        });
     btnCategory.setOnClickListener(
         new View.OnClickListener() {
           @Override

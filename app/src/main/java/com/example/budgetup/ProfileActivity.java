@@ -20,7 +20,6 @@ import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.util.List;
 import java.util.Locale;
 
 public class ProfileActivity extends AppCompatActivity {
@@ -41,21 +40,23 @@ public class ProfileActivity extends AppCompatActivity {
     defineDeleteDialog();
     defineLanguageDialog();
     defineQuestionsDialog();
-    btnExit.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
+    btnExit.setOnClickListener(
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
             AppDatabase db = AppDatabase.build(getApplicationContext());
             User user = db.userDao().getByStatus("online");
             user.setStatus("offline");
             startActivity(new Intent(ProfileActivity.this, FirstActivity.class));
-        }
-    });
-    btnBack.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
+          }
+        });
+    btnBack.setOnClickListener(
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
             finish();
-        }
-    });
+          }
+        });
     deleteDataLayout.setOnClickListener(
         new View.OnClickListener() {
           @Override

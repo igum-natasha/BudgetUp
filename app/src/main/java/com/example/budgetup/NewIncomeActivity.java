@@ -42,12 +42,13 @@ public class NewIncomeActivity extends AppCompatActivity {
     definePaymentMenu();
     defineCategoryDialog();
 
-    btnBack.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
+    btnBack.setOnClickListener(
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
             startActivity(new Intent(NewIncomeActivity.this, HomeActivity.class));
-        }
-    });
+          }
+        });
     btnCategory.setOnClickListener(
         new View.OnClickListener() {
           @Override

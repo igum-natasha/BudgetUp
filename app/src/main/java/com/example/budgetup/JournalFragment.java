@@ -12,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Legend;
@@ -28,7 +27,6 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 
 public class JournalFragment extends Fragment {
 
@@ -130,14 +128,15 @@ public class JournalFragment extends Fragment {
     @SuppressLint("SimpleDateFormat")
     SimpleDateFormat formatDay = new SimpleDateFormat("dd");
     SimpleDateFormat formatWeek = new SimpleDateFormat("EEE");
-    for(int i=0; i< dateList.size(); i++) {
-      days.add(new String[]{formatWeek.format(dateList.get(i)), formatDay.format(dateList.get(i))});
+    for (int i = 0; i < dateList.size(); i++) {
+      days.add(
+          new String[] {formatWeek.format(dateList.get(i)), formatDay.format(dateList.get(i))});
     }
-//    days =
-//        new String[][] {
-//          {"Mon", "30"}, {"Tue", "31"}, {"Wed", "1"}, {"Thu", "2"}, {"Fri", "3"},
-//          {"Sat", "4"}, {"Sun", "5"}, {"Mon", "6"}, {"Tue", "7"}, {"Wed", "8"},
-//        };
+    //    days =
+    //        new String[][] {
+    //          {"Mon", "30"}, {"Tue", "31"}, {"Wed", "1"}, {"Thu", "2"}, {"Fri", "3"},
+    //          {"Sat", "4"}, {"Sun", "5"}, {"Mon", "6"}, {"Tue", "7"}, {"Wed", "8"},
+    //        };
   }
 
   private void initializeAdapter() {

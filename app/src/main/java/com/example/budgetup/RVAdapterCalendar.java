@@ -10,7 +10,6 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class RVAdapterCalendar extends RecyclerView.Adapter<RVAdapterCalendar.CalendarViewHolder> {
