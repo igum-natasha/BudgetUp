@@ -31,7 +31,7 @@ public class NewExpenseActivity extends AppCompatActivity {
   ArrayAdapter<String> arrayAdapter;
   EditText entCount, entNote;
   Button btnCategory;
-  ImageButton btnBackspace, btnOkNote;
+  ImageButton btnBackspace, btnOkNote, btnBack;
   Dialog categoryDialog;
 
   @Override
@@ -42,6 +42,12 @@ public class NewExpenseActivity extends AppCompatActivity {
     definePaymentMenu();
     defineCategoryDialog();
 
+    btnBack.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        startActivity(new Intent(NewExpenseActivity.this, HomeActivity.class));
+      }
+    });
     btnCategory.setOnClickListener(
         new View.OnClickListener() {
           @Override
@@ -176,6 +182,7 @@ public class NewExpenseActivity extends AppCompatActivity {
   }
 
   private void initViews() {
+    btnBack = findViewById(R.id.left_icon);
     autoCompleteTextView = findViewById(R.id.autoComplete);
     entCount = findViewById(R.id.entIncomeCount);
     entNote = findViewById(R.id.entNote);

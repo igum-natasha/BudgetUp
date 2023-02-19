@@ -19,7 +19,7 @@ public interface ExpenseDao {
   Expense getByEmail(String email);
 
   @Query("SELECT * FROM expenses WHERE date BETWEEN :dayStart AND :dayEnd")
-  Expense getByDate(long dayStart, long dayEnd);
+  List<Expense> getByDate(long dayStart, long dayEnd);
 
   @Insert(onConflict = OnConflictStrategy.REPLACE)
   void insertExpense(Expense expense);

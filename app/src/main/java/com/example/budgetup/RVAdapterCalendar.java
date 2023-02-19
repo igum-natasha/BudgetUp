@@ -10,6 +10,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class RVAdapterCalendar extends RecyclerView.Adapter<RVAdapterCalendar.CalendarViewHolder> {
@@ -45,13 +46,12 @@ public class RVAdapterCalendar extends RecyclerView.Adapter<RVAdapterCalendar.Ca
     }
   }
 
-  //    List<Expense> expenses;
-  String[][] calendar;
+  List<String[]> calendar;
   List<LinearLayout> linearLayoutList = new ArrayList<>();
   List<TextView> weekNameList = new ArrayList<>();
   List<TextView> monthDayList = new ArrayList<>();
 
-  RVAdapterCalendar(String[][] calendar) {
+  RVAdapterCalendar(List<String[]> calendar) {
     this.calendar = calendar;
   }
 
@@ -75,8 +75,8 @@ public class RVAdapterCalendar extends RecyclerView.Adapter<RVAdapterCalendar.Ca
     //        deviceViewHolder.expenseName.setText(expenses.get(i).getExpenseName());
     //        deviceViewHolder.expenseCost.setText(expenses.get(i).getExpenseCost());
     //        deviceViewHolder.expensePhoto.setBackgroundResource(img);
-    ViewHolder.weekName.setText(calendar[i][0]);
-    ViewHolder.monthDay.setText(calendar[i][1]);
+    ViewHolder.weekName.setText(calendar.get(i)[0]);
+    ViewHolder.monthDay.setText(calendar.get(i)[1]);
     linearLayoutList.add(ViewHolder.linearLayout);
     weekNameList.add(ViewHolder.weekName);
     monthDayList.add(ViewHolder.monthDay);
@@ -107,7 +107,7 @@ public class RVAdapterCalendar extends RecyclerView.Adapter<RVAdapterCalendar.Ca
 
   @Override
   public int getItemCount() {
-    return calendar.length;
+    return calendar.size();
   }
 
   public void setOnItemClickListener(RVAdapterCalendar.ClickListener clickListener) {

@@ -31,7 +31,7 @@ public class NewIncomeActivity extends AppCompatActivity {
   ArrayAdapter<String> arrayAdapter;
   EditText entIncomeCount, entNote;
   Button btnCategory;
-  ImageButton btnBackspace, btnOkNote;
+  ImageButton btnBackspace, btnOkNote, btnBack;
   Dialog categoryDialog;
 
   @Override
@@ -42,6 +42,12 @@ public class NewIncomeActivity extends AppCompatActivity {
     definePaymentMenu();
     defineCategoryDialog();
 
+    btnBack.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            startActivity(new Intent(NewIncomeActivity.this, HomeActivity.class));
+        }
+    });
     btnCategory.setOnClickListener(
         new View.OnClickListener() {
           @Override
@@ -148,6 +154,7 @@ public class NewIncomeActivity extends AppCompatActivity {
   }
 
   private void initViews() {
+    btnBack = findViewById(R.id.left_icon);
     autoCompleteTextView = findViewById(R.id.autoComplete);
     entIncomeCount = findViewById(R.id.entIncomeCount);
     entNote = findViewById(R.id.entNote);

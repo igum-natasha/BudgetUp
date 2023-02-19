@@ -25,6 +25,7 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
 
@@ -32,7 +33,6 @@ public class HomeActivity extends AppCompatActivity {
 
   private List<Expense> expenses;
   private RecyclerView rv;
-  final Random random = new Random();
   TextView tvInfoExp, tvToday;
   Dialog addDialog;
   Button btnTrack;
@@ -79,7 +79,12 @@ public class HomeActivity extends AppCompatActivity {
 
   private void initializeData() {
     AppDatabase db = AppDatabase.build(getApplicationContext());
-    expenses = db.expenseDao().getAll();
+    Calendar today = Calendar.getInstance();
+    today.add(Calendar.DATE, -1);
+    long yest = today.getTimeInMillis();
+    today.add(Calendar.DATE, 2);
+    long tomr = today.getTimeInMillis();
+    expenses = db.expenseDao().getByDate(yest, tomr);
     if (expenses.isEmpty()) {
       tvToday.setVisibility(View.INVISIBLE);
       tvInfoExp.setVisibility(View.VISIBLE);

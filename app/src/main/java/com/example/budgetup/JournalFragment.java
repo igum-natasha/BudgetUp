@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Legend;
@@ -21,28 +22,39 @@ import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 public class JournalFragment extends Fragment {
 
   private View view;
-  private String[][] days;
+  private List<String[]> days = new ArrayList<>();
   private List<Expense> expenses;
   private RecyclerView rvToday;
   private RecyclerView rv;
-  TextView tvWeekName, tvMonthDay, expenseCount;
+  int position = 15;
+  Calendar date = Calendar.getInstance();
+  List<Date> dateList = new ArrayList<>();
+  TextView tvMonthName, tvMonthDay, expenseCount;
 
   @Override
   public View onCreateView(
       LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     // Inflate the layout for this fragment
     view = inflater.inflate(R.layout.fragment_journal, container, false);
+    date.add(Calendar.DAY_OF_MONTH, (-1) * position);
+    for (int i = 1; i <= 30; i++) {
+      dateList.add(date.getTime());
+      date.add(Calendar.DATE, 1);
+    }
     initViews();
     showCalendar();
     showExpenses();
-    initBarChart();
     return view;
   }
 
@@ -101,16 +113,31 @@ public class JournalFragment extends Fragment {
     barChart.getDescription().setEnabled(false);
     barChart.animateY((int) maxSum);
     expenseCount.setText(sum + " " + expenses.get(0).getCurrency());
+    Date date = new Date(expenses.get(0).getDate());
+    @SuppressLint("SimpleDateFormat")
+    SimpleDateFormat formatDay = new SimpleDateFormat("dd");
+    SimpleDateFormat formatMonth = new SimpleDateFormat("MMM");
+
+    String currentDay = formatDay.format(date);
+    String currentMonth = formatMonth.format(date);
+    tvMonthDay.setText(currentDay);
+    tvMonthName.setText(currentMonth);
   }
 
   private void initializeData() {
     //    AppDatabase db = AppDatabase.build(getApplicationContext());
     //    expenses = db.expenseDao().getAll();
-    days =
-        new String[][] {
-          {"Mon", "30"}, {"Tue", "31"}, {"Wed", "1"}, {"Thu", "2"}, {"Fri", "3"},
-          {"Sat", "4"}, {"Sun", "5"}, {"Mon", "6"}, {"Tue", "7"}, {"Wed", "8"},
-        };
+    @SuppressLint("SimpleDateFormat")
+    SimpleDateFormat formatDay = new SimpleDateFormat("dd");
+    SimpleDateFormat formatWeek = new SimpleDateFormat("EEE");
+    for(int i=0; i< dateList.size(); i++) {
+      days.add(new String[]{formatWeek.format(dateList.get(i)), formatDay.format(dateList.get(i))});
+    }
+//    days =
+//        new String[][] {
+//          {"Mon", "30"}, {"Tue", "31"}, {"Wed", "1"}, {"Thu", "2"}, {"Fri", "3"},
+//          {"Sat", "4"}, {"Sun", "5"}, {"Mon", "6"}, {"Tue", "7"}, {"Wed", "8"},
+//        };
   }
 
   private void initializeAdapter() {
@@ -136,14 +163,23 @@ public class JournalFragment extends Fragment {
 
     initializeData();
     initializeAdapter();
+    rv.scrollToPosition(position);
   }
 
   private void initializeDataToday() {
     AppDatabase db = AppDatabase.build(view.getContext());
-    expenses = db.expenseDao().getAll();
+    Calendar today = Calendar.getInstance();
+    today.add(Calendar.DATE, -1);
+    long yest = today.getTimeInMillis();
+    today.add(Calendar.DATE, 2);
+    long tomr = today.getTimeInMillis();
+    expenses = db.expenseDao().getByDate(yest, tomr);
     if (expenses.isEmpty()) {
+      tvMonthDay.setText("fail");
       //      deleteDialog.show();
       // TODO: dialog
+    } else {
+      initBarChart();
     }
   }
 
@@ -175,7 +211,7 @@ public class JournalFragment extends Fragment {
 
   private void initViews() {
     tvMonthDay = view.findViewById(R.id.monthDay);
-    tvWeekName = view.findViewById(R.id.weekName);
+    tvMonthName = view.findViewById(R.id.monthName);
     expenseCount = view.findViewById(R.id.expenseCount);
   }
 }
