@@ -8,12 +8,47 @@
     <include
         android:id="@+id/include"
         layout="@layout/home_toolbar" />
+
+    <LinearLayout
+        android:id="@+id/linearLayoutDays"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:paddingTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/include" >
+        <ImageButton
+            android:id="@+id/left"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/left"
+            android:background="@color/base_50"
+            app:tint="@color/base_400"
+            android:layout_margin="16dp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvDays"
+            android:layout_width="220dp"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content"
+            android:nestedScrollingEnabled="false"/>
+        <ImageButton
+            android:id="@+id/right"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/right"
+            android:background="@color/base_50"
+            app:tint="@color/base_400"
+            android:layout_margin="16dp"/>
+    </LinearLayout>
     <com.github.mikephil.charting.charts.PieChart
         android:id="@+id/pieChart"
         android:layout_width="match_parent"
         android:layout_height="400dp"
         android:padding="16dp"
-        app:layout_constraintTop_toBottomOf="@id/include"
+        app:layout_constraintTop_toBottomOf="@id/linearLayoutDays"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
 
@@ -47,10 +82,23 @@
     </com.loopeer.shadow.ShadowView>
 
     <TextView
+        android:id="@+id/noInfoTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins"
+        android:gravity="center"
+        android:text="@string/no_info"
+        android:textColor="@color/base_500"
+        android:textSize="16sp"
+        android:layout_margin="100dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvToday" />
+    <TextView
         android:id="@+id/tvInfoExp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_margin="32dp"
         android:fontFamily="@font/poppins"
         android:gravity="center"
         android:textColor="@color/base_600"

@@ -14,7 +14,7 @@
         android:layout_height="22dp"
         android:fontFamily="@font/poppins"
         android:text="@string/language_title"
-        android:textColor="@color/base_700"
+        android:textColor="@color/base_800"
         android:textSize="14sp"
         android:gravity="center"
         android:layout_margin="12dp"
@@ -31,7 +31,7 @@
         android:layout_margin="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/base_700" />
+        app:tint="@color/base_400" />
 
     <LinearLayout
         android:id="@+id/linearRus"

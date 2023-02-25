@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="300dp"
+    android:layout_height="200dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center"
+    android:background="@color/base_50">
+
+
+    <ImageButton
+        android:id="@+id/deleteIcon"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_margin="12dp"
+        android:background="@color/base_50"
+        android:scaleType="fitCenter"
+        android:src="@drawable/delete"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/base_400" />
+
+    <TextView
+        android:id="@+id/dateTitle"
+        android:layout_width="match_parent"
+        android:layout_height="22dp"
+        android:layout_margin="12dp"
+        android:fontFamily="@font/poppins"
+        android:gravity="center"
+        android:text="@string/date_exmp"
+        android:textColor="@color/base_800"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/closeIcon"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_margin="12dp"
+        android:background="@color/base_50"
+        android:scaleType="fitCenter"
+        android:src="@drawable/close"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/base_400" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/expenseBack"
+        android:layout_width="68dp"
+        android:layout_height="68dp"
+        android:src="@color/menu_3"
+        app:civ_border_color="@color/base_50"
+        app:civ_border_width="1dp"
+        android:layout_margin="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dateTitle" />
+
+    <ImageView
+        android:id="@+id/expenseIcon"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        android:src="@drawable/food"
+        android:layout_margin="17dp"
+        app:layout_constraintEnd_toEndOf="@+id/expenseBack"
+        app:layout_constraintStart_toStartOf="@+id/expenseBack"
+        app:layout_constraintTop_toTopOf="@+id/expenseBack"
+        app:tint="@color/primary_600" />
+
+    <TextView
+        android:id="@+id/expenseName"
+        android:layout_width="wrap_content"
+        android:layout_height="16dp"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/poppins"
+        android:text="@string/food"
+        android:textColor="@color/base_700"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/expenseBack" />
+
+    <TextView
+        android:id="@+id/expCateg"
+        android:layout_width="wrap_content"
+        android:layout_height="16dp"
+        android:layout_marginTop="2dp"
+        android:fontFamily="@font/poppins"
+        android:text="@string/food"
+        android:textColor="@color/base_400"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/expenseName" />
+
+    <TextView
+        android:id="@+id/expCount"
+        android:layout_width="wrap_content"
+        android:layout_height="18dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="16dp"
+        android:fontFamily="@font/poppins"
+        android:text="@string/count"
+        android:textColor="@color/base_900"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/expCateg" />
+</androidx.constraintlayout.widget.ConstraintLayout>

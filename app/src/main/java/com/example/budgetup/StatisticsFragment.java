@@ -22,16 +22,23 @@ import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.google.android.material.button.MaterialButtonToggleGroup;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 public class StatisticsFragment extends Fragment {
 
   private View view;
 
-  private String[][] daysExpenses, days;
+  private String[][] daysExpenses;
+  private List<String[]> days = new ArrayList<>();
   private RecyclerView rv;
   private RecyclerView rvDays;
   private ImageButton btnLeft, btnRight;
+  Calendar date = Calendar.getInstance();
+  List<Date> dateList = new ArrayList<>();
 
   @Override
   public View onCreateView(
@@ -40,6 +47,11 @@ public class StatisticsFragment extends Fragment {
     view = inflater.inflate(R.layout.fragment_statistics, container, false);
     initBarChart();
     initViews();
+    date.add(Calendar.DAY_OF_MONTH, (-1) * 30);
+    for (int i = 1; i <= 30; i++) {
+      dateList.add(date.getTime());
+      date.add(Calendar.DATE, 1);
+    }
     showDays();
     showCategories();
     MaterialButtonToggleGroup toggleGroup = view.findViewById(R.id.toggleGroup);
@@ -162,9 +174,13 @@ public class StatisticsFragment extends Fragment {
   }
 
   private void initializeDataDays() {
-    //    AppDatabase db = AppDatabase.build(getApplicationContext());
-    //    expenses = db.expenseDao().getAll();
-    days = new String[][] {{"May", "2023"}, {"June", "2023"}, {"July", "2023"}};
+    @SuppressLint("SimpleDateFormat")
+    SimpleDateFormat formatDay = new SimpleDateFormat("EEE, MMMM dd");
+    SimpleDateFormat formatYear = new SimpleDateFormat("yyyy");
+    for (int i = 0; i < dateList.size(); i++) {
+      days.add(
+              new String[] {formatDay.format(dateList.get(i)), formatYear.format(dateList.get(i))});
+    }
   }
 
   @SuppressLint("ClickableViewAccessibility")

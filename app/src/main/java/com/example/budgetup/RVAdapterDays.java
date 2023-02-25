@@ -9,6 +9,8 @@ import android.widget.TextView;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.List;
+
 public class RVAdapterDays extends RecyclerView.Adapter<RVAdapterDays.DaysViewHolder> {
   private static RVAdapterDays.ClickListener clickListener;
 
@@ -18,8 +20,8 @@ public class RVAdapterDays extends RecyclerView.Adapter<RVAdapterDays.DaysViewHo
     CardView cv;
     ImageButton left;
     ImageButton right;
-    TextView monthName;
-    TextView yearName;
+    TextView dateName;
+    TextView year;
 
     DaysViewHolder(View itemView) {
       super(itemView);
@@ -28,8 +30,8 @@ public class RVAdapterDays extends RecyclerView.Adapter<RVAdapterDays.DaysViewHo
       cv = itemView.findViewById(R.id.cv);
       left = itemView.findViewById(R.id.left);
       right = itemView.findViewById(R.id.right);
-      monthName = itemView.findViewById(R.id.monthName);
-      yearName = itemView.findViewById(R.id.yearName);
+      dateName = itemView.findViewById(R.id.monthName);
+      year = itemView.findViewById(R.id.yearName);
     }
 
     @Override
@@ -45,9 +47,9 @@ public class RVAdapterDays extends RecyclerView.Adapter<RVAdapterDays.DaysViewHo
   }
 
   //    List<Expense> expenses;
-  String[][] days_list;
+  List<String[]> days_list;
 
-  RVAdapterDays(String[][] days_list) {
+  RVAdapterDays(List<String[]> days_list) {
     this.days_list = days_list;
   }
 
@@ -70,13 +72,13 @@ public class RVAdapterDays extends RecyclerView.Adapter<RVAdapterDays.DaysViewHo
     //        deviceViewHolder.expenseName.setText(expenses.get(i).getExpenseName());
     //        deviceViewHolder.expenseCost.setText(expenses.get(i).getExpenseCost());
     //        deviceViewHolder.expensePhoto.setBackgroundResource(img);
-    ViewHolder.monthName.setText(days_list[i][0]);
-    ViewHolder.yearName.setText(days_list[i][1]);
+    ViewHolder.dateName.setText(days_list.get(i)[0]);
+    ViewHolder.year.setText(days_list.get(i)[1]);
   }
 
   @Override
   public int getItemCount() {
-    return days_list.length;
+    return days_list.size();
   }
 
   public void setOnItemClickListener(RVAdapterDays.ClickListener clickListener) {

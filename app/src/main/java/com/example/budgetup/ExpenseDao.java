@@ -12,6 +12,9 @@ public interface ExpenseDao {
   @Query("DELETE FROM expenses WHERE userEmail LIKE :email")
   void deleteByEmail(String email);
 
+  @Query("DELETE FROM expenses WHERE id LIKE :id")
+  void deleteById(String id);
+
   @Query("SELECT * FROM expenses")
   List<Expense> getAll();
 

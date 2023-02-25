@@ -59,7 +59,7 @@
             android:layout_height="24dp"
             android:src="@drawable/left"
             android:background="@color/base_50"
-            app:tint="@color/base_900"
+            app:tint="@color/base_400"
             android:padding="16dp"/>
 
         <androidx.recyclerview.widget.RecyclerView
@@ -73,7 +73,7 @@
             android:layout_height="24dp"
             android:src="@drawable/right"
             android:background="@color/base_50"
-            app:tint="@color/base_900"
+            app:tint="@color/base_400"
             android:padding="16dp"/>
     </LinearLayout>
 

@@ -123,8 +123,6 @@ public class JournalFragment extends Fragment {
   }
 
   private void initializeData() {
-    //    AppDatabase db = AppDatabase.build(getApplicationContext());
-    //    expenses = db.expenseDao().getAll();
     @SuppressLint("SimpleDateFormat")
     SimpleDateFormat formatDay = new SimpleDateFormat("dd");
     SimpleDateFormat formatWeek = new SimpleDateFormat("EEE");
@@ -132,11 +130,6 @@ public class JournalFragment extends Fragment {
       days.add(
           new String[] {formatWeek.format(dateList.get(i)), formatDay.format(dateList.get(i))});
     }
-    //    days =
-    //        new String[][] {
-    //          {"Mon", "30"}, {"Tue", "31"}, {"Wed", "1"}, {"Thu", "2"}, {"Fri", "3"},
-    //          {"Sat", "4"}, {"Sun", "5"}, {"Mon", "6"}, {"Tue", "7"}, {"Wed", "8"},
-    //        };
   }
 
   private void initializeAdapter() {
