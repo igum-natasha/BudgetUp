@@ -179,7 +179,7 @@ public class StatisticsFragment extends Fragment {
     SimpleDateFormat formatYear = new SimpleDateFormat("yyyy");
     for (int i = 0; i < dateList.size(); i++) {
       days.add(
-              new String[] {formatDay.format(dateList.get(i)), formatYear.format(dateList.get(i))});
+          new String[] {formatDay.format(dateList.get(i)), formatYear.format(dateList.get(i))});
     }
   }
 
