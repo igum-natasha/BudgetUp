@@ -1,5 +1,6 @@
 package com.example.budgetup;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,8 +15,9 @@ import java.util.List;
 
 public class RVAdapterCalendar extends RecyclerView.Adapter<RVAdapterCalendar.CalendarViewHolder> {
   private static RVAdapterCalendar.ClickListener clickListener;
+  private int selected_position = 15; // see position on JournalFragment
 
-  public static class CalendarViewHolder extends RecyclerView.ViewHolder
+  public class CalendarViewHolder extends RecyclerView.ViewHolder
       implements View.OnClickListener, View.OnLongClickListener {
 
     CardView cvCal;
@@ -35,7 +37,12 @@ public class RVAdapterCalendar extends RecyclerView.Adapter<RVAdapterCalendar.Ca
 
     @Override
     public void onClick(View v) {
-      clickListener.onItemClick(getAdapterPosition(), v);
+      if(clickListener != null){
+        int position = getAdapterPosition();
+        selected_position = position;
+        clickListener.onItemClick(position, v);
+        notifyDataSetChanged();
+      }
     }
 
     @Override
@@ -46,9 +53,6 @@ public class RVAdapterCalendar extends RecyclerView.Adapter<RVAdapterCalendar.Ca
   }
 
   List<String[]> calendar;
-  List<LinearLayout> linearLayoutList = new ArrayList<>();
-  List<TextView> weekNameList = new ArrayList<>();
-  List<TextView> monthDayList = new ArrayList<>();
 
   RVAdapterCalendar(List<String[]> calendar) {
     this.calendar = calendar;
@@ -64,44 +68,25 @@ public class RVAdapterCalendar extends RecyclerView.Adapter<RVAdapterCalendar.Ca
     View v =
         LayoutInflater.from(viewGroup.getContext())
             .inflate(R.layout.calendar_item, viewGroup, false);
-    RVAdapterCalendar.CalendarViewHolder cal = new RVAdapterCalendar.CalendarViewHolder(v);
-    return cal;
+    return new CalendarViewHolder(v);
   }
 
+  @SuppressLint("ResourceAsColor")
   @Override
   public void onBindViewHolder(CalendarViewHolder ViewHolder, int i) {
-    //        int img = expenses.get(i).getImage();
-    //        deviceViewHolder.expenseName.setText(expenses.get(i).getExpenseName());
-    //        deviceViewHolder.expenseCost.setText(expenses.get(i).getExpenseCost());
-    //        deviceViewHolder.expensePhoto.setBackgroundResource(img);
     ViewHolder.weekName.setText(calendar.get(i)[0]);
     ViewHolder.monthDay.setText(calendar.get(i)[1]);
-    linearLayoutList.add(ViewHolder.linearLayout);
-    weekNameList.add(ViewHolder.weekName);
-    monthDayList.add(ViewHolder.monthDay);
 
-    ViewHolder.linearLayout.setOnClickListener(
-        new View.OnClickListener() {
-          @Override
-          public void onClick(View view) {
-            for (int item = 0; item < linearLayoutList.size(); item++) {
-              linearLayoutList
-                  .get(item)
-                  .setBackgroundColor(view.getResources().getColor(R.color.primary_100));
-              weekNameList.get(item).setTextColor(view.getResources().getColor(R.color.base_800));
-              monthDayList.get(item).setTextColor(view.getResources().getColor(R.color.base_800));
-            }
-            linearLayoutList
-                .get(ViewHolder.getAdapterPosition())
-                .setBackgroundColor(view.getResources().getColor(R.color.primary_400));
-            weekNameList
-                .get(ViewHolder.getAdapterPosition())
-                .setTextColor(view.getResources().getColor(R.color.base_100));
-            monthDayList
-                .get(ViewHolder.getAdapterPosition())
-                .setTextColor(view.getResources().getColor(R.color.base_100));
-          }
-        });
+    if (selected_position == i) {
+      ViewHolder.weekName.setTextColor(ViewHolder.itemView.getResources().getColor(R.color.base_100));
+      ViewHolder.monthDay.setTextColor(ViewHolder.itemView.getResources().getColor(R.color.base_100));
+      ViewHolder.linearLayout.setBackgroundColor(ViewHolder.itemView.getResources().getColor(R.color.primary_400));
+
+    } else {
+      ViewHolder.weekName.setTextColor(ViewHolder.itemView.getResources().getColor(R.color.base_800));
+      ViewHolder.monthDay.setTextColor(ViewHolder.itemView.getResources().getColor(R.color.base_800));
+      ViewHolder.linearLayout.setBackgroundColor(ViewHolder.itemView.getResources().getColor(R.color.primary_100));
+    }
   }
 
   @Override

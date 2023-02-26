@@ -17,13 +17,18 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.highlight.Highlight;
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.loopeer.shadow.ShadowView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -38,6 +43,7 @@ public class HomeActivity extends AppCompatActivity {
   private RecyclerView rv, rvDays;
   int expensePos;
   int dayPos = 30;
+  ShadowView shadowView;
   TextView tvInfoExp, tvToday, tvNoInfo;
   Dialog addDialog, expenseInfoDialog;
   Button btnTrack;
@@ -54,7 +60,7 @@ public class HomeActivity extends AppCompatActivity {
     date.set(Calendar.HOUR_OF_DAY, 0);
     date.set(Calendar.MINUTE, 0);
     date.set(Calendar.SECOND, 0);
-    date.add(Calendar.DAY_OF_MONTH, (-1) * 30);
+    date.add(Calendar.DAY_OF_MONTH, (-1) * dayPos);
     for (int i = 1; i <= 32; i++) {
       dateList.add(date.getTime());
       date.add(Calendar.DATE, 1);
@@ -159,13 +165,16 @@ public class HomeActivity extends AppCompatActivity {
       tvToday.setVisibility(View.INVISIBLE);
       tvInfoExp.setVisibility(View.VISIBLE);
       btnTrack.setVisibility(View.VISIBLE);
+      shadowView.setVisibility(View.INVISIBLE);
       initEmptyPieChart();
     } else {
       if (expenses.isEmpty()) {
         tvNoInfo.setVisibility(View.VISIBLE);
+        shadowView.setVisibility(View.INVISIBLE);
         initEmptyPieChart();
       } else {
         tvNoInfo.setVisibility(View.INVISIBLE);
+        shadowView.setVisibility(View.VISIBLE);
         initPieChart();
       }
     }
@@ -207,6 +216,7 @@ public class HomeActivity extends AppCompatActivity {
     btnAdd = findViewById(R.id.plus_icon);
     btnLeft = findViewById(R.id.left);
     btnRight = findViewById(R.id.right);
+    shadowView = findViewById(R.id.shadowView);
 
     tvNoInfo.setVisibility(View.INVISIBLE);
     tvInfoExp.setVisibility(View.INVISIBLE);
@@ -282,6 +292,21 @@ public class HomeActivity extends AppCompatActivity {
     pieChart.setCenterText(text);
     pieChart.setCenterTextSize(18f);
     pieChart.setCenterTextColor(getResources().getColor(R.color.primary_400));
+//    pieChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+//      @Override
+//      public void onValueSelected(Entry e, Highlight h) {
+//        Toast.makeText(
+//                getApplicationContext(),
+//                h.getDataIndex() + "",
+//                Toast.LENGTH_LONG)
+//                .show();
+//      }
+//
+//      @Override
+//      public void onNothingSelected() {
+//
+//      }
+//    });
     pieChart.animate();
   }
 
