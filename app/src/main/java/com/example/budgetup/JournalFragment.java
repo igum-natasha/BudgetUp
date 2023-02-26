@@ -14,9 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Legend;
@@ -73,7 +71,7 @@ public class JournalFragment extends Fragment {
     String category;
     ArrayList<BarEntry> data_expenses = new ArrayList<>();
     ArrayList<String> xAxisLabel =
-            new ArrayList<>(Arrays.asList("food", "clothes", "car", "gift", "house", "transport"));
+        new ArrayList<>(Arrays.asList("food", "clothes", "car", "gift", "house", "transport"));
     float[] sumByCategory = {0, 0, 0, 0, 0, 0};
     float maxSum = 0, sum = 0;
     for (int i = 0; i < sumByCategory.length; i++) {
@@ -88,12 +86,12 @@ public class JournalFragment extends Fragment {
 
     BarDataSet barDataSet = new BarDataSet(data_expenses, "Expenses");
     int[] colors = {
-            getResources().getColor(R.color.menu_1),
-            getResources().getColor(R.color.menu_2),
-            getResources().getColor(R.color.menu_3),
-            getResources().getColor(R.color.menu_4),
-            getResources().getColor(R.color.menu_5),
-            getResources().getColor(R.color.menu_6)
+      getResources().getColor(R.color.menu_1),
+      getResources().getColor(R.color.menu_2),
+      getResources().getColor(R.color.menu_3),
+      getResources().getColor(R.color.menu_4),
+      getResources().getColor(R.color.menu_5),
+      getResources().getColor(R.color.menu_6)
     };
     barDataSet.setColors(colors);
     barDataSet.setDrawValues(false);
@@ -290,10 +288,13 @@ public class JournalFragment extends Fragment {
   private void defineInfoDialog() {
     expenseInfoDialog = new Dialog(JournalFragment.this.getContext());
     expenseInfoDialog.setContentView(R.layout.expense_dialog);
-    expenseInfoDialog.getWindow().setBackgroundDrawable(JournalFragment.this.getContext().getDrawable(R.drawable.background_dialog));
     expenseInfoDialog
-            .getWindow()
-            .setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        .getWindow()
+        .setBackgroundDrawable(
+            JournalFragment.this.getContext().getDrawable(R.drawable.background_dialog));
+    expenseInfoDialog
+        .getWindow()
+        .setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
     expenseInfoDialog.setCancelable(false);
     ImageView image = expenseInfoDialog.findViewById(R.id.expenseIcon);
     TextView date = expenseInfoDialog.findViewById(R.id.dateTitle);
@@ -312,24 +313,24 @@ public class JournalFragment extends Fragment {
     expCateg.setText(currentExpense.getCategory());
     expCount.setText(currentExpense.getValue() + " " + currentExpense.getCurrency());
     close.setOnClickListener(
-            new View.OnClickListener() {
-              @Override
-              public void onClick(View view) {
-                expenseInfoDialog.dismiss();
-              }
-            });
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+            expenseInfoDialog.dismiss();
+          }
+        });
     delete.setOnClickListener(
-            new View.OnClickListener() {
-              @Override
-              public void onClick(View view) {
-                AppDatabase db = AppDatabase.build(getContext());
-                db.expenseDao().deleteById(currentExpense.getId());
-                expenseInfoDialog.dismiss();
-                //                Intent intent =
-                //                        new Intent(
-                //                                HomeActivity.this, HomeActivity.class);
-                //                startActivity(intent);
-              }
-            });
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+            AppDatabase db = AppDatabase.build(getContext());
+            db.expenseDao().deleteById(currentExpense.getId());
+            expenseInfoDialog.dismiss();
+            //                Intent intent =
+            //                        new Intent(
+            //                                HomeActivity.this, HomeActivity.class);
+            //                startActivity(intent);
+          }
+        });
   }
 }

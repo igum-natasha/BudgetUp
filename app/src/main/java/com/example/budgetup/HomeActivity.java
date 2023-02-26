@@ -17,16 +17,12 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
-import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.highlight.Highlight;
-import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.loopeer.shadow.ShadowView;
 
@@ -292,21 +288,21 @@ public class HomeActivity extends AppCompatActivity {
     pieChart.setCenterText(text);
     pieChart.setCenterTextSize(18f);
     pieChart.setCenterTextColor(getResources().getColor(R.color.primary_400));
-//    pieChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
-//      @Override
-//      public void onValueSelected(Entry e, Highlight h) {
-//        Toast.makeText(
-//                getApplicationContext(),
-//                h.getDataIndex() + "",
-//                Toast.LENGTH_LONG)
-//                .show();
-//      }
-//
-//      @Override
-//      public void onNothingSelected() {
-//
-//      }
-//    });
+    //    pieChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+    //      @Override
+    //      public void onValueSelected(Entry e, Highlight h) {
+    //        Toast.makeText(
+    //                getApplicationContext(),
+    //                h.getDataIndex() + "",
+    //                Toast.LENGTH_LONG)
+    //                .show();
+    //      }
+    //
+    //      @Override
+    //      public void onNothingSelected() {
+    //
+    //      }
+    //    });
     pieChart.animate();
   }
 

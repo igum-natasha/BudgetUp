@@ -10,7 +10,6 @@ import android.widget.TextView;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class RVAdapterCalendar extends RecyclerView.Adapter<RVAdapterCalendar.CalendarViewHolder> {
@@ -37,7 +36,7 @@ public class RVAdapterCalendar extends RecyclerView.Adapter<RVAdapterCalendar.Ca
 
     @Override
     public void onClick(View v) {
-      if(clickListener != null){
+      if (clickListener != null) {
         int position = getAdapterPosition();
         selected_position = position;
         clickListener.onItemClick(position, v);
@@ -78,14 +77,20 @@ public class RVAdapterCalendar extends RecyclerView.Adapter<RVAdapterCalendar.Ca
     ViewHolder.monthDay.setText(calendar.get(i)[1]);
 
     if (selected_position == i) {
-      ViewHolder.weekName.setTextColor(ViewHolder.itemView.getResources().getColor(R.color.base_100));
-      ViewHolder.monthDay.setTextColor(ViewHolder.itemView.getResources().getColor(R.color.base_100));
-      ViewHolder.linearLayout.setBackgroundColor(ViewHolder.itemView.getResources().getColor(R.color.primary_400));
+      ViewHolder.weekName.setTextColor(
+          ViewHolder.itemView.getResources().getColor(R.color.base_100));
+      ViewHolder.monthDay.setTextColor(
+          ViewHolder.itemView.getResources().getColor(R.color.base_100));
+      ViewHolder.linearLayout.setBackgroundColor(
+          ViewHolder.itemView.getResources().getColor(R.color.primary_400));
 
     } else {
-      ViewHolder.weekName.setTextColor(ViewHolder.itemView.getResources().getColor(R.color.base_800));
-      ViewHolder.monthDay.setTextColor(ViewHolder.itemView.getResources().getColor(R.color.base_800));
-      ViewHolder.linearLayout.setBackgroundColor(ViewHolder.itemView.getResources().getColor(R.color.primary_100));
+      ViewHolder.weekName.setTextColor(
+          ViewHolder.itemView.getResources().getColor(R.color.base_800));
+      ViewHolder.monthDay.setTextColor(
+          ViewHolder.itemView.getResources().getColor(R.color.base_800));
+      ViewHolder.linearLayout.setBackgroundColor(
+          ViewHolder.itemView.getResources().getColor(R.color.primary_100));
     }
   }
 
