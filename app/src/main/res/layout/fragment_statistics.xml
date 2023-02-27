@@ -64,7 +64,7 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvDays"
-            android:layout_width="280dp"
+            android:layout_width="220dp"
             android:layout_height="wrap_content"
             android:nestedScrollingEnabled="false"/>
         <ImageButton

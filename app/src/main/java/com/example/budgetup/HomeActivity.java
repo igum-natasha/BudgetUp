@@ -39,7 +39,7 @@ import java.util.List;
 public class HomeActivity extends AppCompatActivity {
 
   private List<Expense> expenses;
-  private List<String[]> days = new ArrayList<>();
+  private List<Date[]> days = new ArrayList<>();
   ArrayList<PieEntry> data_expenses = new ArrayList<>();
   private RecyclerView rv, rvDays;
   int expensePos;
@@ -105,12 +105,12 @@ public class HomeActivity extends AppCompatActivity {
   }
 
   private void initializeDataDays() {
-    @SuppressLint("SimpleDateFormat")
-    SimpleDateFormat formatDay = new SimpleDateFormat("EEE, MMMM dd");
-    SimpleDateFormat formatYear = new SimpleDateFormat("yyyy");
+//    @SuppressLint("SimpleDateFormat")
+//    SimpleDateFormat formatDay = new SimpleDateFormat("EEE, MMMM dd");
+//    SimpleDateFormat formatYear = new SimpleDateFormat("yyyy");
     for (int i = 0; i < dateList.size(); i++) {
       days.add(
-          new String[] {formatDay.format(dateList.get(i)), formatYear.format(dateList.get(i))});
+          new Date[] {dateList.get(i)});
     }
   }
 

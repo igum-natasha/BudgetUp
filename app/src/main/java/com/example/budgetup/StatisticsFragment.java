@@ -1,8 +1,10 @@
 package com.example.budgetup;
 
 import android.annotation.SuppressLint;
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,6 +24,7 @@ import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.google.android.material.button.MaterialButtonToggleGroup;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -31,12 +34,12 @@ import java.util.List;
 public class StatisticsFragment extends Fragment {
 
   private View view;
-
-  private String[][] daysExpenses;
-  private List<String[]> days = new ArrayList<>();
+  private List<Expense> expenses;
+  private List<Date[]> days = new ArrayList<>();
   private RecyclerView rv;
   private RecyclerView rvDays;
   private ImageButton btnLeft, btnRight;
+  int weekPos = 4;
   Calendar date = Calendar.getInstance();
   List<Date> dateList = new ArrayList<>();
 
@@ -45,14 +48,17 @@ public class StatisticsFragment extends Fragment {
       LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     // Inflate the layout for this fragment
     view = inflater.inflate(R.layout.fragment_statistics, container, false);
-    initBarChart();
     initViews();
+    date.set(Calendar.HOUR_OF_DAY, 0);
+    date.set(Calendar.MINUTE, 0);
+    date.set(Calendar.SECOND, 0);
     date.add(Calendar.DAY_OF_MONTH, (-1) * 30);
-    for (int i = 1; i <= 30; i++) {
+    for (int i = 1; i <= 60; i++) {
       dateList.add(date.getTime());
       date.add(Calendar.DATE, 1);
     }
     showDays();
+    initBarChart();
     showCategories();
     MaterialButtonToggleGroup toggleGroup = view.findViewById(R.id.toggleGroup);
     toggleGroup.check(R.id.button1);
@@ -63,6 +69,7 @@ public class StatisticsFragment extends Fragment {
               MaterialButtonToggleGroup group, int checkedId, boolean isChecked) {
             switch (checkedId) {
               case R.id.button1:
+//                showDays();
                 Toast.makeText(
                         view.getContext(),
                         getResources().getString(R.string.weekTitle),
@@ -141,14 +148,14 @@ public class StatisticsFragment extends Fragment {
   }
 
   private void initializeData() {
-    //    AppDatabase db = AppDatabase.build(getApplicationContext());
-    //    expenses = db.expenseDao().getAll();
-    daysExpenses = new String[][] {{"Food"}, {"Car"}, {"Gifts"}};
+    AppDatabase db = AppDatabase.build(view.getContext());
+    Date[] week = days.get(weekPos);
+    expenses = db.expenseDao().getByDate(week[0].getTime(), week[1].getTime());
   }
 
   @SuppressLint("ClickableViewAccessibility")
   private void initializeAdapter() {
-    RVAdapterCategory adapter = new RVAdapterCategory(daysExpenses);
+    RVAdapterCategory adapter = new RVAdapterCategory(expenses);
     rv.setAdapter(adapter);
     adapter.setOnItemClickListener(
         new RVAdapterCategory.ClickListener() {
@@ -174,12 +181,13 @@ public class StatisticsFragment extends Fragment {
   }
 
   private void initializeDataDays() {
-    @SuppressLint("SimpleDateFormat")
-    SimpleDateFormat formatDay = new SimpleDateFormat("EEE, MMMM dd");
-    SimpleDateFormat formatYear = new SimpleDateFormat("yyyy");
-    for (int i = 0; i < dateList.size(); i++) {
-      days.add(
-          new String[] {formatDay.format(dateList.get(i)), formatYear.format(dateList.get(i))});
+
+    SimpleDateFormat formatNumDayWeek = new SimpleDateFormat("u");
+    for (int i = 0; i < dateList.size() - 6; i++) {
+      if (formatNumDayWeek.format(dateList.get(i)).equals("1")) {
+        days.add(
+                new Date[] {dateList.get(i), dateList.get(i + 6)});
+      }
     }
   }
 
@@ -210,20 +218,23 @@ public class StatisticsFragment extends Fragment {
         new View.OnClickListener() {
           @Override
           public void onClick(View view) {
-            int newPosition = llm.findFirstVisibleItemPosition() - 1;
-            llm.scrollToPositionWithOffset(newPosition, 0);
+            weekPos = llm.findFirstVisibleItemPosition() - 1;
+            llm.scrollToPositionWithOffset(weekPos, 0);
+            showCategories();
           }
         });
     btnRight.setOnClickListener(
         new View.OnClickListener() {
           @Override
           public void onClick(View view) {
-            int newPosition = llm.findFirstVisibleItemPosition() + 1;
-            llm.scrollToPositionWithOffset(newPosition, 0);
+            weekPos = llm.findFirstVisibleItemPosition() + 1;
+            llm.scrollToPositionWithOffset(weekPos, 0);
+            showCategories();
           }
         });
 
     initializeDataDays();
     initializeAdapterDays();
+    rvDays.scrollToPosition(weekPos);
   }
 }

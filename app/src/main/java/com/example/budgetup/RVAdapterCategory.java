@@ -16,6 +16,7 @@ import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class RVAdapterCategory extends RecyclerView.Adapter<RVAdapterCategory.CategoryViewHolder> {
   private static ClickListener clickListener;
@@ -46,10 +47,9 @@ public class RVAdapterCategory extends RecyclerView.Adapter<RVAdapterCategory.Ca
     }
   }
 
-  //    List<Expense> expenses;
-  String[][] expenses;
+  List<Expense> expenses;
 
-  RVAdapterCategory(String[][] expenses) {
+  RVAdapterCategory(List<Expense> expenses) {
     this.expenses = expenses;
   }
 
@@ -72,13 +72,13 @@ public class RVAdapterCategory extends RecyclerView.Adapter<RVAdapterCategory.Ca
     //        deviceViewHolder.expenseName.setText(expenses.get(i).getExpenseName());
     //        deviceViewHolder.expenseCost.setText(expenses.get(i).getExpenseCost());
     //        deviceViewHolder.expensePhoto.setBackgroundResource(img);
-    ViewHolder.categoryName.setText("Category: " + expenses[i][0]);
+    ViewHolder.categoryName.setText("Category: " + expenses.get(i).getCategory());
     initBarChart(ViewHolder.itemView, ViewHolder.barChart);
   }
 
   @Override
   public int getItemCount() {
-    return expenses.length;
+    return expenses.size();
   }
 
   public void setOnItemClickListener(RVAdapterCategory.ClickListener clickListener) {

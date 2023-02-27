@@ -1,5 +1,6 @@
 package com.example.budgetup;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,8 @@ import android.widget.TextView;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class RVAdapterDays extends RecyclerView.Adapter<RVAdapterDays.DaysViewHolder> {
@@ -47,9 +50,9 @@ public class RVAdapterDays extends RecyclerView.Adapter<RVAdapterDays.DaysViewHo
   }
 
   //    List<Expense> expenses;
-  List<String[]> days_list;
+  List<Date[]> days_list;
 
-  RVAdapterDays(List<String[]> days_list) {
+  RVAdapterDays(List<Date[]> days_list) {
     this.days_list = days_list;
   }
 
@@ -72,8 +75,16 @@ public class RVAdapterDays extends RecyclerView.Adapter<RVAdapterDays.DaysViewHo
     //        deviceViewHolder.expenseName.setText(expenses.get(i).getExpenseName());
     //        deviceViewHolder.expenseCost.setText(expenses.get(i).getExpenseCost());
     //        deviceViewHolder.expensePhoto.setBackgroundResource(img);
-    ViewHolder.dateName.setText(days_list.get(i)[0]);
-    ViewHolder.year.setText(days_list.get(i)[1]);
+    @SuppressLint("SimpleDateFormat")
+    SimpleDateFormat formatDay = new SimpleDateFormat("EEE, MMMM dd");
+    SimpleDateFormat formatWeekDay = new SimpleDateFormat("MMM dd");
+    SimpleDateFormat formatYear = new SimpleDateFormat("yyyy");
+    if (days_list.get(i).length == 1) {
+      ViewHolder.dateName.setText(formatDay.format(days_list.get(i)[0]));
+    } else {
+      ViewHolder.dateName.setText(formatWeekDay.format(days_list.get(i)[0]) + " - " + formatWeekDay.format(days_list.get(i)[1]));
+    }
+    ViewHolder.year.setText(formatYear.format(days_list.get(i)[0]));
   }
 
   @Override
