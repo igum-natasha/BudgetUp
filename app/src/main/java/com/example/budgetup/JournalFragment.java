@@ -36,6 +36,7 @@ public class JournalFragment extends Fragment {
 
   private View view;
   private List<String[]> days = new ArrayList<>();
+  ArrayList<BarEntry> data_expenses = new ArrayList<>();
   private List<Expense> expenses;
   private RecyclerView rvToday;
   private RecyclerView rv;
@@ -45,6 +46,14 @@ public class JournalFragment extends Fragment {
   TextView tvMonthName, tvMonthDay, expenseCount, tvNoInfo;
   Dialog expenseInfoDialog;
   ShadowView shadowView;
+  BarChart barChart;
+  String category;
+  ArrayList<String> xAxisLabel =
+          new ArrayList<>(Arrays.asList("food", "clothes", "car", "gift", "house", "transport"));
+  float[] sumByCategory = {0, 0, 0, 0, 0, 0};
+  float maxSum = 0, sum = 0;
+  BarDataSet barDataSet;
+  BarData barData;
 
   @Override
   public View onCreateView(
@@ -67,13 +76,8 @@ public class JournalFragment extends Fragment {
 
   @SuppressLint("SetTextI18n")
   private void initEmptyBarChart() {
-    BarChart barChart = (BarChart) view.findViewById(R.id.barChart);
-    String category;
-    ArrayList<BarEntry> data_expenses = new ArrayList<>();
-    ArrayList<String> xAxisLabel =
-        new ArrayList<>(Arrays.asList("food", "clothes", "car", "gift", "house", "transport"));
-    float[] sumByCategory = {0, 0, 0, 0, 0, 0};
-    float maxSum = 0, sum = 0;
+    data_expenses.clear();
+    sumByCategory = new float[]{0, 0, 0, 0, 0, 0};
     for (int i = 0; i < sumByCategory.length; i++) {
       data_expenses.add(new BarEntry(i, sumByCategory[i]));
       if (sumByCategory[i] > maxSum) {
@@ -81,10 +85,6 @@ public class JournalFragment extends Fragment {
         sum += sumByCategory[i];
       }
     }
-    XAxis xAxis = barChart.getXAxis();
-    xAxis.setValueFormatter(new IndexAxisValueFormatter(xAxisLabel));
-
-    BarDataSet barDataSet = new BarDataSet(data_expenses, "Expenses");
     int[] colors = {
       getResources().getColor(R.color.menu_1),
       getResources().getColor(R.color.menu_2),
@@ -93,10 +93,24 @@ public class JournalFragment extends Fragment {
       getResources().getColor(R.color.menu_5),
       getResources().getColor(R.color.menu_6)
     };
+    String exCount = sum + " RUB";
+    @SuppressLint("SimpleDateFormat")
+    SimpleDateFormat formatDay = new SimpleDateFormat("dd");
+    SimpleDateFormat formatMonth = new SimpleDateFormat("MMM");
+
+    String currentDay = formatDay.format(dateList.get(position));
+    String currentMonth = formatMonth.format(dateList.get(position));
+    defaultBarSettings(colors, exCount, currentDay, currentMonth);
+  }
+
+  private void defaultBarSettings(int[] colors, String exCount, String currentDay, String currentMonth) {
+    XAxis xAxis = barChart.getXAxis();
+    xAxis.setValueFormatter(new IndexAxisValueFormatter(xAxisLabel));
+    barDataSet = new BarDataSet(data_expenses, "Expenses");
     barDataSet.setColors(colors);
     barDataSet.setDrawValues(false);
 
-    BarData barData = new BarData(barDataSet);
+    barData = new BarData(barDataSet);
     Legend l = barChart.getLegend();
     l.setEnabled(false);
     xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
@@ -106,32 +120,20 @@ public class JournalFragment extends Fragment {
     xAxis.setLabelCount(xAxisLabel.size());
     barChart.getAxisLeft().setGridColor(getResources().getColor(R.color.primary_200));
     barChart.getAxisLeft().setTextColor(getResources().getColor(R.color.base_500));
-    //    barChart.getAxisLeft().setDrawGridLines(false);
     barChart.getAxisRight().setEnabled(false);
     barChart.setFitBars(true);
     barChart.setData(barData);
     barChart.getDescription().setEnabled(false);
     barChart.animateY((int) maxSum);
-    expenseCount.setText(sum + " RUB");
-    @SuppressLint("SimpleDateFormat")
-    SimpleDateFormat formatDay = new SimpleDateFormat("dd");
-    SimpleDateFormat formatMonth = new SimpleDateFormat("MMM");
 
-    String currentDay = formatDay.format(dateList.get(position));
-    String currentMonth = formatMonth.format(dateList.get(position));
+    expenseCount.setText(exCount);
     tvMonthDay.setText(currentDay);
     tvMonthName.setText(currentMonth);
   }
-
   @SuppressLint("SetTextI18n")
   private void initBarChart() {
-    BarChart barChart = (BarChart) view.findViewById(R.id.barChart);
-    String category;
-    ArrayList<BarEntry> data_expenses = new ArrayList<>();
-    ArrayList<String> xAxisLabel =
-        new ArrayList<>(Arrays.asList("food", "clothes", "car", "gift", "house", "transport"));
-    float[] sumByCategory = {0, 0, 0, 0, 0, 0};
-    float maxSum = 0, sum = 0;
+    data_expenses.clear();
+    sumByCategory = new float[]{0, 0, 0, 0, 0, 0};
     for (int i = 0; i < expenses.size(); i++) {
       category = expenses.get(i).getCategory();
       if (xAxisLabel.contains(category)) {
@@ -146,10 +148,6 @@ public class JournalFragment extends Fragment {
         sum += sumByCategory[i];
       }
     }
-    XAxis xAxis = barChart.getXAxis();
-    xAxis.setValueFormatter(new IndexAxisValueFormatter(xAxisLabel));
-
-    BarDataSet barDataSet = new BarDataSet(data_expenses, "Expenses");
     int[] colors = {
       getResources().getColor(R.color.menu_1),
       getResources().getColor(R.color.menu_2),
@@ -158,35 +156,13 @@ public class JournalFragment extends Fragment {
       getResources().getColor(R.color.menu_5),
       getResources().getColor(R.color.menu_6)
     };
-    barDataSet.setColors(colors);
-    barDataSet.setDrawValues(false);
-
-    BarData barData = new BarData(barDataSet);
-    Legend l = barChart.getLegend();
-    l.setEnabled(false);
-    xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-    xAxis.setDrawGridLines(false);
-    xAxis.setDrawAxisLine(false);
-    xAxis.setGranularity(1f);
-    xAxis.setLabelCount(xAxisLabel.size());
-    barChart.getAxisLeft().setGridColor(getResources().getColor(R.color.primary_200));
-    barChart.getAxisLeft().setTextColor(getResources().getColor(R.color.base_500));
-    //    barChart.getAxisLeft().setDrawGridLines(false);
-    barChart.getAxisRight().setEnabled(false);
-    barChart.setFitBars(true);
-    barChart.setData(barData);
-    barChart.getDescription().setEnabled(false);
-    barChart.animateY((int) 100);
-    expenseCount.setText(sum + " " + expenses.get(0).getCurrency());
-    Date date = new Date(expenses.get(0).getDate());
+    String exCount = sum + " " + expenses.get(0).getCurrency();
     @SuppressLint("SimpleDateFormat")
     SimpleDateFormat formatDay = new SimpleDateFormat("dd");
     SimpleDateFormat formatMonth = new SimpleDateFormat("MMM");
 
-    String currentDay = formatDay.format(date);
-    String currentMonth = formatMonth.format(date);
-    tvMonthDay.setText(currentDay);
-    tvMonthName.setText(currentMonth);
+    String currentDay = formatDay.format(dateList.get(position));
+    String currentMonth = formatMonth.format(dateList.get(position));
   }
 
   private void initializeData() {
@@ -280,6 +256,7 @@ public class JournalFragment extends Fragment {
     expenseCount = view.findViewById(R.id.expenseCount);
     shadowView = view.findViewById(R.id.shadowView);
     tvNoInfo = view.findViewById(R.id.noInfoTV);
+    barChart = (BarChart) view.findViewById(R.id.barChart);
 
     tvNoInfo.setVisibility(View.INVISIBLE);
   }

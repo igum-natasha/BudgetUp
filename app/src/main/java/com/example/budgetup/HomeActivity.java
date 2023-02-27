@@ -17,12 +17,16 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.highlight.Highlight;
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.loopeer.shadow.ShadowView;
 
@@ -36,6 +40,7 @@ public class HomeActivity extends AppCompatActivity {
 
   private List<Expense> expenses;
   private List<String[]> days = new ArrayList<>();
+  ArrayList<PieEntry> data_expenses = new ArrayList<>();
   private RecyclerView rv, rvDays;
   int expensePos;
   int dayPos = 30;
@@ -46,6 +51,10 @@ public class HomeActivity extends AppCompatActivity {
   Calendar date = Calendar.getInstance();
   List<Date> dateList = new ArrayList<>();
   ImageButton btnAdd, btnLeft, btnRight;
+  PieChart pieChart;
+  PieDataSet pieDataSet;
+  PieData pieData;
+  int[] colors;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -213,6 +222,7 @@ public class HomeActivity extends AppCompatActivity {
     btnLeft = findViewById(R.id.left);
     btnRight = findViewById(R.id.right);
     shadowView = findViewById(R.id.shadowView);
+    pieChart = findViewById(R.id.pieChart);
 
     tvNoInfo.setVisibility(View.INVISIBLE);
     tvInfoExp.setVisibility(View.INVISIBLE);
@@ -221,33 +231,53 @@ public class HomeActivity extends AppCompatActivity {
 
   @SuppressLint("DefaultLocale")
   private void initEmptyPieChart() {
-    PieChart pieChart = findViewById(R.id.pieChart);
-    ArrayList<PieEntry> data_expenses = new ArrayList<>();
     int[] palette = {getResources().getColor(R.color.base_300)};
+    data_expenses.clear();
     data_expenses.add(new PieEntry(1, ""));
-    int[] colors = new int[1];
+    colors = new int[1];
     colors[0] = palette[0];
-    PieDataSet pieDataSet = new PieDataSet(data_expenses, "Expenses");
+    String text = "No info";
+    defaultPieSettings(text, R.color.primary_900);
+  }
+
+  private void defaultPieSettings(String centreText, int centreColor) {
+    pieDataSet = new PieDataSet(data_expenses, "Expenses");
     pieDataSet.setColors(colors);
     pieDataSet.setDrawValues(false);
 
-    PieData pieData = new PieData(pieDataSet);
+    pieData = new PieData(pieDataSet);
+    pieChart.invalidate();
+    pieChart.clear();
     Legend l = pieChart.getLegend();
     l.setEnabled(false);
     pieChart.setData(pieData);
     pieChart.setEntryLabelColor(getResources().getColor(R.color.base_600));
     pieChart.getDescription().setEnabled(false);
-    String text = "No info";
-    pieChart.setCenterText(text);
+
+    pieChart.setCenterText(centreText);
     pieChart.setCenterTextSize(18f);
-    pieChart.setCenterTextColor(getResources().getColor(R.color.primary_900));
+    pieChart.setCenterTextColor(getResources().getColor(centreColor));
+    pieChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+      @Override
+      public void onValueSelected(Entry e, Highlight h) {
+        Toast.makeText(
+                getApplicationContext(),
+                h.toString() + " " + e.toString(),
+                Toast.LENGTH_LONG)
+                .show();
+      }
+
+      @Override
+      public void onNothingSelected() {
+
+      }
+    });
     pieChart.animate();
+
   }
 
   @SuppressLint("DefaultLocale")
   private void initPieChart() {
-    PieChart pieChart = findViewById(R.id.pieChart);
-    ArrayList<PieEntry> data_expenses = new ArrayList<>();
     int[] palette = {
       getResources().getColor(R.color.menu_1),
       getResources().getColor(R.color.menu_2),
@@ -257,9 +287,10 @@ public class HomeActivity extends AppCompatActivity {
       getResources().getColor(R.color.menu_6),
       getResources().getColor(R.color.menu_7)
     };
-    int[] colors = new int[expenses.size()];
+    colors = new int[expenses.size()];
     float max_income = 0, max_expense = 0;
     String currency = expenses.get(0).getCurrency();
+    data_expenses.clear();
     for (int i = 0; i < expenses.size(); i++) {
       float value = Float.parseFloat(expenses.get(i).getValue());
       data_expenses.add(
@@ -274,36 +305,8 @@ public class HomeActivity extends AppCompatActivity {
       }
       colors[i] = palette[i];
     }
-    PieDataSet pieDataSet = new PieDataSet(data_expenses, "Expenses");
-    pieDataSet.setColors(colors);
-    pieDataSet.setDrawValues(false);
-
-    PieData pieData = new PieData(pieDataSet);
-    Legend l = pieChart.getLegend();
-    l.setEnabled(false);
-    pieChart.setData(pieData);
-    pieChart.setEntryLabelColor(getResources().getColor(R.color.base_600));
-    pieChart.getDescription().setEnabled(false);
     String text = String.format("%s %.2f\n%s %.2f", currency, max_income, currency, max_expense);
-    pieChart.setCenterText(text);
-    pieChart.setCenterTextSize(18f);
-    pieChart.setCenterTextColor(getResources().getColor(R.color.primary_400));
-    //    pieChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
-    //      @Override
-    //      public void onValueSelected(Entry e, Highlight h) {
-    //        Toast.makeText(
-    //                getApplicationContext(),
-    //                h.getDataIndex() + "",
-    //                Toast.LENGTH_LONG)
-    //                .show();
-    //      }
-    //
-    //      @Override
-    //      public void onNothingSelected() {
-    //
-    //      }
-    //    });
-    pieChart.animate();
+    defaultPieSettings(text, R.color.primary_400);
   }
 
   @SuppressLint("UseCompatLoadingForDrawables")
