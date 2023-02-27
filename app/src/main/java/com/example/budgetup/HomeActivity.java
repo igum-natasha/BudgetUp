@@ -105,12 +105,11 @@ public class HomeActivity extends AppCompatActivity {
   }
 
   private void initializeDataDays() {
-//    @SuppressLint("SimpleDateFormat")
-//    SimpleDateFormat formatDay = new SimpleDateFormat("EEE, MMMM dd");
-//    SimpleDateFormat formatYear = new SimpleDateFormat("yyyy");
+    //    @SuppressLint("SimpleDateFormat")
+    //    SimpleDateFormat formatDay = new SimpleDateFormat("EEE, MMMM dd");
+    //    SimpleDateFormat formatYear = new SimpleDateFormat("yyyy");
     for (int i = 0; i < dateList.size(); i++) {
-      days.add(
-          new Date[] {dateList.get(i)});
+      days.add(new Date[] {dateList.get(i)});
     }
   }
 

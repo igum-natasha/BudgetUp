@@ -82,7 +82,10 @@ public class RVAdapterDays extends RecyclerView.Adapter<RVAdapterDays.DaysViewHo
     if (days_list.get(i).length == 1) {
       ViewHolder.dateName.setText(formatDay.format(days_list.get(i)[0]));
     } else {
-      ViewHolder.dateName.setText(formatWeekDay.format(days_list.get(i)[0]) + " - " + formatWeekDay.format(days_list.get(i)[1]));
+      ViewHolder.dateName.setText(
+          formatWeekDay.format(days_list.get(i)[0])
+              + " - "
+              + formatWeekDay.format(days_list.get(i)[1]));
     }
     ViewHolder.year.setText(formatYear.format(days_list.get(i)[0]));
   }

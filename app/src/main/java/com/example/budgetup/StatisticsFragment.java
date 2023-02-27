@@ -1,10 +1,8 @@
 package com.example.budgetup;
 
 import android.annotation.SuppressLint;
-import android.os.Build;
 import android.os.Bundle;
 
-import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,7 +22,6 @@ import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.google.android.material.button.MaterialButtonToggleGroup;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -69,7 +66,7 @@ public class StatisticsFragment extends Fragment {
               MaterialButtonToggleGroup group, int checkedId, boolean isChecked) {
             switch (checkedId) {
               case R.id.button1:
-//                showDays();
+                //                showDays();
                 Toast.makeText(
                         view.getContext(),
                         getResources().getString(R.string.weekTitle),
@@ -185,8 +182,7 @@ public class StatisticsFragment extends Fragment {
     SimpleDateFormat formatNumDayWeek = new SimpleDateFormat("u");
     for (int i = 0; i < dateList.size() - 6; i++) {
       if (formatNumDayWeek.format(dateList.get(i)).equals("1")) {
-        days.add(
-                new Date[] {dateList.get(i), dateList.get(i + 6)});
+        days.add(new Date[] {dateList.get(i), dateList.get(i + 6)});
       }
     }
   }
