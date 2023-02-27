@@ -257,23 +257,19 @@ public class HomeActivity extends AppCompatActivity {
     pieChart.setCenterText(centreText);
     pieChart.setCenterTextSize(18f);
     pieChart.setCenterTextColor(getResources().getColor(centreColor));
-    pieChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
-      @Override
-      public void onValueSelected(Entry e, Highlight h) {
-        Toast.makeText(
-                getApplicationContext(),
-                h.toString() + " " + e.toString(),
-                Toast.LENGTH_LONG)
+    pieChart.setOnChartValueSelectedListener(
+        new OnChartValueSelectedListener() {
+          @Override
+          public void onValueSelected(Entry e, Highlight h) {
+            Toast.makeText(
+                    getApplicationContext(), h.toString() + " " + e.toString(), Toast.LENGTH_LONG)
                 .show();
-      }
+          }
 
-      @Override
-      public void onNothingSelected() {
-
-      }
-    });
+          @Override
+          public void onNothingSelected() {}
+        });
     pieChart.animate();
-
   }
 
   @SuppressLint("DefaultLocale")

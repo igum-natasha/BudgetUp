@@ -49,7 +49,7 @@ public class JournalFragment extends Fragment {
   BarChart barChart;
   String category;
   ArrayList<String> xAxisLabel =
-          new ArrayList<>(Arrays.asList("food", "clothes", "car", "gift", "house", "transport"));
+      new ArrayList<>(Arrays.asList("food", "clothes", "car", "gift", "house", "transport"));
   float[] sumByCategory = {0, 0, 0, 0, 0, 0};
   float maxSum = 0, sum = 0;
   BarDataSet barDataSet;
@@ -77,7 +77,7 @@ public class JournalFragment extends Fragment {
   @SuppressLint("SetTextI18n")
   private void initEmptyBarChart() {
     data_expenses.clear();
-    sumByCategory = new float[]{0, 0, 0, 0, 0, 0};
+    sumByCategory = new float[] {0, 0, 0, 0, 0, 0};
     for (int i = 0; i < sumByCategory.length; i++) {
       data_expenses.add(new BarEntry(i, sumByCategory[i]));
       if (sumByCategory[i] > maxSum) {
@@ -103,7 +103,8 @@ public class JournalFragment extends Fragment {
     defaultBarSettings(colors, exCount, currentDay, currentMonth);
   }
 
-  private void defaultBarSettings(int[] colors, String exCount, String currentDay, String currentMonth) {
+  private void defaultBarSettings(
+      int[] colors, String exCount, String currentDay, String currentMonth) {
     XAxis xAxis = barChart.getXAxis();
     xAxis.setValueFormatter(new IndexAxisValueFormatter(xAxisLabel));
     barDataSet = new BarDataSet(data_expenses, "Expenses");
@@ -130,10 +131,11 @@ public class JournalFragment extends Fragment {
     tvMonthDay.setText(currentDay);
     tvMonthName.setText(currentMonth);
   }
+
   @SuppressLint("SetTextI18n")
   private void initBarChart() {
     data_expenses.clear();
-    sumByCategory = new float[]{0, 0, 0, 0, 0, 0};
+    sumByCategory = new float[] {0, 0, 0, 0, 0, 0};
     for (int i = 0; i < expenses.size(); i++) {
       category = expenses.get(i).getCategory();
       if (xAxisLabel.contains(category)) {
