@@ -112,6 +112,7 @@ public class JournalFragment extends Fragment {
     barDataSet.setDrawValues(false);
 
     barData = new BarData(barDataSet);
+    barChart.clear();
     Legend l = barChart.getLegend();
     l.setEnabled(false);
     xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
@@ -165,6 +166,7 @@ public class JournalFragment extends Fragment {
 
     String currentDay = formatDay.format(dateList.get(position));
     String currentMonth = formatMonth.format(dateList.get(position));
+    defaultBarSettings(colors, exCount, currentDay, currentMonth);
   }
 
   private void initializeData() {
