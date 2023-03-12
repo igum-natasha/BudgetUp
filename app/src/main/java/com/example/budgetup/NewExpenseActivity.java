@@ -84,25 +84,25 @@ public class NewExpenseActivity extends AppCompatActivity {
     BottomNavigationView nav_view = findViewById(R.id.navigationView);
     nav_view.setSelectedItemId(R.id.home);
     nav_view.setOnNavigationItemSelectedListener(
-            new BottomNavigationView.OnNavigationItemSelectedListener() {
-              @Override
-              public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                  case R.id.home:
-                    return true;
-                  case R.id.statistic:
-                    Intent intent = new Intent(NewExpenseActivity.this, StatisticsActivity.class);
-                    startActivity(intent);
-                    overridePendingTransition(0, 0);
-                    return true;
-                  case R.id.account:
-                    startActivity(new Intent(NewExpenseActivity.this, ProfileActivity.class));
-                    overridePendingTransition(0, 0);
-                    return true;
-                }
-                return false;
-              }
-            });
+        new BottomNavigationView.OnNavigationItemSelectedListener() {
+          @Override
+          public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            switch (item.getItemId()) {
+              case R.id.home:
+                return true;
+              case R.id.statistic:
+                Intent intent = new Intent(NewExpenseActivity.this, StatisticsActivity.class);
+                startActivity(intent);
+                overridePendingTransition(0, 0);
+                return true;
+              case R.id.account:
+                startActivity(new Intent(NewExpenseActivity.this, ProfileActivity.class));
+                overridePendingTransition(0, 0);
+                return true;
+            }
+            return false;
+          }
+        });
   }
 
   private void definePaymentMenu() {

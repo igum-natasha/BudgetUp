@@ -81,28 +81,28 @@ public class NewIncomeActivity extends AppCompatActivity {
             }
           }
         });
-      BottomNavigationView nav_view = findViewById(R.id.navigationView);
-      nav_view.setSelectedItemId(R.id.home);
-      nav_view.setOnNavigationItemSelectedListener(
-              new BottomNavigationView.OnNavigationItemSelectedListener() {
-                  @Override
-                  public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                      switch (item.getItemId()) {
-                          case R.id.home:
-                              return true;
-                          case R.id.statistic:
-                              Intent intent = new Intent(NewIncomeActivity.this, StatisticsActivity.class);
-                              startActivity(intent);
-                              overridePendingTransition(0, 0);
-                              return true;
-                          case R.id.account:
-                              startActivity(new Intent(NewIncomeActivity.this, ProfileActivity.class));
-                              overridePendingTransition(0, 0);
-                              return true;
-                      }
-                      return false;
-                  }
-              });
+    BottomNavigationView nav_view = findViewById(R.id.navigationView);
+    nav_view.setSelectedItemId(R.id.home);
+    nav_view.setOnNavigationItemSelectedListener(
+        new BottomNavigationView.OnNavigationItemSelectedListener() {
+          @Override
+          public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            switch (item.getItemId()) {
+              case R.id.home:
+                return true;
+              case R.id.statistic:
+                Intent intent = new Intent(NewIncomeActivity.this, StatisticsActivity.class);
+                startActivity(intent);
+                overridePendingTransition(0, 0);
+                return true;
+              case R.id.account:
+                startActivity(new Intent(NewIncomeActivity.this, ProfileActivity.class));
+                overridePendingTransition(0, 0);
+                return true;
+            }
+            return false;
+          }
+        });
   }
 
   private void definePaymentMenu() {

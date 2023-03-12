@@ -320,27 +320,23 @@ public class HomeActivity extends AppCompatActivity {
         new View.OnClickListener() {
           @Override
           public void onClick(View view) {
-            Intent intent =
-                new Intent(HomeActivity.this, NewIncomeActivity.class);
+            Intent intent = new Intent(HomeActivity.this, NewIncomeActivity.class);
             startActivity(intent);
           }
         });
-    bankData.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View view) {
-        Intent intent =
-                new Intent(
-                        HomeActivity.this, BankDataActivity.class);
-        startActivity(intent);
-      }
-    });
+    bankData.setOnClickListener(
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+            Intent intent = new Intent(HomeActivity.this, BankDataActivity.class);
+            startActivity(intent);
+          }
+        });
     expense.setOnClickListener(
         new View.OnClickListener() {
           @Override
           public void onClick(View view) {
-            Intent intent =
-                new Intent(
-                    HomeActivity.this, NewExpenseActivity.class);
+            Intent intent = new Intent(HomeActivity.this, NewExpenseActivity.class);
             startActivity(intent);
           }
         });
