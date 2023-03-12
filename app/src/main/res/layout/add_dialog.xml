@@ -8,8 +8,8 @@
 
     <LinearLayout
         android:id="@+id/layoutIncome"
-        android:layout_width="150dp"
-        android:layout_height="80dp"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical"
         android:padding="8dp"
@@ -20,17 +20,19 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:background="@color/base_50"
-            android:contentDescription="@string/add_income"
+            android:contentDescription="@string/new_income"
+            android:layout_margin="4dp"
             android:src="@drawable/sync"
             app:tint="@color/base_900" />
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="20dp"
+            android:layout_height="wrap_content"
             android:background="@color/base_50"
             android:backgroundTint="@color/base_50"
             android:fontFamily="@font/poppins"
-            android:text="@string/add_income"
+            android:gravity="center"
+            android:text="@string/new_income"
             android:textSize="16sp"
             android:textColor="@color/base_700"
             app:drawableTint="@color/base_50" />
@@ -38,9 +40,9 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/layoutExpense"
-        android:layout_width="150dp"
-        android:layout_height="80dp"
+        android:id="@+id/layoutBank"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical"
         android:padding="8dp"
@@ -51,18 +53,53 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:background="@color/base_50"
-            android:contentDescription="@string/add_expense"
-            android:src="@drawable/expense"
+            android:contentDescription="@string/add_bank"
+            android:layout_margin="4dp"
+            android:src="@drawable/bank"
             app:tint="@color/base_900" />
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="20dp"
+            android:layout_height="wrap_content"
+            android:background="@color/base_50"
+            android:backgroundTint="@color/base_50"
+            android:fontFamily="@font/poppins"
+            android:text="@string/add_bank"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:textColor="@color/base_700"
+            app:drawableTint="@color/base_50" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutExpense"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="8dp"
+        app:layout_constraintStart_toEndOf="@id/layoutBank"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:background="@color/base_50"
+            android:contentDescription="@string/new_expense"
+            android:src="@drawable/expense"
+            android:layout_margin="4dp"
+            app:tint="@color/base_900" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:background="@color/base_50"
             android:backgroundTint="@color/base_50"
             android:fontFamily="@font/poppins"
             android:textSize="16sp"
-            android:text="@string/add_expense"
+            android:gravity="center"
+            android:text="@string/new_expense"
             android:textColor="@color/base_700"
             app:drawableTint="@color/base_50" />
 

@@ -1,5 +1,6 @@
 package com.example.budgetup;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
@@ -7,6 +8,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
@@ -17,7 +19,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.Date;
 import java.util.UUID;
@@ -30,6 +35,7 @@ public class NewExpenseActivity extends AppCompatActivity {
   AutoCompleteTextView autoCompleteTextView;
   ArrayAdapter<String> arrayAdapter;
   EditText entCount, entNote;
+  TextView toolbarName;
   Button btnCategory;
   ImageButton btnBackspace, btnOkNote, btnBack;
   Dialog categoryDialog;
@@ -75,6 +81,28 @@ public class NewExpenseActivity extends AppCompatActivity {
             }
           }
         });
+    BottomNavigationView nav_view = findViewById(R.id.navigationView);
+    nav_view.setSelectedItemId(R.id.home);
+    nav_view.setOnNavigationItemSelectedListener(
+            new BottomNavigationView.OnNavigationItemSelectedListener() {
+              @Override
+              public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                  case R.id.home:
+                    return true;
+                  case R.id.statistic:
+                    Intent intent = new Intent(NewExpenseActivity.this, StatisticsActivity.class);
+                    startActivity(intent);
+                    overridePendingTransition(0, 0);
+                    return true;
+                  case R.id.account:
+                    startActivity(new Intent(NewExpenseActivity.this, ProfileActivity.class));
+                    overridePendingTransition(0, 0);
+                    return true;
+                }
+                return false;
+              }
+            });
   }
 
   private void definePaymentMenu() {
@@ -183,12 +211,14 @@ public class NewExpenseActivity extends AppCompatActivity {
   }
 
   private void initViews() {
-    btnBack = findViewById(R.id.left_icon);
+    btnBack = findViewById(R.id.leftIcon);
     autoCompleteTextView = findViewById(R.id.autoComplete);
     entCount = findViewById(R.id.entIncomeCount);
     entNote = findViewById(R.id.entNote);
     btnCategory = findViewById(R.id.btnCategory);
     btnBackspace = findViewById(R.id.btnBackspace);
     btnOkNote = findViewById(R.id.btnOk);
+    toolbarName = findViewById(R.id.toolbarName);
+    toolbarName.setText(R.string.new_expense);
   }
 }

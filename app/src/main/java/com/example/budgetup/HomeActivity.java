@@ -315,22 +315,32 @@ public class HomeActivity extends AppCompatActivity {
     addDialog.setCancelable(false);
     LinearLayout income = addDialog.findViewById(R.id.layoutIncome);
     LinearLayout expense = addDialog.findViewById(R.id.layoutExpense);
+    LinearLayout bankData = addDialog.findViewById(R.id.layoutBank);
     income.setOnClickListener(
         new View.OnClickListener() {
           @Override
           public void onClick(View view) {
             Intent intent =
-                new Intent(HomeActivity.this, NewIncomeActivity.class); // TODO: Add income activity
+                new Intent(HomeActivity.this, NewIncomeActivity.class);
             startActivity(intent);
           }
         });
+    bankData.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        Intent intent =
+                new Intent(
+                        HomeActivity.this, BankDataActivity.class);
+        startActivity(intent);
+      }
+    });
     expense.setOnClickListener(
         new View.OnClickListener() {
           @Override
           public void onClick(View view) {
             Intent intent =
                 new Intent(
-                    HomeActivity.this, NewExpenseActivity.class); // TODO: Add expense activity
+                    HomeActivity.this, NewExpenseActivity.class);
             startActivity(intent);
           }
         });

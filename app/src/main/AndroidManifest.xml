@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BudgetUp">
         <activity
+            android:name=".BankDataActivity"
+            android:exported="false" />
+        <activity
             android:name=".NewExpenseActivity"
             android:exported="false" />
         <activity

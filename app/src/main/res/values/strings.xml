@@ -84,7 +84,9 @@
     <string name="expense_add_suc">Expense has been added successfully!</string>
     <string name="income_add_suc">Income has been added successfully!</string>
     <string name="no_info">No information</string>
-    
+    <string name="add_bank">Info from bank</string>
+    <string name="choose_bank">Choose bank</string>
+
     <string name="title_onboarding1">Painless budgeting</string>
     <string name="title_onboarding2">The whole picture in one place</string>
     <string name="title_onboarding3">Analysis of data for any period of time</string>
