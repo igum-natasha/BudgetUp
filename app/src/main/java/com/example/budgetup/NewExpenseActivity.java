@@ -18,6 +18,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,10 +35,11 @@ public class NewExpenseActivity extends AppCompatActivity {
   int image;
   AutoCompleteTextView autoCompleteTextView;
   ArrayAdapter<String> arrayAdapter;
-  EditText entCount, entNote;
+  EditText entCount, entNote, entCard;
+  LinearLayout lCard;
   TextView toolbarName;
   Button btnCategory;
-  ImageButton btnBackspace, btnOkNote, btnBack;
+  ImageButton btnBackspace, btnOkNote, btnBack, btnOkCard;
   Dialog categoryDialog;
 
   @Override
@@ -81,6 +83,17 @@ public class NewExpenseActivity extends AppCompatActivity {
             }
           }
         });
+    btnOkCard.setOnClickListener(
+            new View.OnClickListener() {
+              @Override
+              public void onClick(View view) {
+                if (view != null) {
+                  InputMethodManager imm =
+                          (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                  imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                }
+              }
+            });
     BottomNavigationView nav_view = findViewById(R.id.navigationView);
     nav_view.setSelectedItemId(R.id.home);
     nav_view.setOnNavigationItemSelectedListener(
@@ -114,6 +127,11 @@ public class NewExpenseActivity extends AppCompatActivity {
           @Override
           public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
             payment = adapterView.getItemAtPosition(i).toString() + "\n";
+            if (payment.equals("Credit card")) {
+              lCard.setVisibility(View.VISIBLE);
+            } else {
+              entCard.setText("None");
+            }
           }
         });
   }
@@ -187,6 +205,7 @@ public class NewExpenseActivity extends AppCompatActivity {
             expense.setValue("-" + entCount.getText().toString());
             expense.setUserEmail(user.getEmail());
             expense.setPayment(payment);
+            expense.setCardNum(entCard.getText().toString());
             image =
                 getResources()
                     .getIdentifier(category, "drawable", getApplicationContext().getPackageName());
@@ -215,10 +234,15 @@ public class NewExpenseActivity extends AppCompatActivity {
     autoCompleteTextView = findViewById(R.id.autoComplete);
     entCount = findViewById(R.id.entIncomeCount);
     entNote = findViewById(R.id.entNote);
+    entCard = findViewById(R.id.entCard);
+    lCard = findViewById(R.id.linCard);
     btnCategory = findViewById(R.id.btnCategory);
     btnBackspace = findViewById(R.id.btnBackspace);
     btnOkNote = findViewById(R.id.btnOk);
+    btnOkCard = findViewById(R.id.btnOkCard);
     toolbarName = findViewById(R.id.toolbarName);
+
     toolbarName.setText(R.string.new_expense);
+    lCard.setVisibility(View.INVISIBLE);
   }
 }

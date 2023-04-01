@@ -44,6 +44,10 @@ public class Expense {
   public String payment;
 
   @NonNull
+  @ColumnInfo(name = "card number", defaultValue = "None")
+  public String cardNum;
+
+  @NonNull
   @ColumnInfo(name = "note")
   public String note;
 
@@ -57,6 +61,10 @@ public class Expense {
 
   public void setUserEmail(@NonNull String userEmail) {
     this.userEmail = userEmail;
+  }
+
+  public void setCardNum(@NonNull String cardNum) {
+    this.cardNum = cardNum;
   }
 
   public void setImage(int image) {
@@ -99,6 +107,11 @@ public class Expense {
   @NonNull
   public String getId() {
     return id;
+  }
+
+  @NonNull
+  public String getCardNum() {
+    return cardNum;
   }
 
   @NonNull

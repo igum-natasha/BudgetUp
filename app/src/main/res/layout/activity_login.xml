@@ -68,7 +68,6 @@
             android:inputType="textEmailAddress"
             android:minHeight="48dp"
             android:paddingStart="8dp"
-            android:textColorHint="@color/base_600"
             tools:ignore="MissingConstraints" />
 
 
@@ -103,7 +102,6 @@
         android:ems="10"
         android:paddingStart="8dp"
         android:textSize="16sp"
-        android:textColorHint="@color/base_600"
         android:hint="@string/ent_pass"
         android:importantForAutofill="no"
         android:inputType="textPassword"

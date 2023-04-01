@@ -23,6 +23,7 @@
         app:layout_constraintTop_toBottomOf="@+id/include"
         />
     <LinearLayout
+        android:id="@+id/bankIcons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
@@ -51,6 +52,64 @@
             android:scaleType="fitCenter"
             android:src="@drawable/tink" />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/addFile"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:text="@string/add_file"
+        android:fontFamily="@font/poppins"
+        android:textSize="14sp"
+        android:textColor="@color/base_700"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bankIcons"
+        />
+    <com.loopeer.shadow.ShadowView
+        android:id="@+id/shadowView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cornerRadius="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/addFile"
+        app:shadowMargin="16dp"
+        app:shadowRadius="4dp">
+    <LinearLayout
+        android:id="@+id/selectFile"
+        android:layout_width="match_parent"
+        android:layout_height="256dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:background="@color/primary_100">
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/plus"
+            app:tint="@color/base_500" />
+        <TextView
+        android:id="@+id/file"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:text="@string/select_file"
+        android:fontFamily="@font/poppins"
+        android:textSize="16sp"
+        android:textColor="@color/base_500"
+        android:layout_margin="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bankIcons"
+        />
+    </LinearLayout>
+    </com.loopeer.shadow.ShadowView>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="@string/submit"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/shadowView"
+        />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/navigationView"

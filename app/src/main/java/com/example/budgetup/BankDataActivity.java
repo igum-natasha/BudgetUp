@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -17,6 +18,7 @@ public class BankDataActivity extends AppCompatActivity {
 
   TextView toolbarName;
   ImageButton btnBack, btnSber, btnTink;
+  LinearLayout selectFile;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +54,12 @@ public class BankDataActivity extends AppCompatActivity {
           }
         });
 
+    selectFile.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            // TODO: add intent to upload file from internal storage
+        }
+    });
     BottomNavigationView nav_view = findViewById(R.id.navigationView);
     nav_view.setSelectedItemId(R.id.home);
     nav_view.setOnNavigationItemSelectedListener(
@@ -81,7 +89,8 @@ public class BankDataActivity extends AppCompatActivity {
     toolbarName = findViewById(R.id.toolbarName);
     btnSber = findViewById(R.id.iconSber);
     btnTink = findViewById(R.id.iconTink);
+    selectFile = findViewById(R.id.selectFile);
 
-    toolbarName.setText(R.string.new_income);
+    toolbarName.setText(R.string.new_csv);
   }
 }

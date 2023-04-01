@@ -125,7 +125,9 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
+
     <LinearLayout
+        android:id="@+id/linCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -136,6 +138,38 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/paymentMenu">
+
+        <EditText
+            android:id="@+id/entCard"
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:background="@drawable/feedback_background"
+            android:fontFamily="@font/poppins"
+            android:hint="@string/card"
+            android:textSize="16sp"
+            android:padding="8dp"
+            android:inputType="number" />
+
+        <ImageButton
+            android:id="@+id/btnOkCard"
+            android:layout_marginLeft="-40dp"
+            android:src="@drawable/right"
+            android:background="@color/base_100"
+            android:scaleType="fitCenter"
+            app:tint="@color/base_700"
+            android:layout_width="24dp"
+            android:layout_height="24dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_margin="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/linCard">
     <EditText
         android:id="@+id/entNote"
         android:layout_width="match_parent"
@@ -146,7 +180,6 @@
         android:inputType="none"
         android:padding="8dp"
         android:fontFamily="@font/poppins"
-        android:textColorHint="@color/base_500"
         android:textSize="16sp"
         />
         <ImageButton
