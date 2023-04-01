@@ -84,17 +84,17 @@ public class NewIncomeActivity extends AppCompatActivity {
           }
         });
 
-      btnOkCard.setOnClickListener(
-              new View.OnClickListener() {
-                  @Override
-                  public void onClick(View view) {
-                      if (view != null) {
-                          InputMethodManager imm =
-                                  (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                          imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-                      }
-                  }
-              });
+    btnOkCard.setOnClickListener(
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+            if (view != null) {
+              InputMethodManager imm =
+                  (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+              imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+            }
+          }
+        });
 
     BottomNavigationView nav_view = findViewById(R.id.navigationView);
     nav_view.setSelectedItemId(R.id.home);
@@ -130,9 +130,9 @@ public class NewIncomeActivity extends AppCompatActivity {
           public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
             payment = adapterView.getItemAtPosition(i).toString();
             if (payment.equals("Credit card")) {
-                lCard.setVisibility(View.VISIBLE);
+              lCard.setVisibility(View.VISIBLE);
             } else {
-                entCard.setText("None");
+              entCard.setText("None");
             }
           }
         });
@@ -213,7 +213,7 @@ public class NewIncomeActivity extends AppCompatActivity {
     btnCategory = findViewById(R.id.btnCategory);
     btnBackspace = findViewById(R.id.btnBackspace);
     btnOkNote = findViewById(R.id.btnOk);
-      btnOkCard = findViewById(R.id.btnOkCard);
+    btnOkCard = findViewById(R.id.btnOkCard);
     toolbarName = findViewById(R.id.toolbarName);
 
     toolbarName.setText(R.string.new_income);

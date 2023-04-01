@@ -84,16 +84,16 @@ public class NewExpenseActivity extends AppCompatActivity {
           }
         });
     btnOkCard.setOnClickListener(
-            new View.OnClickListener() {
-              @Override
-              public void onClick(View view) {
-                if (view != null) {
-                  InputMethodManager imm =
-                          (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                  imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-                }
-              }
-            });
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+            if (view != null) {
+              InputMethodManager imm =
+                  (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+              imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+            }
+          }
+        });
     BottomNavigationView nav_view = findViewById(R.id.navigationView);
     nav_view.setSelectedItemId(R.id.home);
     nav_view.setOnNavigationItemSelectedListener(

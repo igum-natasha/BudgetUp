@@ -54,12 +54,13 @@ public class BankDataActivity extends AppCompatActivity {
           }
         });
 
-    selectFile.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
+    selectFile.setOnClickListener(
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
             // TODO: add intent to upload file from internal storage
-        }
-    });
+          }
+        });
     BottomNavigationView nav_view = findViewById(R.id.navigationView);
     nav_view.setSelectedItemId(R.id.home);
     nav_view.setOnNavigationItemSelectedListener(
