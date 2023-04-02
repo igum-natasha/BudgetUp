@@ -50,4 +50,6 @@ dependencies {
     // for DataParser
     implementation 'org.apache.poi:poi:5.2.0'
     implementation 'org.apache.poi:poi-ooxml:5.2.0'
+
+    implementation 'com.github.HBiSoft:PickiT:2.0.5'
 }

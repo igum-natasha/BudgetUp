@@ -1,6 +1,7 @@
 package com.example.budgetup;
 
 import android.view.View;
+import android.widget.Toast;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -26,7 +27,7 @@ public class DataParser {
   }
 
   public void parseFile(View view) throws IOException, ParseException {
-    FileInputStream file = new FileInputStream(new File(filename));
+    FileInputStream file = new FileInputStream(filename);
     Map<Integer, List<String>> data = new HashMap<>();
     int i = 0;
     Sheet sheet;
@@ -37,7 +38,7 @@ public class DataParser {
         sheet = workbook.getSheetAt(0);
       }
     } else {
-      try (Workbook workbook = new XSSFWorkbook(file)) {
+      try (XSSFWorkbook workbook = new XSSFWorkbook(file)) {
         sheet = workbook.getSheetAt(0);
       }
     }
@@ -132,9 +133,9 @@ public class DataParser {
             try {
               value = value.substring(value.length() - 4);
             } catch (NullPointerException e) {
-              value = "No card";
+              value = "None";
             }
-            //                        expense.setCard(value);
+            expense.setCardNum(value);
             break;
           case "Категория":
             value = null;
@@ -155,7 +156,8 @@ public class DataParser {
             break;
         }
       }
-      db.expenseDao().insertExpense(expense);
+//      db.expenseDao().insertExpense(expense);
+      Toast.makeText(view.getContext(), expense.getCategory(), Toast.LENGTH_SHORT).show();
     }
   }
 }
