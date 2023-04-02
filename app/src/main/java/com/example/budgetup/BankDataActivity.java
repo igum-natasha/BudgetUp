@@ -1,6 +1,5 @@
 package com.example.budgetup;
 
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -29,11 +28,11 @@ import java.util.ArrayList;
 
 public class BankDataActivity extends AppCompatActivity implements PickiTCallbacks {
 
-    private static final int PICK_FILE_REQUEST = 1;
-    TextView toolbarName;
+  private static final int PICK_FILE_REQUEST = 1;
+  TextView toolbarName;
   ImageButton btnBack, btnSber, btnTink;
   LinearLayout selectFile;
-    PickiT pickiT;
+  PickiT pickiT;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +40,7 @@ public class BankDataActivity extends AppCompatActivity implements PickiTCallbac
     setContentView(R.layout.activity_bank_data);
 
     initViews();
-      pickiT = new PickiT(this, this, this);
+    pickiT = new PickiT(this, this, this);
     btnBack.setOnClickListener(
         new View.OnClickListener() {
           @Override
@@ -74,20 +73,27 @@ public class BankDataActivity extends AppCompatActivity implements PickiTCallbac
         new View.OnClickListener() {
           @Override
           public void onClick(View view) {
-              if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                      != PackageManager.PERMISSION_GRANTED
-                      && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
-                      != PackageManager.PERMISSION_GRANTED) {
-                  ActivityCompat.requestPermissions(
-                          BankDataActivity.this, new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
-                  ActivityCompat.requestPermissions(
-                          BankDataActivity.this, new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
-              } else {
-                  Intent intent = new Intent();
-                  intent.setType("*/*");
-                  intent.setAction(Intent.ACTION_GET_CONTENT);
-                  startActivityForResult(Intent.createChooser(intent, "Choose File to Upload.."), PICK_FILE_REQUEST);
-              }
+            if (ActivityCompat.checkSelfPermission(
+                        getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(
+                        getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
+                    != PackageManager.PERMISSION_GRANTED) {
+              ActivityCompat.requestPermissions(
+                  BankDataActivity.this,
+                  new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                  1);
+              ActivityCompat.requestPermissions(
+                  BankDataActivity.this,
+                  new String[] {Manifest.permission.READ_EXTERNAL_STORAGE},
+                  1);
+            } else {
+              Intent intent = new Intent();
+              intent.setType("*/*");
+              intent.setAction(Intent.ACTION_GET_CONTENT);
+              startActivityForResult(
+                  Intent.createChooser(intent, "Choose File to Upload.."), PICK_FILE_REQUEST);
+            }
           }
         });
     BottomNavigationView nav_view = findViewById(R.id.navigationView);
@@ -114,19 +120,20 @@ public class BankDataActivity extends AppCompatActivity implements PickiTCallbac
         });
   }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == PICK_FILE_REQUEST) {
-            if (resultCode == RESULT_OK) {
-                if(data == null){
-                    //no data present
-                    return;
-                }
-                pickiT.getPath(data.getData(), Build.VERSION.SDK_INT);
-            }
+  @Override
+  protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
+    if (requestCode == PICK_FILE_REQUEST) {
+      if (resultCode == RESULT_OK) {
+        if (data == null) {
+          // no data present
+          return;
         }
+        pickiT.getPath(data.getData(), Build.VERSION.SDK_INT);
+      }
     }
+  }
+
   private void initViews() {
     btnBack = findViewById(R.id.leftIcon);
     toolbarName = findViewById(R.id.toolbarName);
@@ -137,43 +144,39 @@ public class BankDataActivity extends AppCompatActivity implements PickiTCallbac
     toolbarName.setText(R.string.new_csv);
   }
 
-    @Override
-    public void PickiTonUriReturned() {
+  @Override
+  public void PickiTonUriReturned() {}
 
+  @Override
+  public void PickiTonStartListener() {}
+
+  @Override
+  public void PickiTonProgressUpdate(int progress) {}
+
+  @Override
+  public void PickiTonCompleteListener(
+      String path,
+      boolean wasDriveFile,
+      boolean wasUnknownProvider,
+      boolean wasSuccessful,
+      String Reason) {
+
+    //  Chick if it was successful
+    if (wasSuccessful) {
+      //  Set returned path to TextView
+      Toast.makeText(this, "Selected File Path:" + path, Toast.LENGTH_SHORT).show();
+      DataParser parser = new DataParser(path);
+      try {
+        parser.parseFile(getWindow().getDecorView().getRootView());
+      } catch (IOException e) {
+        e.printStackTrace();
+      } catch (ParseException e) {
+        e.printStackTrace();
+      }
     }
+  }
 
-    @Override
-    public void PickiTonStartListener() {
-
-    }
-
-    @Override
-    public void PickiTonProgressUpdate(int progress) {
-
-    }
-
-    @Override
-    public void PickiTonCompleteListener(String path, boolean wasDriveFile, boolean wasUnknownProvider, boolean wasSuccessful, String Reason) {
-
-
-        //  Chick if it was successful
-        if (wasSuccessful) {
-            //  Set returned path to TextView
-            Toast.makeText(this, "Selected File Path:" + path, Toast.LENGTH_SHORT).show();
-            DataParser parser = new DataParser(path);
-            try {
-                parser.parseFile(getWindow().getDecorView().getRootView());
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-        }
-
-    }
-
-    @Override
-    public void PickiTonMultipleCompleteListener(ArrayList<String> paths, boolean wasSuccessful, String Reason) {
-
-    }
+  @Override
+  public void PickiTonMultipleCompleteListener(
+      ArrayList<String> paths, boolean wasSuccessful, String Reason) {}
 }

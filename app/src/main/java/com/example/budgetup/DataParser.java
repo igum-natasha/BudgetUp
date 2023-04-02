@@ -9,10 +9,8 @@ import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.text.ParseException;
@@ -156,7 +154,7 @@ public class DataParser {
             break;
         }
       }
-//      db.expenseDao().insertExpense(expense);
+      //      db.expenseDao().insertExpense(expense);
       Toast.makeText(view.getContext(), expense.getCategory(), Toast.LENGTH_SHORT).show();
     }
   }
