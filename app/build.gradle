@@ -48,8 +48,11 @@ dependencies {
     // for charts
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
     // for DataParser
-    implementation 'org.apache.poi:poi:5.2.0'
-    implementation 'org.apache.poi:poi-ooxml:5.2.0'
+    implementation 'org.apache.poi:poi:3.17'
+    implementation 'org.apache.poi:poi-ooxml:3.17'
+    implementation 'org.apache.xmlbeans:xmlbeans:3.1.0'
+    implementation 'javax.xml.stream:stax-api:1.0'
+    implementation 'com.fasterxml:aalto-xml:1.2.2'
 
     implementation 'com.github.HBiSoft:PickiT:2.0.5'
 }

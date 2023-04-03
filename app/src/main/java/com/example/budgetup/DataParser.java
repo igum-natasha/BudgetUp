@@ -1,14 +1,18 @@
 package com.example.budgetup;
 
+import static java.sql.Types.NUMERIC;
+
 import android.view.View;
 import android.widget.Toast;
 
-import org.apache.commons.io.FilenameUtils;
+//import org.apache.commons.io.FilenameUtils;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.FileInputStream;
@@ -29,26 +33,25 @@ public class DataParser {
     Map<Integer, List<String>> data = new HashMap<>();
     int i = 0;
     Sheet sheet;
+    String[] ext = filename.split("\\.");
 
-    if (FilenameUtils.getExtension(filename).equals("xls")) {
+    if (ext[ext.length - 1].equals("xls")) {
       POIFSFileSystem f = new POIFSFileSystem(file);
-      try (HSSFWorkbook workbook = new HSSFWorkbook(f)) {
-        sheet = workbook.getSheetAt(0);
-      }
+      HSSFWorkbook workbook = new HSSFWorkbook(f);
+      sheet = workbook.getSheetAt(0);
     } else {
-      try (XSSFWorkbook workbook = new XSSFWorkbook(file)) {
-        sheet = workbook.getSheetAt(0);
-      }
+      XSSFWorkbook workbook = new XSSFWorkbook(file);
+      sheet = workbook.getSheetAt(0);
     }
     for (Row row : sheet) {
       data.put(i, new ArrayList<String>());
       for (int j = 0; j < row.getLastCellNum(); j++) {
         Cell cell = row.getCell(j, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
         switch (cell.getCellType()) {
-          case STRING:
+          case Cell.CELL_TYPE_STRING:
             data.get(i).add(cell.getStringCellValue());
             break;
-          case NUMERIC:
+          case Cell.CELL_TYPE_NUMERIC:
             data.get(i).add(cell.getNumericCellValue() + "");
             break;
           default:
@@ -154,8 +157,8 @@ public class DataParser {
             break;
         }
       }
-      //      db.expenseDao().insertExpense(expense);
-      Toast.makeText(view.getContext(), expense.getCategory(), Toast.LENGTH_SHORT).show();
+      db.expenseDao().insertExpense(expense);
+//      Toast.makeText(view.getContext(), expense.getCategory(), Toast.LENGTH_SHORT).show();
     }
   }
 }

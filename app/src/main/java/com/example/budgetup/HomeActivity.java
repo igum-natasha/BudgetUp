@@ -280,7 +280,11 @@ public class HomeActivity extends AppCompatActivity {
       getResources().getColor(R.color.menu_4),
       getResources().getColor(R.color.menu_5),
       getResources().getColor(R.color.menu_6),
-      getResources().getColor(R.color.menu_7)
+      getResources().getColor(R.color.menu_7),
+      getResources().getColor(R.color.primary_100),
+      getResources().getColor(R.color.error_100),
+      getResources().getColor(R.color.info_100),
+      getResources().getColor(R.color.base_100)
     };
     colors = new int[expenses.size()];
     float max_income = 0, max_expense = 0;
