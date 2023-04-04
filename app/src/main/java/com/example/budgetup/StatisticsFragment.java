@@ -1,7 +1,6 @@
 package com.example.budgetup;
 
 import android.annotation.SuppressLint;
-import android.app.Dialog;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -23,7 +22,6 @@ import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.google.android.material.button.MaterialButtonToggleGroup;
-import com.loopeer.shadow.ShadowView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -46,7 +44,7 @@ public class StatisticsFragment extends Fragment {
   TextView tvMax, tvMin, expenseCount, tvNoInfo;
   String day;
   ArrayList<String> xAxisLabel =
-          new ArrayList<>(Arrays.asList("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"));
+      new ArrayList<>(Arrays.asList("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"));
   float[] sumByDay = {0, 0, 0, 0, 0, 0, 0};
   Calendar date = Calendar.getInstance();
   List<Date> dateList = new ArrayList<>();
@@ -111,13 +109,13 @@ public class StatisticsFragment extends Fragment {
       data_expenses.add(new BarEntry(i, sumByDay[i]));
     }
     int[] colors = {
-            getResources().getColor(R.color.menu_1),
-            getResources().getColor(R.color.menu_2),
-            getResources().getColor(R.color.menu_3),
-            getResources().getColor(R.color.menu_4),
-            getResources().getColor(R.color.menu_5),
-            getResources().getColor(R.color.menu_6),
-            getResources().getColor(R.color.error_100)
+      getResources().getColor(R.color.menu_1),
+      getResources().getColor(R.color.menu_2),
+      getResources().getColor(R.color.menu_3),
+      getResources().getColor(R.color.menu_4),
+      getResources().getColor(R.color.menu_5),
+      getResources().getColor(R.color.menu_6),
+      getResources().getColor(R.color.error_100)
     };
     String exCount = sum + " RUB";
     String minCount = minSum + " RUB";
@@ -125,8 +123,7 @@ public class StatisticsFragment extends Fragment {
     defaultBarSettings(colors, exCount, minCount, maxCount);
   }
 
-  private void defaultBarSettings(
-          int[] colors, String exCount, String minCount, String maxCount) {
+  private void defaultBarSettings(int[] colors, String exCount, String minCount, String maxCount) {
     XAxis xAxis = barChart.getXAxis();
     xAxis.setValueFormatter(new IndexAxisValueFormatter(xAxisLabel));
     barDataSet = new BarDataSet(data_expenses, "Expenses");
@@ -153,7 +150,6 @@ public class StatisticsFragment extends Fragment {
     expenseCount.setText(exCount);
     tvMin.setText(minCount);
     tvMax.setText(maxCount);
-
   }
 
   @SuppressLint("SetTextI18n")
@@ -169,7 +165,7 @@ public class StatisticsFragment extends Fragment {
       day = df.format(d);
       if (xAxisLabel.contains(day)) {
         sumByDay[xAxisLabel.indexOf(day)] +=
-                Float.parseFloat(expenses.get(i).getValue().replace('-', ' '));
+            Float.parseFloat(expenses.get(i).getValue().replace('-', ' '));
       }
     }
     for (int i = 0; i < sumByDay.length; i++) {
@@ -179,17 +175,17 @@ public class StatisticsFragment extends Fragment {
         maxSum = sumByDay[i];
       }
       if (sumByDay[i] < minSum && sumByDay[i] > 0) {
-          minSum = sumByDay[i];
+        minSum = sumByDay[i];
       }
     }
     int[] colors = {
-            getResources().getColor(R.color.menu_1),
-            getResources().getColor(R.color.menu_2),
-            getResources().getColor(R.color.menu_3),
-            getResources().getColor(R.color.menu_4),
-            getResources().getColor(R.color.menu_5),
-            getResources().getColor(R.color.menu_6),
-            getResources().getColor(R.color.error_100)
+      getResources().getColor(R.color.menu_1),
+      getResources().getColor(R.color.menu_2),
+      getResources().getColor(R.color.menu_3),
+      getResources().getColor(R.color.menu_4),
+      getResources().getColor(R.color.menu_5),
+      getResources().getColor(R.color.menu_6),
+      getResources().getColor(R.color.error_100)
     };
     String exCount = sum + " " + expenses.get(0).getCurrency();
     String minCount = minSum + expenses.get(0).getCurrency();
@@ -213,15 +209,14 @@ public class StatisticsFragment extends Fragment {
     Date[] week = days.get(weekPos);
     expenses = db.expenseDao().getByDate(week[0].getTime(), week[1].getTime());
 
-
     if (expenses.isEmpty()) {
       initEmptyBarChart();
-//      tvNoInfo.setVisibility(View.VISIBLE);
+      //      tvNoInfo.setVisibility(View.VISIBLE);
       //      deleteDialog.show();
       // TODO: dialog
     } else {
       initBarChart();
-//      tvNoInfo.setVisibility(View.INVISIBLE);
+      //      tvNoInfo.setVisibility(View.INVISIBLE);
     }
   }
 

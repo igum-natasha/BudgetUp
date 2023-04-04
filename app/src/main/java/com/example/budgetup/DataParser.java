@@ -1,6 +1,5 @@
 package com.example.budgetup;
 
-
 import android.view.View;
 
 // import org.apache.commons.io.FilenameUtils;
@@ -154,8 +153,10 @@ public class DataParser {
         }
       }
       List<Expense> expenseList = db.expenseDao().getAll();
-      for (Expense exp: expenseList) {
-        if (! (exp.getDate() == expense.getDate() && exp.getValue().equals(expense.getValue()) && exp.getCardNum().equals(expense.getCardNum()))) {
+      for (Expense exp : expenseList) {
+        if (!(exp.getDate() == expense.getDate()
+            && exp.getValue().equals(expense.getValue())
+            && exp.getCardNum().equals(expense.getCardNum()))) {
           db.expenseDao().insertExpense(expense);
         }
       }
