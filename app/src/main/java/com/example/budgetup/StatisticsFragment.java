@@ -1,6 +1,7 @@
 package com.example.budgetup;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.BarChart;
@@ -21,9 +23,11 @@ import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.google.android.material.button.MaterialButtonToggleGroup;
+import com.loopeer.shadow.ShadowView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -33,12 +37,23 @@ public class StatisticsFragment extends Fragment {
   private View view;
   private List<Expense> expenses;
   private List<Date[]> days = new ArrayList<>();
+  ArrayList<BarEntry> data_expenses = new ArrayList<>();
   private RecyclerView rv;
   private RecyclerView rvDays;
   private ImageButton btnLeft, btnRight;
   int weekPos = 4;
+  BarChart barChart;
+  TextView tvMax, tvMin, expenseCount, tvNoInfo;
+  String day;
+  ArrayList<String> xAxisLabel =
+          new ArrayList<>(Arrays.asList("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"));
+  float[] sumByDay = {0, 0, 0, 0, 0, 0, 0};
   Calendar date = Calendar.getInstance();
   List<Date> dateList = new ArrayList<>();
+  float maxSum = 0, sum = 0;
+  float minSum = Float.POSITIVE_INFINITY;
+  BarDataSet barDataSet;
+  BarData barData;
 
   @Override
   public View onCreateView(
@@ -54,9 +69,6 @@ public class StatisticsFragment extends Fragment {
       dateList.add(date.getTime());
       date.add(Calendar.DATE, 1);
     }
-    showDays();
-    initBarChart();
-    showCategories();
     MaterialButtonToggleGroup toggleGroup = view.findViewById(R.id.toggleGroup);
     toggleGroup.check(R.id.button1);
     toggleGroup.addOnButtonCheckedListener(
@@ -66,12 +78,14 @@ public class StatisticsFragment extends Fragment {
               MaterialButtonToggleGroup group, int checkedId, boolean isChecked) {
             switch (checkedId) {
               case R.id.button1:
-                //                showDays();
+                // FIXME: check week button automatically
                 Toast.makeText(
                         view.getContext(),
                         getResources().getString(R.string.weekTitle),
                         Toast.LENGTH_LONG)
                     .show();
+                showDays();
+                showCategories();
                 break;
               case R.id.button2:
                 Toast.makeText(
@@ -86,42 +100,41 @@ public class StatisticsFragment extends Fragment {
     return view;
   }
 
-  private void initBarChart() {
-    BarChart barChart = (BarChart) view.findViewById(R.id.barChart);
-    ArrayList<BarEntry> expenses = new ArrayList<>();
-    expenses.add(new BarEntry(0, 508));
-    expenses.add(new BarEntry(1, 306));
-    expenses.add(new BarEntry(2, 150));
-    expenses.add(new BarEntry(3, 1400));
-    expenses.add(new BarEntry(4, 100));
-    expenses.add(new BarEntry(5, 350));
-    expenses.add(new BarEntry(6, 150));
-    ArrayList<String> xAxisLabel = new ArrayList<>();
-    xAxisLabel.add("Mon");
-    xAxisLabel.add("Tue");
-    xAxisLabel.add("Wed");
-    xAxisLabel.add("Thu");
-    xAxisLabel.add("Fri");
-    xAxisLabel.add("Sat");
-    xAxisLabel.add("Sun");
+  @SuppressLint("SetTextI18n")
+  private void initEmptyBarChart() {
+    data_expenses.clear();
+    sumByDay = new float[] {0, 0, 0, 0, 0, 0, 0};
+    maxSum = 0;
+    sum = 0;
+    minSum = 0;
+    for (int i = 0; i < sumByDay.length; i++) {
+      data_expenses.add(new BarEntry(i, sumByDay[i]));
+    }
+    int[] colors = {
+            getResources().getColor(R.color.menu_1),
+            getResources().getColor(R.color.menu_2),
+            getResources().getColor(R.color.menu_3),
+            getResources().getColor(R.color.menu_4),
+            getResources().getColor(R.color.menu_5),
+            getResources().getColor(R.color.menu_6),
+            getResources().getColor(R.color.error_100)
+    };
+    String exCount = sum + " RUB";
+    String minCount = minSum + " RUB";
+    String maxCount = maxSum + " RUB";
+    defaultBarSettings(colors, exCount, minCount, maxCount);
+  }
 
+  private void defaultBarSettings(
+          int[] colors, String exCount, String minCount, String maxCount) {
     XAxis xAxis = barChart.getXAxis();
     xAxis.setValueFormatter(new IndexAxisValueFormatter(xAxisLabel));
-
-    BarDataSet barDataSet = new BarDataSet(expenses, "Expenses");
-    int[] colors = {
-      getResources().getColor(R.color.menu_1),
-      getResources().getColor(R.color.menu_2),
-      getResources().getColor(R.color.menu_3),
-      getResources().getColor(R.color.menu_4),
-      getResources().getColor(R.color.menu_5),
-      getResources().getColor(R.color.menu_6),
-      getResources().getColor(R.color.error_100)
-    };
+    barDataSet = new BarDataSet(data_expenses, "Expenses");
     barDataSet.setColors(colors);
     barDataSet.setDrawValues(false);
 
-    BarData barData = new BarData(barDataSet);
+    barData = new BarData(barDataSet);
+    barChart.clear();
     Legend l = barChart.getLegend();
     l.setEnabled(false);
     xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
@@ -131,23 +144,85 @@ public class StatisticsFragment extends Fragment {
     xAxis.setLabelCount(xAxisLabel.size());
     barChart.getAxisLeft().setGridColor(getResources().getColor(R.color.primary_200));
     barChart.getAxisLeft().setTextColor(getResources().getColor(R.color.base_500));
-    //    barChart.getAxisLeft().setDrawGridLines(false);
     barChart.getAxisRight().setEnabled(false);
     barChart.setFitBars(true);
     barChart.setData(barData);
     barChart.getDescription().setEnabled(false);
-    barChart.animateY(1500);
+    barChart.animateY((int) maxSum);
+
+    expenseCount.setText(exCount);
+    tvMin.setText(minCount);
+    tvMax.setText(maxCount);
+
+  }
+
+  @SuppressLint("SetTextI18n")
+  private void initBarChart() {
+    data_expenses.clear();
+    maxSum = sum = 0;
+    minSum = Float.POSITIVE_INFINITY;
+    sumByDay = new float[] {0, 0, 0, 0, 0, 0, 0};
+    for (int i = 0; i < expenses.size(); i++) {
+      Date d = new Date(expenses.get(i).getDate());
+      @SuppressLint("SimpleDateFormat")
+      SimpleDateFormat df = new SimpleDateFormat("EEE");
+      day = df.format(d);
+      if (xAxisLabel.contains(day)) {
+        sumByDay[xAxisLabel.indexOf(day)] +=
+                Float.parseFloat(expenses.get(i).getValue().replace('-', ' '));
+      }
+    }
+    for (int i = 0; i < sumByDay.length; i++) {
+      data_expenses.add(new BarEntry(i, sumByDay[i]));
+      sum += sumByDay[i];
+      if (sumByDay[i] > maxSum) {
+        maxSum = sumByDay[i];
+      }
+      if (sumByDay[i] < minSum && sumByDay[i] > 0) {
+          minSum = sumByDay[i];
+      }
+    }
+    int[] colors = {
+            getResources().getColor(R.color.menu_1),
+            getResources().getColor(R.color.menu_2),
+            getResources().getColor(R.color.menu_3),
+            getResources().getColor(R.color.menu_4),
+            getResources().getColor(R.color.menu_5),
+            getResources().getColor(R.color.menu_6),
+            getResources().getColor(R.color.error_100)
+    };
+    String exCount = sum + " " + expenses.get(0).getCurrency();
+    String minCount = minSum + expenses.get(0).getCurrency();
+    String maxCount = maxSum + expenses.get(0).getCurrency();
+    defaultBarSettings(colors, exCount, minCount, maxCount);
   }
 
   private void initViews() {
     btnLeft = view.findViewById(R.id.left);
     btnRight = view.findViewById(R.id.right);
+    barChart = (BarChart) view.findViewById(R.id.barChart);
+
+    expenseCount = view.findViewById(R.id.expenseCount);
+    tvNoInfo = view.findViewById(R.id.noInfoTV);
+    tvMax = view.findViewById(R.id.maxCount);
+    tvMin = view.findViewById(R.id.minCount);
   }
 
   private void initializeData() {
     AppDatabase db = AppDatabase.build(view.getContext());
     Date[] week = days.get(weekPos);
     expenses = db.expenseDao().getByDate(week[0].getTime(), week[1].getTime());
+
+
+    if (expenses.isEmpty()) {
+      initEmptyBarChart();
+//      tvNoInfo.setVisibility(View.VISIBLE);
+      //      deleteDialog.show();
+      // TODO: dialog
+    } else {
+      initBarChart();
+//      tvNoInfo.setVisibility(View.INVISIBLE);
+    }
   }
 
   @SuppressLint("ClickableViewAccessibility")

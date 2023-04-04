@@ -78,12 +78,10 @@ public class JournalFragment extends Fragment {
   private void initEmptyBarChart() {
     data_expenses.clear();
     sumByCategory = new float[] {0, 0, 0, 0, 0, 0};
+    maxSum = 0;
+    sum = 0;
     for (int i = 0; i < sumByCategory.length; i++) {
       data_expenses.add(new BarEntry(i, sumByCategory[i]));
-      if (sumByCategory[i] > maxSum) {
-        maxSum = sumByCategory[i];
-        sum += sumByCategory[i];
-      }
     }
     int[] colors = {
       getResources().getColor(R.color.menu_1),
@@ -136,6 +134,7 @@ public class JournalFragment extends Fragment {
   @SuppressLint("SetTextI18n")
   private void initBarChart() {
     data_expenses.clear();
+    maxSum = sum = 0;
     sumByCategory = new float[] {0, 0, 0, 0, 0, 0};
     for (int i = 0; i < expenses.size(); i++) {
       category = expenses.get(i).getCategory();
@@ -146,9 +145,9 @@ public class JournalFragment extends Fragment {
     }
     for (int i = 0; i < sumByCategory.length; i++) {
       data_expenses.add(new BarEntry(i, sumByCategory[i]));
+      sum += sumByCategory[i];
       if (sumByCategory[i] > maxSum) {
         maxSum = sumByCategory[i];
-        sum += sumByCategory[i];
       }
     }
     int[] colors = {

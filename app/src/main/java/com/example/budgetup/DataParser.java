@@ -153,8 +153,12 @@ public class DataParser {
             break;
         }
       }
-      db.expenseDao().insertExpense(expense);
-      //      Toast.makeText(view.getContext(), expense.getCategory(), Toast.LENGTH_SHORT).show();
+      List<Expense> expenseList = db.expenseDao().getAll();
+      for (Expense exp: expenseList) {
+        if (! (exp.getDate() == expense.getDate() && exp.getValue().equals(expense.getValue()) && exp.getCardNum().equals(expense.getCardNum()))) {
+          db.expenseDao().insertExpense(expense);
+        }
+      }
     }
   }
 }
