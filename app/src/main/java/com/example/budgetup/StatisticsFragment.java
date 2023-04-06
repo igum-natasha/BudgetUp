@@ -39,7 +39,7 @@ public class StatisticsFragment extends Fragment {
   private RecyclerView rv;
   private RecyclerView rvDays;
   private ImageButton btnLeft, btnRight;
-  int weekPos = 4;
+  int weekPos = 3;
   BarChart barChart;
   TextView tvMax, tvMin, expenseCount, tvNoInfo;
   String day;
@@ -83,7 +83,6 @@ public class StatisticsFragment extends Fragment {
                         Toast.LENGTH_LONG)
                     .show();
                 showDays();
-                showCategories();
                 break;
               case R.id.button2:
                 Toast.makeText(
@@ -253,6 +252,7 @@ public class StatisticsFragment extends Fragment {
     for (int i = 0; i < dateList.size() - 6; i++) {
       if (formatNumDayWeek.format(dateList.get(i)).equals("1")) {
         days.add(new Date[] {dateList.get(i), dateList.get(i + 6)});
+        i+=6;
       }
     }
   }
@@ -285,7 +285,9 @@ public class StatisticsFragment extends Fragment {
           @Override
           public void onClick(View view) {
             weekPos = llm.findFirstVisibleItemPosition() - 1;
-            llm.scrollToPositionWithOffset(weekPos, 0);
+            if (weekPos > 0) {
+              llm.scrollToPositionWithOffset(weekPos, 0);
+            }
             showCategories();
           }
         });
@@ -294,12 +296,20 @@ public class StatisticsFragment extends Fragment {
           @Override
           public void onClick(View view) {
             weekPos = llm.findFirstVisibleItemPosition() + 1;
-            llm.scrollToPositionWithOffset(weekPos, 0);
+            Toast.makeText(
+                    view.getContext(),
+                    weekPos + " " + days.size(),
+                    Toast.LENGTH_LONG)
+                    .show();
+            if (weekPos < days.size() - 1) {
+              llm.scrollToPositionWithOffset(weekPos, 0);
+            }
             showCategories();
           }
         });
-
-    initializeDataDays();
+    if (days.isEmpty()) {
+      initializeDataDays();
+    }
     initializeAdapterDays();
     rvDays.scrollToPosition(weekPos);
   }
