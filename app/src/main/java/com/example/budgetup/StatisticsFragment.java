@@ -252,7 +252,7 @@ public class StatisticsFragment extends Fragment {
     for (int i = 0; i < dateList.size() - 6; i++) {
       if (formatNumDayWeek.format(dateList.get(i)).equals("1")) {
         days.add(new Date[] {dateList.get(i), dateList.get(i + 6)});
-        i+=6;
+        i += 6;
       }
     }
   }
@@ -296,11 +296,8 @@ public class StatisticsFragment extends Fragment {
           @Override
           public void onClick(View view) {
             weekPos = llm.findFirstVisibleItemPosition() + 1;
-            Toast.makeText(
-                    view.getContext(),
-                    weekPos + " " + days.size(),
-                    Toast.LENGTH_LONG)
-                    .show();
+            Toast.makeText(view.getContext(), weekPos + " " + days.size(), Toast.LENGTH_LONG)
+                .show();
             if (weekPos < days.size() - 1) {
               llm.scrollToPositionWithOffset(weekPos, 0);
             }

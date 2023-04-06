@@ -49,7 +49,8 @@ public class JournalFragment extends Fragment {
   BarChart barChart;
   String category;
   List<String> xAxisLabel = new ArrayList<>();
-  ArrayList<String> template = new ArrayList<>(Arrays.asList("food", "clothes", "car", "gift", "house", "transport"));
+  ArrayList<String> template =
+      new ArrayList<>(Arrays.asList("food", "clothes", "car", "gift", "house", "transport"));
   float[] sumByCategory = {0, 0, 0, 0, 0, 0};
   float maxSum = 0, sum = 0;
   BarDataSet barDataSet;
@@ -138,7 +139,7 @@ public class JournalFragment extends Fragment {
     sumByCategory = new float[] {0, 0, 0, 0, 0, 0};
     for (int i = 0; i < expenses.size(); i++) {
       category = expenses.get(i).getCategory();
-      if (xAxisLabel.size() < 6 && ! xAxisLabel.contains(category)) {
+      if (xAxisLabel.size() < 6 && !xAxisLabel.contains(category)) {
         xAxisLabel.add(category);
       }
       if (xAxisLabel.contains(category)) {
