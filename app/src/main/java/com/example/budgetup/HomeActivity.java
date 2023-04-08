@@ -115,7 +115,7 @@ public class HomeActivity extends AppCompatActivity {
 
   @SuppressLint("ClickableViewAccessibility")
   private void initializeAdapterDays() {
-    RVAdapterDays adapter = new RVAdapterDays(days);
+    RVAdapterDays adapter = new RVAdapterDays(days, "day");
     rvDays.setAdapter(adapter);
     adapter.setOnItemClickListener(
         new RVAdapterDays.ClickListener() {

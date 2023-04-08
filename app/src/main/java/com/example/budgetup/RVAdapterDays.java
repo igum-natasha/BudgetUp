@@ -25,6 +25,7 @@ public class RVAdapterDays extends RecyclerView.Adapter<RVAdapterDays.DaysViewHo
     ImageButton right;
     TextView dateName;
     TextView year;
+    String type;
 
     DaysViewHolder(View itemView) {
       super(itemView);
@@ -35,6 +36,7 @@ public class RVAdapterDays extends RecyclerView.Adapter<RVAdapterDays.DaysViewHo
       right = itemView.findViewById(R.id.right);
       dateName = itemView.findViewById(R.id.monthName);
       year = itemView.findViewById(R.id.yearName);
+      type = "week";
     }
 
     @Override
@@ -51,9 +53,12 @@ public class RVAdapterDays extends RecyclerView.Adapter<RVAdapterDays.DaysViewHo
 
   //    List<Expense> expenses;
   List<Date[]> days_list;
+  String type;
 
-  RVAdapterDays(List<Date[]> days_list) {
+  RVAdapterDays(List<Date[]> days_list, String type) {
+
     this.days_list = days_list;
+    this.type = type;
   }
 
   @Override
@@ -75,17 +80,27 @@ public class RVAdapterDays extends RecyclerView.Adapter<RVAdapterDays.DaysViewHo
     //        deviceViewHolder.expenseName.setText(expenses.get(i).getExpenseName());
     //        deviceViewHolder.expenseCost.setText(expenses.get(i).getExpenseCost());
     //        deviceViewHolder.expensePhoto.setBackgroundResource(img);
-    @SuppressLint("SimpleDateFormat")
-    SimpleDateFormat formatDay = new SimpleDateFormat("EEE, MMMM dd");
-    SimpleDateFormat formatWeekDay = new SimpleDateFormat("MMM dd");
+
     SimpleDateFormat formatYear = new SimpleDateFormat("yyyy");
-    if (days_list.get(i).length == 1) {
-      ViewHolder.dateName.setText(formatDay.format(days_list.get(i)[0]));
-    } else {
-      ViewHolder.dateName.setText(
-          formatWeekDay.format(days_list.get(i)[0])
-              + " - "
-              + formatWeekDay.format(days_list.get(i)[1]));
+    switch (type) {
+      case "week":
+        @SuppressLint("SimpleDateFormat")
+        SimpleDateFormat formatWeekDay = new SimpleDateFormat("MMM dd");
+        ViewHolder.dateName.setText(
+                  formatWeekDay.format(days_list.get(i)[0])
+                          + " - "
+                          + formatWeekDay.format(days_list.get(i)[1]));
+        break;
+      case "day":
+        @SuppressLint("SimpleDateFormat")
+        SimpleDateFormat formatDay = new SimpleDateFormat("EEE, MMMM dd");
+        ViewHolder.dateName.setText(formatDay.format(days_list.get(i)[0]));
+        break;
+      case "month":
+        @SuppressLint("SimpleDateFormat")
+        SimpleDateFormat formatMonth = new SimpleDateFormat("MMMM");
+        ViewHolder.dateName.setText(formatMonth.format(days_list.get(i)[0]));
+        break;
     }
     ViewHolder.year.setText(formatYear.format(days_list.get(i)[0]));
   }

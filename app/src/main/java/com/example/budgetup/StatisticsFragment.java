@@ -35,19 +35,22 @@ public class StatisticsFragment extends Fragment {
   private View view;
   private List<Expense> expenses;
   private List<Date[]> days = new ArrayList<>();
+  private List<Date[]> daysMonth = new ArrayList<>();
+
   ArrayList<BarEntry> data_expenses = new ArrayList<>();
   private RecyclerView rv;
   private RecyclerView rvDays;
   private ImageButton btnLeft, btnRight;
-  int weekPos = 3;
+  int weekPos = 3, monthPos = 3;
   BarChart barChart;
   TextView tvMax, tvMin, expenseCount, tvNoInfo;
   String day;
   ArrayList<String> xAxisLabel =
       new ArrayList<>(Arrays.asList("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"));
   float[] sumByDay = {0, 0, 0, 0, 0, 0, 0};
-  Calendar date = Calendar.getInstance();
-  List<Date> dateList = new ArrayList<>();
+  Calendar date;
+  List<Date> dateListWeek = new ArrayList<>();
+  List<Date> dateListMonth = new ArrayList<>();
   float maxSum = 0, sum = 0;
   float minSum = Float.POSITIVE_INFINITY;
   BarDataSet barDataSet;
@@ -59,16 +62,8 @@ public class StatisticsFragment extends Fragment {
     // Inflate the layout for this fragment
     view = inflater.inflate(R.layout.fragment_statistics, container, false);
     initViews();
-    date.set(Calendar.HOUR_OF_DAY, 0);
-    date.set(Calendar.MINUTE, 0);
-    date.set(Calendar.SECOND, 0);
-    date.add(Calendar.DAY_OF_MONTH, (-1) * 30);
-    for (int i = 1; i <= 60; i++) {
-      dateList.add(date.getTime());
-      date.add(Calendar.DATE, 1);
-    }
     MaterialButtonToggleGroup toggleGroup = view.findViewById(R.id.toggleGroup);
-    toggleGroup.check(R.id.button1);
+//    toggleGroup.check(R.id.button1);
     toggleGroup.addOnButtonCheckedListener(
         new MaterialButtonToggleGroup.OnButtonCheckedListener() {
           @Override
@@ -77,19 +72,33 @@ public class StatisticsFragment extends Fragment {
             switch (checkedId) {
               case R.id.button1:
                 // FIXME: check week button automatically
-                Toast.makeText(
-                        view.getContext(),
-                        getResources().getString(R.string.weekTitle),
-                        Toast.LENGTH_LONG)
-                    .show();
-                showDays();
+//                Toast.makeText(
+//                        view.getContext(),
+//                        getResources().getString(R.string.weekTitle),
+//                        Toast.LENGTH_LONG)
+//                    .show();
+                date = Calendar.getInstance();
+                date.set(Calendar.HOUR_OF_DAY, 0);
+                date.set(Calendar.MINUTE, 0);
+                date.set(Calendar.SECOND, 0);
+                xAxisLabel =
+                        new ArrayList<>(Arrays.asList("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"));
+                showDaysWeek();
                 break;
               case R.id.button2:
-                Toast.makeText(
-                        view.getContext(),
-                        getResources().getString(R.string.monthTitle),
-                        Toast.LENGTH_LONG)
-                    .show();
+//                Toast.makeText(
+//                        view.getContext(),
+//                        getResources().getString(R.string.monthTitle),
+//                        Toast.LENGTH_LONG)
+//                    .show();
+                date = Calendar.getInstance();
+                date.set(Calendar.HOUR_OF_DAY, 0);
+                date.set(Calendar.MINUTE, 0);
+                date.set(Calendar.SECOND, 0);
+                xAxisLabel =
+                        new ArrayList<>(Arrays.asList("1", "4", "6", "9", "11", "13", "16", "19", "21", "23", "26", "29", "31"));
+                sumByDay = new float[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+                showDaysMonth();
                 break;
             }
           }
@@ -98,12 +107,16 @@ public class StatisticsFragment extends Fragment {
   }
 
   @SuppressLint("SetTextI18n")
-  private void initEmptyBarChart() {
+  private void initEmptyBarChart(String type) {
     data_expenses.clear();
-    sumByDay = new float[] {0, 0, 0, 0, 0, 0, 0};
     maxSum = 0;
     sum = 0;
     minSum = 0;
+    if (type.equals("week")) {
+      sumByDay = new float[] {0, 0, 0, 0, 0, 0, 0};
+    } else {
+      sumByDay = new float[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+    }
     for (int i = 0; i < sumByDay.length; i++) {
       data_expenses.add(new BarEntry(i, sumByDay[i]));
     }
@@ -116,9 +129,9 @@ public class StatisticsFragment extends Fragment {
       getResources().getColor(R.color.menu_6),
       getResources().getColor(R.color.error_100)
     };
-    String exCount = sum + " RUB";
-    String minCount = minSum + " RUB";
-    String maxCount = maxSum + " RUB";
+    String exCount = sum + " " + "RUB"; //FIXME: format?
+    String minCount = minSum +  " " + "RUB";
+    String maxCount = maxSum +  " " + "RUB";
     defaultBarSettings(colors, exCount, minCount, maxCount);
   }
 
@@ -152,15 +165,20 @@ public class StatisticsFragment extends Fragment {
   }
 
   @SuppressLint("SetTextI18n")
-  private void initBarChart() {
+  private void initBarChart(String type) {
     data_expenses.clear();
     maxSum = sum = 0;
     minSum = Float.POSITIVE_INFINITY;
-    sumByDay = new float[] {0, 0, 0, 0, 0, 0, 0};
+    SimpleDateFormat df;
+    if (type.equals("week")) {
+      df = new SimpleDateFormat("EEE");
+      sumByDay = new float[] {0, 0, 0, 0, 0, 0, 0};
+    } else {
+      df = new SimpleDateFormat("d");
+      sumByDay = new float[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+    }
     for (int i = 0; i < expenses.size(); i++) {
       Date d = new Date(expenses.get(i).getDate());
-      @SuppressLint("SimpleDateFormat")
-      SimpleDateFormat df = new SimpleDateFormat("EEE");
       day = df.format(d);
       if (xAxisLabel.contains(day)) {
         sumByDay[xAxisLabel.indexOf(day)] +=
@@ -203,21 +221,38 @@ public class StatisticsFragment extends Fragment {
     tvMin = view.findViewById(R.id.minCount);
   }
 
-  private void initializeData() {
+  private void initializeDataWeek() {
     AppDatabase db = AppDatabase.build(view.getContext());
     Date[] week = days.get(weekPos);
     expenses = db.expenseDao().getByDate(week[0].getTime(), week[1].getTime());
 
     if (expenses.isEmpty()) {
-      initEmptyBarChart();
+      initEmptyBarChart("week");
       //      tvNoInfo.setVisibility(View.VISIBLE);
       //      deleteDialog.show();
       // TODO: dialog
     } else {
-      initBarChart();
+      initBarChart("week");
       //      tvNoInfo.setVisibility(View.INVISIBLE);
     }
   }
+
+  private void initializeDataMonth() {
+    AppDatabase db = AppDatabase.build(view.getContext());
+    Date[] month = daysMonth.get(monthPos);
+    expenses = db.expenseDao().getByDate(month[0].getTime(), month[1].getTime());
+
+    if (expenses.isEmpty()) {
+      initEmptyBarChart("month");
+      //      tvNoInfo.setVisibility(View.VISIBLE);
+      //      deleteDialog.show();
+      // TODO: dialog
+    } else {
+      initBarChart("month");
+      //      tvNoInfo.setVisibility(View.INVISIBLE);
+    }
+  }
+
 
   @SuppressLint("ClickableViewAccessibility")
   private void initializeAdapter() {
@@ -235,31 +270,69 @@ public class StatisticsFragment extends Fragment {
     //    rv.setOnTouchListener(new TranslateAnimUtil(this.getContext(), nav_view));
   }
 
-  private void showCategories() {
+  private void showCategoriesWeek() {
     rv = view.findViewById(R.id.rvCateg);
 
     LinearLayoutManager llm = new LinearLayoutManager(view.getContext());
     rv.setLayoutManager(llm);
     rv.setHasFixedSize(true);
 
-    initializeData();
+    initializeDataWeek();
     initializeAdapter();
   }
 
-  private void initializeDataDays() {
+  private void showCategoriesMonth() {
+    rv = view.findViewById(R.id.rvCateg);
 
+    LinearLayoutManager llm = new LinearLayoutManager(view.getContext());
+    rv.setLayoutManager(llm);
+    rv.setHasFixedSize(true);
+
+    initializeDataMonth();
+    initializeAdapter();
+  }
+
+  private void initializeDataDaysMonth() {
+    date.set(Calendar.DAY_OF_MONTH, (-1) * 100);
+    for (int i = 1; i <= 200; i++) {
+      dateListMonth.add(date.getTime());
+      date.add(Calendar.DATE, 1);
+    }
+    SimpleDateFormat formatNumDayWeek = new SimpleDateFormat("d");
+    for (int i = 0; i < dateListMonth.size(); i++) {
+      String checkDate = formatNumDayWeek.format(dateListMonth.get(i));
+      if (checkDate.equals("1")) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(dateListMonth.get(i));
+        cal.set(Calendar.DATE, cal.getActualMaximum(Calendar.DATE));
+        int countDays = Integer.parseInt(formatNumDayWeek.format(cal.getTime()));
+        if (i + countDays > dateListMonth.size()) {
+          countDays = dateListMonth.size() - i - 1;
+        }
+        daysMonth.add(new Date[]{dateListMonth.get(i), dateListMonth.get(i + countDays)});
+        i+=countDays - 1;
+      }
+    }
+  }
+
+  private void initializeDataDaysWeek() {
+    date.add(Calendar.DAY_OF_MONTH, (-1) * 30);
+    for (int i = 1; i <= 60; i++) {
+      dateListWeek.add(date.getTime());
+      date.add(Calendar.DATE, 1);
+    }
     SimpleDateFormat formatNumDayWeek = new SimpleDateFormat("u");
-    for (int i = 0; i < dateList.size() - 6; i++) {
-      if (formatNumDayWeek.format(dateList.get(i)).equals("1")) {
-        days.add(new Date[] {dateList.get(i), dateList.get(i + 6)});
+    for (int i = 0; i < dateListWeek.size() - 6; i++) {
+      if (formatNumDayWeek.format(dateListWeek.get(i)).equals("1")) {
+        days.add(new Date[] {dateListWeek.get(i), dateListWeek.get(i + 6)});
         i += 6;
       }
     }
   }
 
   @SuppressLint("ClickableViewAccessibility")
-  private void initializeAdapterDays() {
-    RVAdapterDays adapter = new RVAdapterDays(days);
+  private void initializeAdapterDays(List<Date[]> daysList, String type) {
+    RVAdapterDays adapter = new RVAdapterDays(daysList, type);
     rvDays.setAdapter(adapter);
     adapter.setOnItemClickListener(
         new RVAdapterDays.ClickListener() {
@@ -273,7 +346,8 @@ public class StatisticsFragment extends Fragment {
     //    rv.setOnTouchListener(new TranslateAnimUtil(this.getContext(), nav_view));
   }
 
-  private void showDays() {
+
+  private void showDaysWeek() {
     rvDays = view.findViewById(R.id.rvDays);
 
     LinearLayoutManager llm =
@@ -288,7 +362,7 @@ public class StatisticsFragment extends Fragment {
             if (weekPos > 0) {
               llm.scrollToPositionWithOffset(weekPos, 0);
             }
-            showCategories();
+            showCategoriesWeek();
           }
         });
     btnRight.setOnClickListener(
@@ -301,13 +375,55 @@ public class StatisticsFragment extends Fragment {
             if (weekPos < days.size() - 1) {
               llm.scrollToPositionWithOffset(weekPos, 0);
             }
-            showCategories();
+            showCategoriesWeek();
           }
         });
     if (days.isEmpty()) {
-      initializeDataDays();
+      initializeDataDaysWeek();
     }
-    initializeAdapterDays();
+    initializeAdapterDays(days, "week");
     rvDays.scrollToPosition(weekPos);
+  }
+
+  private void showDaysMonth() {
+    rvDays = view.findViewById(R.id.rvDays);
+    Toast.makeText(
+            view.getContext(),
+            getResources().getString(R.string.monthTitle),
+            Toast.LENGTH_LONG)
+            .show();
+    LinearLayoutManager llm =
+            new LinearLayoutManager(view.getContext(), LinearLayoutManager.HORIZONTAL, false);
+    rvDays.setLayoutManager(llm);
+    rvDays.setHasFixedSize(true);
+    btnLeft.setOnClickListener(
+            new View.OnClickListener() {
+              @Override
+              public void onClick(View view) {
+                monthPos = llm.findFirstVisibleItemPosition() - 1;
+                if (monthPos > 0) {
+                  llm.scrollToPositionWithOffset(monthPos, 0);
+                }
+                showCategoriesMonth();
+              }
+            });
+    btnRight.setOnClickListener(
+            new View.OnClickListener() {
+              @Override
+              public void onClick(View view) {
+                monthPos = llm.findFirstVisibleItemPosition() + 1;
+                Toast.makeText(view.getContext(), monthPos + " " + daysMonth.size(), Toast.LENGTH_LONG)
+                        .show();
+                if (monthPos < daysMonth.size() - 1) {
+                  llm.scrollToPositionWithOffset(monthPos, 0);
+                }
+                showCategoriesMonth();
+              }
+            });
+    if (daysMonth.isEmpty()) {
+      initializeDataDaysMonth();
+    }
+    initializeAdapterDays(daysMonth, "month");
+    rvDays.scrollToPosition(monthPos);
   }
 }
