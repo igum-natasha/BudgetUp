@@ -19,7 +19,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,7 +26,6 @@ import android.widget.Toast;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.Date;
-import java.util.Locale;
 import java.util.UUID;
 
 public class NewExpenseActivity extends AppCompatActivity {
@@ -191,12 +189,12 @@ public class NewExpenseActivity extends AppCompatActivity {
               case R.id.radioEnter:
                 category = "pastime";
                 break;
-                case R.id.radioServices:
-                    category = "services";
-                    break;
-                case R.id.radioOthers:
-                    category = "others";
-                    break;
+              case R.id.radioServices:
+                category = "services";
+                break;
+              case R.id.radioOthers:
+                category = "others";
+                break;
               default:
                 break;
             }

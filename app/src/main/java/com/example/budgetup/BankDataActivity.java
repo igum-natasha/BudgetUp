@@ -33,7 +33,7 @@ public class BankDataActivity extends AppCompatActivity implements PickiTCallbac
   private static final int PICK_FILE_REQUEST = 1;
   TextView toolbarName, fileName;
   ImageButton btnBack, btnSber, btnTink;
-  ImageView  btnIconFile;
+  ImageView btnIconFile;
   LinearLayout selectFile;
   Button btnSubmit;
   PickiT pickiT;
@@ -76,39 +76,34 @@ public class BankDataActivity extends AppCompatActivity implements PickiTCallbac
             startActivity(browserIntent);
           }
         });
-    btnSubmit.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View view) {
-        if (!fileName.getText().equals(getString(R.string.select_file))) {
-          String path = fileName.getText().toString().split(":\n")[1];
-          DataParser parser = new DataParser(path);
-          try {
-            parser.parseFile(getWindow().getDecorView().getRootView());
-            Toast.makeText(
-                    getApplicationContext(),
-                    getString(R.string.add_success),
-                    Toast.LENGTH_LONG)
+    btnSubmit.setOnClickListener(
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+            if (!fileName.getText().equals(getString(R.string.select_file))) {
+              String path = fileName.getText().toString().split(":\n")[1];
+              DataParser parser = new DataParser(path);
+              try {
+                parser.parseFile(getWindow().getDecorView().getRootView());
+                Toast.makeText(
+                        getApplicationContext(), getString(R.string.add_success), Toast.LENGTH_LONG)
                     .show();
-          } catch (IOException e) {
-            e.printStackTrace();
-            Toast.makeText(
-                    getApplicationContext(),
-                    getString(R.string.add_fail),
-                    Toast.LENGTH_LONG)
+              } catch (IOException e) {
+                e.printStackTrace();
+                Toast.makeText(
+                        getApplicationContext(), getString(R.string.add_fail), Toast.LENGTH_LONG)
                     .show();
-          } catch (ParseException e) {
-            e.printStackTrace();
-            Toast.makeText(
-                    getApplicationContext(),
-                    getString(R.string.add_fail),
-                    Toast.LENGTH_LONG)
+              } catch (ParseException e) {
+                e.printStackTrace();
+                Toast.makeText(
+                        getApplicationContext(), getString(R.string.add_fail), Toast.LENGTH_LONG)
                     .show();
+              }
+              Intent intent = new Intent(BankDataActivity.this, HomeActivity.class);
+              startActivity(intent);
+            }
           }
-          Intent intent = new Intent(BankDataActivity.this, HomeActivity.class);
-          startActivity(intent);
-        }
-      }
-    });
+        });
     selectFile.setOnClickListener(
         new View.OnClickListener() {
           @Override
