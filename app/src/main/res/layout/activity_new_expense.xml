@@ -40,6 +40,31 @@
             android:text="@string/date_exmp"/>
 
     </LinearLayout>
+    <TextView
+        android:id="@+id/nameTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="22dp"
+        android:textColor="@color/base_500"
+        android:fontFamily="@font/poppins"
+        android:textSize="14sp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/titleName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/date"/>
+
+    <TextView
+        android:id="@+id/infoTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="22dp"
+        android:textColor="@color/base_500"
+        android:fontFamily="@font/poppins"
+        android:textSize="14sp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/infoTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/nameExpense"/>
 
     <com.loopeer.shadow.ShadowView
         android:id="@+id/shadowView"
@@ -48,8 +73,11 @@
         app:cornerRadius="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/date"
-        app:shadowMargin="16dp"
+        app:layout_constraintTop_toBottomOf="@id/infoTitle"
+        app:shadowMarginLeft="16dp"
+        app:shadowMarginBottom="8dp"
+        app:shadowMarginRight="16dp"
+        app:shadowMarginTop="2dp"
         app:shadowRadius="4dp">
         <LinearLayout
             android:layout_width="match_parent"
@@ -131,9 +159,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="36dp"
+        android:layout_margin="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/paymentMenu">
@@ -144,6 +170,7 @@
             android:layout_height="46dp"
             android:background="@drawable/feedback_background"
             android:fontFamily="@font/poppins"
+            android:maxLength="4"
             android:hint="@string/card"
             android:textSize="16sp"
             android:padding="8dp"
@@ -161,14 +188,17 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/nameExpense"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:layout_margin="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="2dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/linCard">
+        app:layout_constraintTop_toBottomOf="@id/nameTitle">
 
         <EditText
             android:id="@+id/entNote"
@@ -179,6 +209,7 @@
             android:hint="@string/note"
             android:importantForAutofill="yes"
             android:inputType="none"
+            android:maxLength="14"
             android:padding="8dp"
             android:textSize="16sp" />
 

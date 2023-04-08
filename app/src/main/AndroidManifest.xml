@@ -13,7 +13,10 @@
         android:theme="@style/Theme.BudgetUp">
         <activity
             android:name=".BankDataActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:launchMode="singleTask"
+            android:taskAffinity=""
+            android:excludeFromRecents="true"/>
         <activity
             android:name=".NewExpenseActivity"
             android:exported="false" />

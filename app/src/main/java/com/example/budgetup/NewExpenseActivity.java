@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,6 +27,7 @@ import android.widget.Toast;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.Date;
+import java.util.Locale;
 import java.util.UUID;
 
 public class NewExpenseActivity extends AppCompatActivity {
@@ -126,8 +128,8 @@ public class NewExpenseActivity extends AppCompatActivity {
         new AdapterView.OnItemClickListener() {
           @Override
           public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-            payment = adapterView.getItemAtPosition(i).toString() + "\n";
-            if (payment.equals("Credit card")) {
+            payment = adapterView.getItemAtPosition(i).toString();
+            if (payment.equals(paymentItem[1])) {
               lCard.setVisibility(View.VISIBLE);
             } else {
               entCard.setText("None");
@@ -149,7 +151,7 @@ public class NewExpenseActivity extends AppCompatActivity {
     RadioGroup radGrp = categoryDialog.findViewById(R.id.radioGroup);
     radGrp.setOnCheckedChangeListener(
         new RadioGroup.OnCheckedChangeListener() {
-          @SuppressLint("NonConstantResourceId")
+          @SuppressLint({"NonConstantResourceId", "ResourceType"})
           @Override
           public void onCheckedChanged(RadioGroup arg0, int id) {
             switch (id) {
@@ -157,16 +159,16 @@ public class NewExpenseActivity extends AppCompatActivity {
                 category = "car";
                 break;
               case R.id.radioCommun:
-                category = "communication";
+                category = "phone";
                 break;
               case R.id.radioRest:
-                category = "restaurants";
+                category = "cafe";
                 break;
               case R.id.radioClothes:
                 category = "clothes";
                 break;
               case R.id.radioGift:
-                category = "gift";
+                category = "gifts";
                 break;
               case R.id.radioFood:
                 category = "food";
@@ -187,8 +189,14 @@ public class NewExpenseActivity extends AppCompatActivity {
                 category = "transport";
                 break;
               case R.id.radioEnter:
-                category = "entertainment";
+                category = "pastime";
                 break;
+                case R.id.radioServices:
+                    category = "services";
+                    break;
+                case R.id.radioOthers:
+                    category = "others";
+                    break;
               default:
                 break;
             }

@@ -140,8 +140,10 @@ public class HomeActivity extends AppCompatActivity {
           @Override
           public void onClick(View view) {
             dayPos = llm.findFirstVisibleItemPosition() - 1;
-            llm.scrollToPositionWithOffset(dayPos, 0);
-            showExpenses();
+            if (dayPos > 0) {
+              llm.scrollToPositionWithOffset(dayPos, 0);
+              showExpenses();
+            }
           }
         });
     btnRight.setOnClickListener(
@@ -149,8 +151,10 @@ public class HomeActivity extends AppCompatActivity {
           @Override
           public void onClick(View view) {
             dayPos = llm.findFirstVisibleItemPosition() + 1;
-            llm.scrollToPositionWithOffset(dayPos, 0);
-            showExpenses();
+            if (dayPos < dateList.size() - 1) {
+              llm.scrollToPositionWithOffset(dayPos, 0);
+              showExpenses();
+            }
           }
         });
 

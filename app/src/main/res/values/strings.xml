@@ -23,6 +23,7 @@
     <string name="login_title">Log in</string>
     <string name="titleEmail">E-mail</string>
     <string name="titleName">Name</string>
+    <string name="infoTitle">Info</string>
     <string name="ent_email">e-mail</string>
     <string name="ent_pass">password</string>
     <string name="ent_name">name</string>
@@ -54,13 +55,13 @@
     <string name="send">send</string>
     <string name="share_email">My budget monitoring and planning skills have improved significantly with \'Budget Up\'! Download it now and you\'ll see the changes, too. https://github.com/igum-natasha/BudgetUp</string>
     <string name="new_income">New income</string>
-    <string name="new_csv">New CSV data</string>
+    <string name="new_csv">New Excel data</string>
     <string name="new_expense">New expense</string>
     <string name="ent_income">Income value</string>
     <string name="ent_expense">Expense value</string>
     <string name="date_exmp">Wednesday, May 26</string>
     <string name="menu_title">Select payment</string>
-    <string name="note">Enter note</string>
+    <string name="note">Enter name</string>
     <string name="card">Enter last 4 chars of the card</string>
     <string name="ch_category">Choose category</string>
     <string name="login_suc">Login successful!</string>
@@ -72,8 +73,8 @@
     <string name="salary">Salary</string>
     <string name="savings">Savings</string>
     <string name="car">Car</string>
-    <string name="communications">Communications</string>
-    <string name="restaurants">Restaurants</string>
+    <string name="communications">Phone</string>
+    <string name="restaurants">Cafe</string>
     <string name="clothes">Clothes</string>
     <string name="gifts">Gifts</string>
     <string name="food">Food</string>
@@ -81,16 +82,20 @@
     <string name="house">House</string>
     <string name="sports">Sports</string>
     <string name="pets">Pets</string>
+    <string name="services">Services</string>
     <string name="transport">Transport</string>
-    <string name="entertainment">Entertainment</string>
+    <string name="entertainment">Pastime</string>
+    <string name="others">Others</string>
     <string name="expense_add_suc">Expense has been added successfully!</string>
     <string name="income_add_suc">Income has been added successfully!</string>
     <string name="no_info">No information</string>
     <string name="add_bank">Info from bank</string>
     <string name="choose_bank">Choose bank</string>
     <string name="add_file">OR add Excel file</string>
-    <string name="select_file">Select the file or move it here</string>
+    <string name="select_file">Select Excel file</string>
     <string name="submit">Submit</string>
+    <string name="add_success">Add data successfully!</string>
+    <string name="add_fail">Add data failed!</string>
 
     <string name="title_onboarding1">Painless budgeting</string>
     <string name="title_onboarding2">The whole picture in one place</string>

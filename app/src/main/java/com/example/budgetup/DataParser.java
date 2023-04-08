@@ -63,12 +63,12 @@ public class DataParser {
   private void updateDB(Map<Integer, List<String>> data, View view) throws ParseException {
     // temp solution start
     Map<String, String[]> new_data = new HashMap<>();
-    new_data.put("communication", new String[] {"ЖКХ, связь, интернет ", "Мобильная связь"});
-    new_data.put("restaurants", new String[] {"Фастфуд", "Рестораны", "Рестораны и кафе"});
+    new_data.put("phone", new String[] {"ЖКХ, связь, интернет ", "Мобильная связь"});
+    new_data.put("cafe", new String[] {"Фастфуд", "Рестораны", "Рестораны и кафе"});
     new_data.put("clothes", new String[] {"Одежда и аксессуары", "Одежда и обувь"});
     new_data.put("services", new String[] {"Онлайн-маркеты", "Сервис", "Различные товары"});
     new_data.put("food", new String[] {"Супермаркеты"});
-    new_data.put("gift", new String[] {"Развлечения и хобби", "Детские товары"});
+    new_data.put("gifts", new String[] {"Развлечения и хобби", "Детские товары"});
     new_data.put("health", new String[] {"Аптеки", "Здоровье и красота"});
     new_data.put("house", new String[] {"Дом и ремонт", "Все для дома", "ЖКХ"});
     new_data.put("pets", new String[] {"Животные"});
@@ -115,11 +115,7 @@ public class DataParser {
             break;
           case "Сумма платежа":
           case "Сумма":
-            if (filename.contains("outcome")) {
-              value = data.get(i).get(j);
-            } else {
-              value = data.get(i).get(j);
-            }
+            value = data.get(i).get(j);
             expense.setValue(value);
             break;
           case "Номер счета/карты зачисления":
@@ -151,6 +147,10 @@ public class DataParser {
           default:
             break;
         }
+      }
+      if (!expense.getCategory().equals("salary")) {
+        String new_value = "-" + expense.getValue();
+        expense.setValue(new_value);
       }
       List<Expense> expenseList = db.expenseDao().getAll();
       for (Expense exp : expenseList) {

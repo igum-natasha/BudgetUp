@@ -13,7 +13,9 @@ import android.os.Bundle;
 
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,9 +31,11 @@ import java.util.ArrayList;
 public class BankDataActivity extends AppCompatActivity implements PickiTCallbacks {
 
   private static final int PICK_FILE_REQUEST = 1;
-  TextView toolbarName;
+  TextView toolbarName, fileName;
   ImageButton btnBack, btnSber, btnTink;
+  ImageView  btnIconFile;
   LinearLayout selectFile;
+  Button btnSubmit;
   PickiT pickiT;
 
   @Override
@@ -55,6 +59,8 @@ public class BankDataActivity extends AppCompatActivity implements PickiTCallbac
           public void onClick(View view) {
             Intent browserIntent =
                 new Intent(Intent.ACTION_VIEW, Uri.parse("https://online.sberbank.ru/"));
+            browserIntent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+            browserIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(browserIntent);
           }
         });
@@ -65,10 +71,44 @@ public class BankDataActivity extends AppCompatActivity implements PickiTCallbac
           public void onClick(View view) {
             Intent browserIntent =
                 new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.tinkoff.ru/login/"));
+            browserIntent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+            browserIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(browserIntent);
           }
         });
-
+    btnSubmit.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        if (!fileName.getText().equals(getString(R.string.select_file))) {
+          String path = fileName.getText().toString().split(":\n")[1];
+          DataParser parser = new DataParser(path);
+          try {
+            parser.parseFile(getWindow().getDecorView().getRootView());
+            Toast.makeText(
+                    getApplicationContext(),
+                    getString(R.string.add_success),
+                    Toast.LENGTH_LONG)
+                    .show();
+          } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(
+                    getApplicationContext(),
+                    getString(R.string.add_fail),
+                    Toast.LENGTH_LONG)
+                    .show();
+          } catch (ParseException e) {
+            e.printStackTrace();
+            Toast.makeText(
+                    getApplicationContext(),
+                    getString(R.string.add_fail),
+                    Toast.LENGTH_LONG)
+                    .show();
+          }
+          Intent intent = new Intent(BankDataActivity.this, HomeActivity.class);
+          startActivity(intent);
+        }
+      }
+    });
     selectFile.setOnClickListener(
         new View.OnClickListener() {
           @Override
@@ -104,10 +144,11 @@ public class BankDataActivity extends AppCompatActivity implements PickiTCallbac
           public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
               case R.id.home:
+                startActivity(new Intent(BankDataActivity.this, HomeActivity.class));
+                overridePendingTransition(0, 0);
                 return true;
               case R.id.statistic:
-                Intent intent = new Intent(BankDataActivity.this, StatisticsActivity.class);
-                startActivity(intent);
+                startActivity(new Intent(BankDataActivity.this, StatisticsActivity.class));
                 overridePendingTransition(0, 0);
                 return true;
               case R.id.account:
@@ -140,6 +181,9 @@ public class BankDataActivity extends AppCompatActivity implements PickiTCallbac
     btnSber = findViewById(R.id.iconSber);
     btnTink = findViewById(R.id.iconTink);
     selectFile = findViewById(R.id.selectFile);
+    fileName = findViewById(R.id.file);
+    btnSubmit = findViewById(R.id.btnSubmit);
+    btnIconFile = findViewById(R.id.iconFile);
 
     toolbarName.setText(R.string.new_csv);
   }
@@ -163,16 +207,8 @@ public class BankDataActivity extends AppCompatActivity implements PickiTCallbac
 
     //  Chick if it was successful
     if (wasSuccessful) {
-      //  Set returned path to TextView
-      Toast.makeText(this, "Selected File Path:" + path, Toast.LENGTH_SHORT).show();
-      DataParser parser = new DataParser(path);
-      try {
-        parser.parseFile(getWindow().getDecorView().getRootView());
-      } catch (IOException e) {
-        e.printStackTrace();
-      } catch (ParseException e) {
-        e.printStackTrace();
-      }
+      btnIconFile.setVisibility(View.GONE);
+      fileName.setText("Selected File Path:\n" + path);
     }
   }
 

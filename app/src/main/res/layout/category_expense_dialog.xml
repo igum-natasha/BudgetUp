@@ -151,6 +151,24 @@
             android:textColor="@color/base_900"
             android:textSize="16sp"
             android:layout_margin="4dp"/>
+        <RadioButton
+            android:id="@+id/radioServices"
+            android:layout_height="24dp"
+            android:layout_width="wrap_content"
+            android:text="@string/services"
+            android:fontFamily="@font/poppins"
+            android:textColor="@color/base_900"
+            android:textSize="16sp"
+            android:layout_margin="4dp"/>
+        <RadioButton
+            android:id="@+id/radioOthers"
+            android:layout_height="24dp"
+            android:layout_width="wrap_content"
+            android:text="@string/others"
+            android:fontFamily="@font/poppins"
+            android:textColor="@color/base_900"
+            android:textSize="16sp"
+            android:layout_margin="4dp"/>
     </RadioGroup>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

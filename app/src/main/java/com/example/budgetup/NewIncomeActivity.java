@@ -129,7 +129,7 @@ public class NewIncomeActivity extends AppCompatActivity {
           @Override
           public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
             payment = adapterView.getItemAtPosition(i).toString();
-            if (payment.equals("Credit card")) {
+            if (payment.equals(paymentItem[1])) {
               lCard.setVisibility(View.VISIBLE);
             } else {
               entCard.setText("None");
