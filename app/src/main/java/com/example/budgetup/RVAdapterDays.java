@@ -87,9 +87,9 @@ public class RVAdapterDays extends RecyclerView.Adapter<RVAdapterDays.DaysViewHo
         @SuppressLint("SimpleDateFormat")
         SimpleDateFormat formatWeekDay = new SimpleDateFormat("MMM dd");
         ViewHolder.dateName.setText(
-                  formatWeekDay.format(days_list.get(i)[0])
-                          + " - "
-                          + formatWeekDay.format(days_list.get(i)[1]));
+            formatWeekDay.format(days_list.get(i)[0])
+                + " - "
+                + formatWeekDay.format(days_list.get(i)[1]));
         break;
       case "day":
         @SuppressLint("SimpleDateFormat")

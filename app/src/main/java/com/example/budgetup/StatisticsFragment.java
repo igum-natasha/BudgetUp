@@ -63,7 +63,7 @@ public class StatisticsFragment extends Fragment {
     view = inflater.inflate(R.layout.fragment_statistics, container, false);
     initViews();
     MaterialButtonToggleGroup toggleGroup = view.findViewById(R.id.toggleGroup);
-//    toggleGroup.check(R.id.button1);
+    //    toggleGroup.check(R.id.button1);
     toggleGroup.addOnButtonCheckedListener(
         new MaterialButtonToggleGroup.OnButtonCheckedListener() {
           @Override
@@ -72,31 +72,34 @@ public class StatisticsFragment extends Fragment {
             switch (checkedId) {
               case R.id.button1:
                 // FIXME: check week button automatically
-//                Toast.makeText(
-//                        view.getContext(),
-//                        getResources().getString(R.string.weekTitle),
-//                        Toast.LENGTH_LONG)
-//                    .show();
+                //                Toast.makeText(
+                //                        view.getContext(),
+                //                        getResources().getString(R.string.weekTitle),
+                //                        Toast.LENGTH_LONG)
+                //                    .show();
                 date = Calendar.getInstance();
                 date.set(Calendar.HOUR_OF_DAY, 0);
                 date.set(Calendar.MINUTE, 0);
                 date.set(Calendar.SECOND, 0);
                 xAxisLabel =
-                        new ArrayList<>(Arrays.asList("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"));
+                    new ArrayList<>(Arrays.asList("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"));
                 showDaysWeek();
                 break;
               case R.id.button2:
-//                Toast.makeText(
-//                        view.getContext(),
-//                        getResources().getString(R.string.monthTitle),
-//                        Toast.LENGTH_LONG)
-//                    .show();
+                //                Toast.makeText(
+                //                        view.getContext(),
+                //                        getResources().getString(R.string.monthTitle),
+                //                        Toast.LENGTH_LONG)
+                //                    .show();
                 date = Calendar.getInstance();
                 date.set(Calendar.HOUR_OF_DAY, 0);
                 date.set(Calendar.MINUTE, 0);
                 date.set(Calendar.SECOND, 0);
                 xAxisLabel =
-                        new ArrayList<>(Arrays.asList("1", "4", "6", "9", "11", "13", "16", "19", "21", "23", "26", "29", "31"));
+                    new ArrayList<>(
+                        Arrays.asList(
+                            "1", "4", "6", "9", "11", "13", "16", "19", "21", "23", "26", "29",
+                            "31"));
                 sumByDay = new float[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
                 showDaysMonth();
                 break;
@@ -129,9 +132,9 @@ public class StatisticsFragment extends Fragment {
       getResources().getColor(R.color.menu_6),
       getResources().getColor(R.color.error_100)
     };
-    String exCount = sum + " " + "RUB"; //FIXME: format?
-    String minCount = minSum +  " " + "RUB";
-    String maxCount = maxSum +  " " + "RUB";
+    String exCount = sum + " " + "RUB"; // FIXME: format?
+    String minCount = minSum + " " + "RUB";
+    String maxCount = maxSum + " " + "RUB";
     defaultBarSettings(colors, exCount, minCount, maxCount);
   }
 
@@ -253,7 +256,6 @@ public class StatisticsFragment extends Fragment {
     }
   }
 
-
   @SuppressLint("ClickableViewAccessibility")
   private void initializeAdapter() {
     RVAdapterCategory adapter = new RVAdapterCategory(expenses);
@@ -309,8 +311,8 @@ public class StatisticsFragment extends Fragment {
         if (i + countDays > dateListMonth.size()) {
           countDays = dateListMonth.size() - i - 1;
         }
-        daysMonth.add(new Date[]{dateListMonth.get(i), dateListMonth.get(i + countDays)});
-        i+=countDays - 1;
+        daysMonth.add(new Date[] {dateListMonth.get(i), dateListMonth.get(i + countDays)});
+        i += countDays - 1;
       }
     }
   }
@@ -345,7 +347,6 @@ public class StatisticsFragment extends Fragment {
     //    BottomNavigationView nav_view = StatisticsActivity.getNavigationview();
     //    rv.setOnTouchListener(new TranslateAnimUtil(this.getContext(), nav_view));
   }
-
 
   private void showDaysWeek() {
     rvDays = view.findViewById(R.id.rvDays);
@@ -388,38 +389,36 @@ public class StatisticsFragment extends Fragment {
   private void showDaysMonth() {
     rvDays = view.findViewById(R.id.rvDays);
     Toast.makeText(
-            view.getContext(),
-            getResources().getString(R.string.monthTitle),
-            Toast.LENGTH_LONG)
-            .show();
+            view.getContext(), getResources().getString(R.string.monthTitle), Toast.LENGTH_LONG)
+        .show();
     LinearLayoutManager llm =
-            new LinearLayoutManager(view.getContext(), LinearLayoutManager.HORIZONTAL, false);
+        new LinearLayoutManager(view.getContext(), LinearLayoutManager.HORIZONTAL, false);
     rvDays.setLayoutManager(llm);
     rvDays.setHasFixedSize(true);
     btnLeft.setOnClickListener(
-            new View.OnClickListener() {
-              @Override
-              public void onClick(View view) {
-                monthPos = llm.findFirstVisibleItemPosition() - 1;
-                if (monthPos > 0) {
-                  llm.scrollToPositionWithOffset(monthPos, 0);
-                }
-                showCategoriesMonth();
-              }
-            });
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+            monthPos = llm.findFirstVisibleItemPosition() - 1;
+            if (monthPos > 0) {
+              llm.scrollToPositionWithOffset(monthPos, 0);
+            }
+            showCategoriesMonth();
+          }
+        });
     btnRight.setOnClickListener(
-            new View.OnClickListener() {
-              @Override
-              public void onClick(View view) {
-                monthPos = llm.findFirstVisibleItemPosition() + 1;
-                Toast.makeText(view.getContext(), monthPos + " " + daysMonth.size(), Toast.LENGTH_LONG)
-                        .show();
-                if (monthPos < daysMonth.size() - 1) {
-                  llm.scrollToPositionWithOffset(monthPos, 0);
-                }
-                showCategoriesMonth();
-              }
-            });
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+            monthPos = llm.findFirstVisibleItemPosition() + 1;
+            Toast.makeText(view.getContext(), monthPos + " " + daysMonth.size(), Toast.LENGTH_LONG)
+                .show();
+            if (monthPos < daysMonth.size() - 1) {
+              llm.scrollToPositionWithOffset(monthPos, 0);
+            }
+            showCategoriesMonth();
+          }
+        });
     if (daysMonth.isEmpty()) {
       initializeDataDaysMonth();
     }
