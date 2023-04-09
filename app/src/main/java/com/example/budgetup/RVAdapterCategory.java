@@ -1,6 +1,5 @@
 package com.example.budgetup;
 
-import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,14 +8,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.components.Legend;
-import com.github.mikephil.charting.components.XAxis;
-import com.github.mikephil.charting.data.BarData;
-import com.github.mikephil.charting.data.BarDataSet;
-import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -88,39 +80,46 @@ public class RVAdapterCategory extends RecyclerView.Adapter<RVAdapterCategory.Ca
     switch (type) {
       case "week":
         xAxisLabel =
-                new ArrayList<>(Arrays.asList("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"));
+            new ArrayList<>(Arrays.asList("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"));
         break;
       case "month":
         xAxisLabel =
-                new ArrayList<>(
-                        Arrays.asList(
-                                "1", "4", "6", "9", "11", "13", "16", "19", "21", "23", "26", "29",
-                                "31"));
+            new ArrayList<>(
+                Arrays.asList(
+                    "1", "4", "6", "9", "11", "13", "16", "19", "21", "23", "26", "29", "31"));
         break;
       default:
         throw new IllegalStateException("Unexpected value: " + type);
     }
-    int [] colors = {
-            ViewHolder.itemView.getResources().getColor(R.color.primary_200),
-            ViewHolder.itemView.getResources().getColor(R.color.base_500),
-            ViewHolder.itemView.getResources().getColor(R.color.menu_1),
-            ViewHolder.itemView.getResources().getColor(R.color.menu_2),
-            ViewHolder.itemView.getResources().getColor(R.color.menu_3),
-            ViewHolder.itemView.getResources().getColor(R.color.menu_4),
-            ViewHolder.itemView.getResources().getColor(R.color.menu_5),
-            ViewHolder.itemView.getResources().getColor(R.color.menu_6),
-            ViewHolder.itemView.getResources().getColor(R.color.error_100)
+    int[] colors = {
+      ViewHolder.itemView.getResources().getColor(R.color.primary_200),
+      ViewHolder.itemView.getResources().getColor(R.color.base_500),
+      ViewHolder.itemView.getResources().getColor(R.color.menu_1),
+      ViewHolder.itemView.getResources().getColor(R.color.menu_2),
+      ViewHolder.itemView.getResources().getColor(R.color.menu_3),
+      ViewHolder.itemView.getResources().getColor(R.color.menu_4),
+      ViewHolder.itemView.getResources().getColor(R.color.menu_5),
+      ViewHolder.itemView.getResources().getColor(R.color.menu_6),
+      ViewHolder.itemView.getResources().getColor(R.color.error_100)
     };
     if (!categList.contains(expenses.get(i).getCategory())) {
       categList.add(expenses.get(i).getCategory());
       ViewHolder.categoryName.setText("Category: " + expenses.get(i).getCategory());
       List<Expense> newExpenses = new ArrayList<>();
-      for(Expense ex: expenses) {
+      for (Expense ex : expenses) {
         if (ex.getCategory().equals(expenses.get(i).getCategory())) {
           newExpenses.add(ex);
         }
       }
-      StatisticsFragment.initBarChart(ViewHolder.barChart, newExpenses, xAxisLabel, type, colors, ViewHolder.maxCount, ViewHolder.minCount, ViewHolder.expenseCount);
+      StatisticsFragment.initBarChart(
+          ViewHolder.barChart,
+          newExpenses,
+          xAxisLabel,
+          type,
+          colors,
+          ViewHolder.maxCount,
+          ViewHolder.minCount,
+          ViewHolder.expenseCount);
     }
   }
 

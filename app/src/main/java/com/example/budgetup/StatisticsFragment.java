@@ -126,7 +126,12 @@ public class StatisticsFragment extends Fragment {
     defaultBarSettings(barChart, data_expenses, xAxisLabel, maxSum, colors);
   }
 
-  private static void defaultBarSettings(BarChart barChart, ArrayList<BarEntry> dataExpenses, ArrayList<String> xAxisLabel, float maxSum, int[] colors) {
+  private static void defaultBarSettings(
+      BarChart barChart,
+      ArrayList<BarEntry> dataExpenses,
+      ArrayList<String> xAxisLabel,
+      float maxSum,
+      int[] colors) {
     BarDataSet barDataSet;
     BarData barData;
     XAxis xAxis = barChart.getXAxis();
@@ -154,7 +159,15 @@ public class StatisticsFragment extends Fragment {
   }
 
   @SuppressLint("SetTextI18n")
-  public static void initBarChart(BarChart barChart, List<Expense> expensesList, ArrayList<String> xAxisLabel, String type, int[] colors, TextView tvMax, TextView tvMin, TextView expenseCount) {
+  public static void initBarChart(
+      BarChart barChart,
+      List<Expense> expensesList,
+      ArrayList<String> xAxisLabel,
+      String type,
+      int[] colors,
+      TextView tvMax,
+      TextView tvMin,
+      TextView expenseCount) {
     ArrayList<BarEntry> dataExpenses = new ArrayList<>();
     float maxSum = 0, sum = 0;
     float minSum = Float.POSITIVE_INFINITY;
@@ -213,22 +226,22 @@ public class StatisticsFragment extends Fragment {
 
     if (expenses.isEmpty()) {
       initEmptyBarChart("week");
-            tvNoInfo.setVisibility(View.VISIBLE);
+      tvNoInfo.setVisibility(View.VISIBLE);
       // TODO: dialog
     } else {
-      int [] colors = {
-              getResources().getColor(R.color.primary_200),
-              getResources().getColor(R.color.base_500),
-              getResources().getColor(R.color.menu_1),
-              getResources().getColor(R.color.menu_2),
-              getResources().getColor(R.color.menu_3),
-              getResources().getColor(R.color.menu_4),
-              getResources().getColor(R.color.menu_5),
-              getResources().getColor(R.color.menu_6),
-              getResources().getColor(R.color.error_100)
+      int[] colors = {
+        getResources().getColor(R.color.primary_200),
+        getResources().getColor(R.color.base_500),
+        getResources().getColor(R.color.menu_1),
+        getResources().getColor(R.color.menu_2),
+        getResources().getColor(R.color.menu_3),
+        getResources().getColor(R.color.menu_4),
+        getResources().getColor(R.color.menu_5),
+        getResources().getColor(R.color.menu_6),
+        getResources().getColor(R.color.error_100)
       };
       initBarChart(barChart, expenses, xAxisLabel, "week", colors, tvMax, tvMin, expenseCount);
-            tvNoInfo.setVisibility(View.INVISIBLE);
+      tvNoInfo.setVisibility(View.INVISIBLE);
     }
   }
 
@@ -239,19 +252,19 @@ public class StatisticsFragment extends Fragment {
 
     if (expenses.isEmpty()) {
       initEmptyBarChart("month");
-            tvNoInfo.setVisibility(View.VISIBLE);
+      tvNoInfo.setVisibility(View.VISIBLE);
       // TODO: dialog
     } else {
-      int [] colors = {
-              getResources().getColor(R.color.primary_200),
-              getResources().getColor(R.color.base_500),
-              getResources().getColor(R.color.menu_1),
-              getResources().getColor(R.color.menu_2),
-              getResources().getColor(R.color.menu_3),
-              getResources().getColor(R.color.menu_4),
-              getResources().getColor(R.color.menu_5),
-              getResources().getColor(R.color.menu_6),
-              getResources().getColor(R.color.error_100)
+      int[] colors = {
+        getResources().getColor(R.color.primary_200),
+        getResources().getColor(R.color.base_500),
+        getResources().getColor(R.color.menu_1),
+        getResources().getColor(R.color.menu_2),
+        getResources().getColor(R.color.menu_3),
+        getResources().getColor(R.color.menu_4),
+        getResources().getColor(R.color.menu_5),
+        getResources().getColor(R.color.menu_6),
+        getResources().getColor(R.color.error_100)
       };
       initBarChart(barChart, expenses, xAxisLabel, "month", colors, tvMax, tvMin, expenseCount);
       tvNoInfo.setVisibility(View.INVISIBLE);
