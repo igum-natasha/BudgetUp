@@ -196,6 +196,19 @@
 
         </RelativeLayout>
     </com.loopeer.shadow.ShadowView>
+    <TextView
+        android:id="@+id/noInfoTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins"
+        android:gravity="center"
+        android:text="@string/no_info"
+        android:textColor="@color/base_500"
+        android:textSize="16sp"
+        android:layout_margin="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/shadowViewBar" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvCateg"
