@@ -5,219 +5,219 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    tools:context=".StatisticsFragment">
-
-    <com.google.android.material.button.MaterialButtonToggleGroup
-        android:id="@+id/toggleGroup"
-        android:layout_width="320dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
-        android:gravity="center"
-        android:paddingTop="50dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:singleSelection="true">
+        tools:context=".StatisticsFragment">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/button1"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:layout_width="160dp"
+        <com.google.android.material.button.MaterialButtonToggleGroup
+            android:id="@+id/toggleGroup"
+            android:layout_width="320dp"
             android:layout_height="wrap_content"
-            android:text="@string/weekTitle"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:gravity="center"
+            android:paddingTop="50dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:singleSelection="true">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button1"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:text="@string/weekTitle"
+                android:fontFamily="@font/poppins"
+                android:gravity="center"
+                app:cornerRadius="18dp"
+                android:textSize="14sp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button2"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins"
+                android:text="@string/monthTitle"
+                app:cornerRadius="18dp"
+                android:textSize="14sp" />
+        </com.google.android.material.button.MaterialButtonToggleGroup>
+        <LinearLayout
+            android:id="@+id/linearLayoutDays"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toggleGroup" >
+            <ImageButton
+                android:id="@+id/left"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/left"
+                android:background="@color/base_50"
+                app:tint="@color/base_400"
+                android:padding="16dp"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvDays"
+                android:layout_width="220dp"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"/>
+            <ImageButton
+                android:id="@+id/right"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/right"
+                android:background="@color/base_50"
+                app:tint="@color/base_400"
+                android:padding="16dp"/>
+        </LinearLayout>
+
+        <com.loopeer.shadow.ShadowView
+            android:id="@+id/shadowViewBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cornerRadius="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayoutDays"
+            app:shadowMargin="8dp"
+            app:shadowRadius="8dp">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="360dp"
+                android:background="@drawable/back_bar"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:gravity="left"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="12dp"
+                            android:layout_height="12dp"
+                            app:tint="@color/error_300"
+                            android:src="@drawable/circle" />
+
+                        <TextView
+                            android:id="@+id/minCount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="16dp"
+                            android:fontFamily="@font/poppins"
+                            android:gravity="center"
+                            android:paddingStart="8dp"
+                            android:text="@string/count"
+                            android:textColor="@color/base_900"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingTop="4dp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="12dp"
+                            android:layout_height="12dp"
+                            app:tint="@color/info_300"
+                            android:src="@drawable/circle" />
+
+                        <TextView
+                            android:id="@+id/maxCount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="16dp"
+                            android:fontFamily="@font/poppins"
+                            android:gravity="center"
+                            android:paddingStart="8dp"
+                            android:text="@string/count"
+                            android:textColor="@color/base_900"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <com.github.mikephil.charting.charts.BarChart
+                    android:id="@+id/barChart"
+                    android:layout_width="match_parent"
+                    android:layout_height="260dp"
+                    android:layout_marginTop="80dp"
+                    android:padding="16dp" />
+
+                <LinearLayout
+                    android:layout_width="100dp"
+                    android:layout_height="42dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/expenseName"
+                        android:layout_width="100dp"
+                        android:layout_height="20dp"
+                        android:fontFamily="@font/poppins"
+                        android:gravity="right"
+                        android:text="@string/average"
+                        android:textColor="@color/base_500"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/expenseCount"
+                        android:layout_width="100dp"
+                        android:layout_height="20dp"
+                        android:fontFamily="@font/poppins"
+                        android:gravity="right"
+                        android:text="@string/count"
+                        android:textColor="@color/base_900"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+            </RelativeLayout>
+        </com.loopeer.shadow.ShadowView>
+        <TextView
+            android:id="@+id/noInfoTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:fontFamily="@font/poppins"
             android:gravity="center"
-            app:cornerRadius="18dp"
-            android:textSize="14sp" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/button2"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:layout_width="160dp"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins"
-            android:text="@string/monthTitle"
-            app:cornerRadius="18dp"
-            android:textSize="14sp" />
-    </com.google.android.material.button.MaterialButtonToggleGroup>
-    <LinearLayout
-        android:id="@+id/linearLayoutDays"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toggleGroup" >
-        <ImageButton
-            android:id="@+id/left"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/left"
-            android:background="@color/base_50"
-            app:tint="@color/base_400"
-            android:padding="16dp"/>
+            android:text="@string/no_info"
+            android:textColor="@color/base_500"
+            android:textSize="16sp"
+            android:layout_margin="50dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/shadowViewBar" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvDays"
-            android:layout_width="220dp"
-            android:layout_height="wrap_content"
-            android:nestedScrollingEnabled="false"/>
-        <ImageButton
-            android:id="@+id/right"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/right"
-            android:background="@color/base_50"
-            app:tint="@color/base_400"
-            android:padding="16dp"/>
-    </LinearLayout>
-
-    <com.loopeer.shadow.ShadowView
-        android:id="@+id/shadowViewBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cornerRadius="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayoutDays"
-        app:shadowMargin="8dp"
-        app:shadowRadius="8dp">
-        <RelativeLayout
+            android:id="@+id/rvCateg"
             android:layout_width="match_parent"
-            android:layout_height="360dp"
-            android:background="@drawable/back_bar"
-            app:layout_constraintStart_toStartOf="parent">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
-                android:gravity="left"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="12dp"
-                        android:layout_height="12dp"
-                        app:tint="@color/error_300"
-                        android:src="@drawable/circle" />
-
-                    <TextView
-                        android:id="@+id/minCount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="16dp"
-                        android:fontFamily="@font/poppins"
-                        android:gravity="center"
-                        android:paddingStart="8dp"
-                        android:text="@string/count"
-                        android:textColor="@color/base_900"
-                        android:textSize="12sp" />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:paddingTop="4dp"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="12dp"
-                        android:layout_height="12dp"
-                        app:tint="@color/info_300"
-                        android:src="@drawable/circle" />
-
-                    <TextView
-                        android:id="@+id/maxCount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="16dp"
-                        android:fontFamily="@font/poppins"
-                        android:gravity="center"
-                        android:paddingStart="8dp"
-                        android:text="@string/count"
-                        android:textColor="@color/base_900"
-                        android:textSize="12sp" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <com.github.mikephil.charting.charts.BarChart
-                android:id="@+id/barChart"
-                android:layout_width="match_parent"
-                android:layout_height="260dp"
-                android:layout_marginTop="80dp"
-                android:padding="16dp" />
-
-            <LinearLayout
-                android:layout_width="100dp"
-                android:layout_height="42dp"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/expenseName"
-                    android:layout_width="100dp"
-                    android:layout_height="20dp"
-                    android:fontFamily="@font/poppins"
-                    android:gravity="right"
-                    android:text="@string/average"
-                    android:textColor="@color/base_500"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:id="@+id/expenseCount"
-                    android:layout_width="100dp"
-                    android:layout_height="20dp"
-                    android:fontFamily="@font/poppins"
-                    android:gravity="right"
-                    android:text="@string/count"
-                    android:textColor="@color/base_900"
-                    android:textSize="16sp" />
-            </LinearLayout>
-
-        </RelativeLayout>
-    </com.loopeer.shadow.ShadowView>
-    <TextView
-        android:id="@+id/noInfoTV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/poppins"
-        android:gravity="center"
-        android:text="@string/no_info"
-        android:textColor="@color/base_500"
-        android:textSize="16sp"
-        android:layout_margin="50dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/shadowViewBar" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvCateg"
-        android:layout_width="match_parent"
-        android:layout_height="1300dp"
-        android:paddingBottom="50dp"
-        android:nestedScrollingEnabled="false"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/shadowViewBar" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_height="wrap_content"
+            android:paddingBottom="50dp"
+            android:nestedScrollingEnabled="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/shadowViewBar" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

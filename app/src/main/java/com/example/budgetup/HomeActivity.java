@@ -105,9 +105,6 @@ public class HomeActivity extends AppCompatActivity {
   }
 
   private void initializeDataDays() {
-    //    @SuppressLint("SimpleDateFormat")
-    //    SimpleDateFormat formatDay = new SimpleDateFormat("EEE, MMMM dd");
-    //    SimpleDateFormat formatYear = new SimpleDateFormat("yyyy");
     for (int i = 0; i < dateList.size(); i++) {
       days.add(new Date[] {dateList.get(i)});
     }
@@ -125,8 +122,6 @@ public class HomeActivity extends AppCompatActivity {
           @Override
           public void onItemLongClick(int position, View v) {}
         });
-    //    BottomNavigationView nav_view = StatisticsActivity.getNavigationview();
-    //    rv.setOnTouchListener(new TranslateAnimUtil(this.getContext(), nav_view));
   }
 
   private void showDays() {
