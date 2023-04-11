@@ -274,6 +274,7 @@ public class StatisticsFragment extends Fragment {
       tvNoInfo.setVisibility(View.INVISIBLE);
     }
   }
+
   private Map<Integer, List<Expense>> createMap(List<Expense> expenseList) {
     Map<Integer, List<Expense>> result = new HashMap<>();
     List<String> categList = new ArrayList<>();
@@ -282,7 +283,7 @@ public class StatisticsFragment extends Fragment {
       String category = exp.getCategory();
       if (!categList.contains(category)) {
         categList.add(category);
-        if(result.containsKey(categList.indexOf(category))){
+        if (result.containsKey(categList.indexOf(category))) {
           list = result.get(categList.indexOf(category));
         } else {
           list = new ArrayList<>();
@@ -413,8 +414,9 @@ public class StatisticsFragment extends Fragment {
           @Override
           public void onClick(View view) {
             weekPos = llm.findFirstVisibleItemPosition() + 1;
-//            Toast.makeText(view.getContext(), weekPos + " " + days.size(), Toast.LENGTH_LONG)
-//                .show();
+            //            Toast.makeText(view.getContext(), weekPos + " " + days.size(),
+            // Toast.LENGTH_LONG)
+            //                .show();
             if (weekPos < days.size() - 1) {
               llm.scrollToPositionWithOffset(weekPos, 0);
             }
@@ -430,9 +432,10 @@ public class StatisticsFragment extends Fragment {
 
   private void showDaysMonth() {
     rvDays = view.findViewById(R.id.rvDays);
-//    Toast.makeText(
-//            view.getContext(), getResources().getString(R.string.monthTitle), Toast.LENGTH_LONG)
-//        .show();
+    //    Toast.makeText(
+    //            view.getContext(), getResources().getString(R.string.monthTitle),
+    // Toast.LENGTH_LONG)
+    //        .show();
     LinearLayoutManager llm =
         new LinearLayoutManager(view.getContext(), LinearLayoutManager.HORIZONTAL, false);
     rvDays.setLayoutManager(llm);
