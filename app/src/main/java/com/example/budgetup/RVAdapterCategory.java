@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -11,7 +12,9 @@ import com.github.mikephil.charting.charts.BarChart;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class RVAdapterCategory extends RecyclerView.Adapter<RVAdapterCategory.CategoryViewHolder> {
   private static ClickListener clickListener;
@@ -47,14 +50,12 @@ public class RVAdapterCategory extends RecyclerView.Adapter<RVAdapterCategory.Ca
     }
   }
 
-  List<Expense> expenses;
+  Map<Integer, List<Expense>> expenses;
   String type;
-  List<String> categList;
 
-  RVAdapterCategory(List<Expense> expenses, String type) {
+  RVAdapterCategory(Map<Integer, List<Expense>> expenses, String type) {
     this.expenses = expenses;
     this.type = type;
-    this.categList = new ArrayList<>();
   }
 
   @Override
@@ -86,7 +87,7 @@ public class RVAdapterCategory extends RecyclerView.Adapter<RVAdapterCategory.Ca
         xAxisLabel =
             new ArrayList<>(
                 Arrays.asList(
-                    "1", "4", "6", "9", "11", "13", "16", "19", "21", "23", "26", "29", "31"));
+                    "1", "4", "6", "8", "11", "13", "16", "19", "21", "23", "26", "29", "31"));
         break;
       default:
         throw new IllegalStateException("Unexpected value: " + type);
@@ -102,25 +103,17 @@ public class RVAdapterCategory extends RecyclerView.Adapter<RVAdapterCategory.Ca
       ViewHolder.itemView.getResources().getColor(R.color.menu_6),
       ViewHolder.itemView.getResources().getColor(R.color.error_100)
     };
-    if (!categList.contains(expenses.get(i).getCategory())) {
-      categList.add(expenses.get(i).getCategory());
-      ViewHolder.categoryName.setText("Category: " + expenses.get(i).getCategory());
-      List<Expense> newExpenses = new ArrayList<>();
-      for (Expense ex : expenses) {
-        if (ex.getCategory().equals(expenses.get(i).getCategory())) {
-          newExpenses.add(ex);
-        }
-      }
-      StatisticsFragment.initBarChart(
-          ViewHolder.barChart,
-          newExpenses,
-          xAxisLabel,
-          type,
-          colors,
-          ViewHolder.maxCount,
-          ViewHolder.minCount,
-          ViewHolder.expenseCount);
-    }
+    String category = expenses.get(i).get(0).getCategory();
+    ViewHolder.categoryName.setText("Category: " + category);
+    StatisticsFragment.initBarChart(
+        ViewHolder.barChart,
+        expenses.get(i),
+        xAxisLabel,
+        type,
+        colors,
+        ViewHolder.maxCount,
+        ViewHolder.minCount,
+        ViewHolder.expenseCount);
   }
 
   @Override

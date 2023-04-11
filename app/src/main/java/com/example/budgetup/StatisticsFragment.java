@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +29,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class StatisticsFragment extends Fragment {
 
@@ -82,7 +85,7 @@ public class StatisticsFragment extends Fragment {
                 xAxisLabel =
                     new ArrayList<>(
                         Arrays.asList(
-                            "1", "4", "6", "9", "11", "13", "16", "19", "21", "23", "26", "29",
+                            "1", "4", "6", "8", "11", "13", "16", "19", "21", "23", "26", "29",
                             "31"));
                 sumByDay = new float[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
                 showDaysMonth();
@@ -184,8 +187,9 @@ public class StatisticsFragment extends Fragment {
       Date d = new Date(expensesList.get(i).getDate());
       String day = df.format(d);
       if (xAxisLabel.contains(day)) {
-        sumByDay[xAxisLabel.indexOf(day)] +=
-            Float.parseFloat(expensesList.get(i).getValue().replace('-', ' '));
+        float value = Float.parseFloat(expensesList.get(i).getValue().replace('-', ' '));
+        Log.d("value", value + "");
+        sumByDay[xAxisLabel.indexOf(day)] += value;
       }
     }
     for (int i = 0; i < sumByDay.length; i++) {
@@ -270,11 +274,34 @@ public class StatisticsFragment extends Fragment {
       tvNoInfo.setVisibility(View.INVISIBLE);
     }
   }
+  private Map<Integer, List<Expense>> createMap(List<Expense> expenseList) {
+    Map<Integer, List<Expense>> result = new HashMap<>();
+    List<String> categList = new ArrayList<>();
+    List<Expense> list;
+    for (Expense exp : expenseList) {
+      String category = exp.getCategory();
+      if (!categList.contains(category)) {
+        categList.add(category);
+        if(result.containsKey(categList.indexOf(category))){
+          list = result.get(categList.indexOf(category));
+        } else {
+          list = new ArrayList<>();
+        }
+        list.add(exp);
+        result.put(categList.indexOf(category), list);
+      }
+    }
+    return result;
+  }
 
   @SuppressLint("ClickableViewAccessibility")
   private void initializeAdapter(String type) {
-    RVAdapterCategory adapter = new RVAdapterCategory(expenses, type);
+    Map<Integer, List<Expense>> new_expenses = createMap(expenses);
+    RVAdapterCategory adapter = new RVAdapterCategory(new_expenses, type);
     rv.setAdapter(adapter);
+    ViewGroup.LayoutParams params = rv.getLayoutParams();
+    params.height = new_expenses.size() * 1300;
+    rv.setLayoutParams(params);
     adapter.setOnItemClickListener(
         new RVAdapterCategory.ClickListener() {
           @Override
@@ -386,8 +413,8 @@ public class StatisticsFragment extends Fragment {
           @Override
           public void onClick(View view) {
             weekPos = llm.findFirstVisibleItemPosition() + 1;
-            Toast.makeText(view.getContext(), weekPos + " " + days.size(), Toast.LENGTH_LONG)
-                .show();
+//            Toast.makeText(view.getContext(), weekPos + " " + days.size(), Toast.LENGTH_LONG)
+//                .show();
             if (weekPos < days.size() - 1) {
               llm.scrollToPositionWithOffset(weekPos, 0);
             }
@@ -403,9 +430,9 @@ public class StatisticsFragment extends Fragment {
 
   private void showDaysMonth() {
     rvDays = view.findViewById(R.id.rvDays);
-    Toast.makeText(
-            view.getContext(), getResources().getString(R.string.monthTitle), Toast.LENGTH_LONG)
-        .show();
+//    Toast.makeText(
+//            view.getContext(), getResources().getString(R.string.monthTitle), Toast.LENGTH_LONG)
+//        .show();
     LinearLayoutManager llm =
         new LinearLayoutManager(view.getContext(), LinearLayoutManager.HORIZONTAL, false);
     rvDays.setLayoutManager(llm);
