@@ -127,7 +127,8 @@ public class DataParser {
           case "Категория":
             value = null;
             for (String key : new_data.keySet()) {
-              List<String> array = Arrays.asList(view.getResources().getStringArray(new_data.get(key)));
+              List<String> array =
+                  Arrays.asList(view.getResources().getStringArray(new_data.get(key)));
               if (array.contains(data.get(i).get(j))) {
                 value = key;
                 break;

@@ -46,8 +46,7 @@ public class StatisticsFragment extends Fragment {
   int weekPos = 3, monthPos = 3;
   BarChart barChart;
   TextView tvMax, tvMin, expenseCount, tvNoInfo;
-  ArrayList<String> xAxisLabel =
-          new ArrayList<>();
+  ArrayList<String> xAxisLabel = new ArrayList<>();
   float[] sumByDay = {0, 0, 0, 0, 0, 0, 0};
   Calendar date;
   List<Date> dateListWeek = new ArrayList<>();
@@ -85,7 +84,11 @@ public class StatisticsFragment extends Fragment {
                 date.set(Calendar.SECOND, 0);
                 xAxisLabel =
                     new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.month)));
-                sumByDay = new float[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+                sumByDay =
+                    new float[] {
+                      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                      0, 0, 0, 0, 0
+                    };
                 showDaysMonth();
                 break;
             }
@@ -107,7 +110,11 @@ public class StatisticsFragment extends Fragment {
     if (type.equals("week")) {
       sumByDay = new float[] {0, 0, 0, 0, 0, 0, 0};
     } else {
-      sumByDay = new float[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+      sumByDay =
+          new float[] {
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0
+          };
     }
     for (int i = 0; i < sumByDay.length; i++) {
       data_expenses.add(new BarEntry(i, sumByDay[i]));
@@ -179,13 +186,17 @@ public class StatisticsFragment extends Fragment {
       sumByDay = new float[] {0, 0, 0, 0, 0, 0, 0};
     } else {
       df = new SimpleDateFormat("d");
-      sumByDay = new float[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+      sumByDay =
+          new float[] {
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0
+          };
     }
     for (int i = 0; i < expensesList.size(); i++) {
       Date d = new Date(expensesList.get(i).getDate());
       String day = df.format(d);
       if (xAxisLabel.contains(day)) {
-        float value = Float.parseFloat(expensesList.get(i).getValue()); //.replace('-', ' '));
+        float value = Float.parseFloat(expensesList.get(i).getValue()); // .replace('-', ' '));
         Log.d("value", value + "");
         sumByDay[xAxisLabel.indexOf(day)] += value;
       }
@@ -234,7 +245,8 @@ public class StatisticsFragment extends Fragment {
     } else {
       TypedArray colors = getResources().obtainTypedArray(R.array.colors);
       TypedArray baseColors = getResources().obtainTypedArray(R.array.base_colors);
-      initBarChart(barChart, expenses, xAxisLabel, "week", colors, baseColors, tvMax, tvMin, expenseCount);
+      initBarChart(
+          barChart, expenses, xAxisLabel, "week", colors, baseColors, tvMax, tvMin, expenseCount);
       tvNoInfo.setVisibility(View.INVISIBLE);
     }
   }
@@ -251,7 +263,8 @@ public class StatisticsFragment extends Fragment {
     } else {
       TypedArray colors = getResources().obtainTypedArray(R.array.colors);
       TypedArray baseColors = getResources().obtainTypedArray(R.array.base_colors);
-      initBarChart(barChart, expenses, xAxisLabel, "month", colors, baseColors, tvMax, tvMin, expenseCount);
+      initBarChart(
+          barChart, expenses, xAxisLabel, "month", colors, baseColors, tvMax, tvMin, expenseCount);
       tvNoInfo.setVisibility(View.INVISIBLE);
     }
   }

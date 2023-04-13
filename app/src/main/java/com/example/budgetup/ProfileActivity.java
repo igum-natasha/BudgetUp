@@ -83,8 +83,7 @@ public class ProfileActivity extends AppCompatActivity {
           @Override
           public void onClick(View view) {
             Intent intent = new Intent(Intent.ACTION_SENDTO);
-            intent.putExtra(
-                Intent.EXTRA_EMAIL, user.getEmail());
+            intent.putExtra(Intent.EXTRA_EMAIL, user.getEmail());
             intent.putExtra(Intent.EXTRA_SUBJECT, getResources().getString(R.string.app_name));
             intent.putExtra(Intent.EXTRA_TEXT, getResources().getString(R.string.share_email));
             intent.setData(Uri.parse("mailto: igum.natasha@gmail.com"));

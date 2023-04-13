@@ -75,16 +75,21 @@ public class RVAdapterCategory extends RecyclerView.Adapter<RVAdapterCategory.Ca
     ArrayList<String> xAxisLabel;
     switch (type) {
       case "week":
-        xAxisLabel = new ArrayList<>(Arrays.asList(ViewHolder.itemView.getResources().getStringArray(R.array.week)));
+        xAxisLabel =
+            new ArrayList<>(
+                Arrays.asList(ViewHolder.itemView.getResources().getStringArray(R.array.week)));
         break;
       case "month":
-        xAxisLabel = new ArrayList<>(Arrays.asList(ViewHolder.itemView.getResources().getStringArray(R.array.month)));
+        xAxisLabel =
+            new ArrayList<>(
+                Arrays.asList(ViewHolder.itemView.getResources().getStringArray(R.array.month)));
         break;
       default:
         throw new IllegalStateException("Unexpected value: " + type);
     }
     TypedArray colors = ViewHolder.itemView.getResources().obtainTypedArray(R.array.colors);
-    TypedArray baseColors = ViewHolder.itemView.getResources().obtainTypedArray(R.array.base_colors);
+    TypedArray baseColors =
+        ViewHolder.itemView.getResources().obtainTypedArray(R.array.base_colors);
     String category = expenses.get(i).get(0).getCategory();
     ViewHolder.categoryName.setText("Category: " + category);
     StatisticsFragment.initBarChart(

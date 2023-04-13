@@ -97,7 +97,7 @@ public class JournalFragment extends Fragment {
   }
 
   private void defaultBarSettings(
-          int[] colors, String exCount, String currentDay, String currentMonth) {
+      int[] colors, String exCount, String currentDay, String currentMonth) {
     XAxis xAxis = barChart.getXAxis();
     xAxis.setValueFormatter(new IndexAxisValueFormatter(xAxisLabel));
     barDataSet = new BarDataSet(data_expenses, "Expenses");
@@ -140,7 +140,7 @@ public class JournalFragment extends Fragment {
       }
       if (xAxisLabel.contains(category)) {
         sumByCategory[xAxisLabel.indexOf(category)] +=
-            Float.parseFloat(expenses.get(i).getValue()); //.replace('-', ' '));
+            Float.parseFloat(expenses.get(i).getValue()); // .replace('-', ' '));
       }
       colors[i] = palette.getColor(i, 0);
     }
