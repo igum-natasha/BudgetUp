@@ -66,10 +66,6 @@ public class RVAdapterToday extends RecyclerView.Adapter<RVAdapterToday.TodayVie
   @SuppressLint("SetTextI18n")
   @Override
   public void onBindViewHolder(TodayViewHolder ViewHolder, int i) {
-    //        int img = expenses.get(i).getImage();
-    //        deviceViewHolder.expenseName.setText(expenses.get(i).getExpenseName());
-    //        deviceViewHolder.expenseCost.setText(expenses.get(i).getExpenseCost());
-    //        deviceViewHolder.expensePhoto.setBackgroundResource(img);
     ViewHolder.expenseName.setText(expenses.get(i).getNote());
     ViewHolder.expenseCost.setText(
         expenses.get(i).getValue() + " " + expenses.get(i).getCurrency());

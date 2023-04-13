@@ -1,5 +1,6 @@
 package com.example.budgetup;
 
+import android.content.res.TypedArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -71,36 +72,19 @@ public class RVAdapterCategory extends RecyclerView.Adapter<RVAdapterCategory.Ca
 
   @Override
   public void onBindViewHolder(RVAdapterCategory.CategoryViewHolder ViewHolder, int i) {
-    //        int img = expenses.get(i).getImage();
-    //        deviceViewHolder.expenseName.setText(expenses.get(i).getExpenseName());
-    //        deviceViewHolder.expenseCost.setText(expenses.get(i).getExpenseCost());
-    //        deviceViewHolder.expensePhoto.setBackgroundResource(img);
     ArrayList<String> xAxisLabel;
     switch (type) {
       case "week":
-        xAxisLabel =
-            new ArrayList<>(Arrays.asList("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"));
+        xAxisLabel = new ArrayList<>(Arrays.asList(ViewHolder.itemView.getResources().getStringArray(R.array.week)));
         break;
       case "month":
-        xAxisLabel =
-            new ArrayList<>(
-                Arrays.asList(
-                    "1", "4", "6", "8", "11", "13", "16", "19", "21", "23", "26", "29", "31"));
+        xAxisLabel = new ArrayList<>(Arrays.asList(ViewHolder.itemView.getResources().getStringArray(R.array.month)));
         break;
       default:
         throw new IllegalStateException("Unexpected value: " + type);
     }
-    int[] colors = {
-      ViewHolder.itemView.getResources().getColor(R.color.primary_200),
-      ViewHolder.itemView.getResources().getColor(R.color.base_500),
-      ViewHolder.itemView.getResources().getColor(R.color.menu_1),
-      ViewHolder.itemView.getResources().getColor(R.color.menu_2),
-      ViewHolder.itemView.getResources().getColor(R.color.menu_3),
-      ViewHolder.itemView.getResources().getColor(R.color.menu_4),
-      ViewHolder.itemView.getResources().getColor(R.color.menu_5),
-      ViewHolder.itemView.getResources().getColor(R.color.menu_6),
-      ViewHolder.itemView.getResources().getColor(R.color.error_100)
-    };
+    TypedArray colors = ViewHolder.itemView.getResources().obtainTypedArray(R.array.colors);
+    TypedArray baseColors = ViewHolder.itemView.getResources().obtainTypedArray(R.array.base_colors);
     String category = expenses.get(i).get(0).getCategory();
     ViewHolder.categoryName.setText("Category: " + category);
     StatisticsFragment.initBarChart(
@@ -109,6 +93,7 @@ public class RVAdapterCategory extends RecyclerView.Adapter<RVAdapterCategory.Ca
         xAxisLabel,
         type,
         colors,
+        baseColors,
         ViewHolder.maxCount,
         ViewHolder.minCount,
         ViewHolder.expenseCount);

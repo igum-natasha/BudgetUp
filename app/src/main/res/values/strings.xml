@@ -3,7 +3,7 @@
     <string name="skip">skip</string>
     <string name="next">next</string>
     <string name="profile">Profile</string>
-    <string name="hi">Hi, user!</string>
+    <string name="hi">Hi, %1$s!</string>
     <string name="user">User</string>
     <string name="user_email">User Email</string>
     <string name="google">Google account</string>

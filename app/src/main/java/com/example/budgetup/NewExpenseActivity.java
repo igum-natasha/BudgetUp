@@ -30,7 +30,7 @@ import java.util.UUID;
 
 public class NewExpenseActivity extends AppCompatActivity {
 
-  String[] paymentItem = {"Cash", "Credit card"};
+  String[] paymentItem = null;
   String payment, category;
   int image;
   AutoCompleteTextView autoCompleteTextView;
@@ -46,6 +46,7 @@ public class NewExpenseActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_new_expense);
+    paymentItem = getResources().getStringArray(R.array.payment);
     initViews();
     definePaymentMenu();
     defineCategoryDialog();

@@ -1,6 +1,7 @@
 package com.example.budgetup;
 
 import android.annotation.SuppressLint;
+import android.content.res.TypedArray;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -46,7 +47,7 @@ public class StatisticsFragment extends Fragment {
   BarChart barChart;
   TextView tvMax, tvMin, expenseCount, tvNoInfo;
   ArrayList<String> xAxisLabel =
-      new ArrayList<>(Arrays.asList("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"));
+          new ArrayList<>();
   float[] sumByDay = {0, 0, 0, 0, 0, 0, 0};
   Calendar date;
   List<Date> dateListWeek = new ArrayList<>();
@@ -74,7 +75,7 @@ public class StatisticsFragment extends Fragment {
                 date.set(Calendar.MINUTE, 0);
                 date.set(Calendar.SECOND, 0);
                 xAxisLabel =
-                    new ArrayList<>(Arrays.asList("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"));
+                    new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.week)));
                 showDaysWeek();
                 break;
               case R.id.button2:
@@ -83,11 +84,8 @@ public class StatisticsFragment extends Fragment {
                 date.set(Calendar.MINUTE, 0);
                 date.set(Calendar.SECOND, 0);
                 xAxisLabel =
-                    new ArrayList<>(
-                        Arrays.asList(
-                            "1", "4", "6", "8", "11", "13", "16", "19", "21", "23", "26", "29",
-                            "31"));
-                sumByDay = new float[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+                    new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.month)));
+                sumByDay = new float[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
                 showDaysMonth();
                 break;
             }
@@ -103,44 +101,41 @@ public class StatisticsFragment extends Fragment {
     maxSum = 0;
     sum = 0;
     minSum = 0;
+    int[] colors = new int[sumByDay.length];
+    TypedArray palette = getResources().obtainTypedArray(R.array.colors);
+    TypedArray baseColors = getResources().obtainTypedArray(R.array.base_colors);
     if (type.equals("week")) {
       sumByDay = new float[] {0, 0, 0, 0, 0, 0, 0};
     } else {
-      sumByDay = new float[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+      sumByDay = new float[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
     }
     for (int i = 0; i < sumByDay.length; i++) {
       data_expenses.add(new BarEntry(i, sumByDay[i]));
+      colors[i] = palette.getColor(i, 0);
     }
-    int[] colors = {
-      getResources().getColor(R.color.menu_1),
-      getResources().getColor(R.color.menu_2),
-      getResources().getColor(R.color.menu_3),
-      getResources().getColor(R.color.menu_4),
-      getResources().getColor(R.color.menu_5),
-      getResources().getColor(R.color.menu_6),
-      getResources().getColor(R.color.error_100)
-    };
     String exCount = sum + " " + "RUB"; // FIXME: format?
     String minCount = minSum + " " + "RUB";
     String maxCount = maxSum + " " + "RUB";
     expenseCount.setText(exCount);
     tvMin.setText(minCount);
     tvMax.setText(maxCount);
-    defaultBarSettings(barChart, data_expenses, xAxisLabel, maxSum, colors);
+    defaultBarSettings(barChart, data_expenses, xAxisLabel, maxSum, colors, baseColors);
   }
 
+  @SuppressLint("ResourceType")
   private static void defaultBarSettings(
       BarChart barChart,
       ArrayList<BarEntry> dataExpenses,
       ArrayList<String> xAxisLabel,
       float maxSum,
-      int[] colors) {
+      int[] colors,
+      TypedArray baseColors) {
     BarDataSet barDataSet;
     BarData barData;
     XAxis xAxis = barChart.getXAxis();
     xAxis.setValueFormatter(new IndexAxisValueFormatter(xAxisLabel));
     barDataSet = new BarDataSet(dataExpenses, "Expenses");
-    barDataSet.setColors(Arrays.copyOfRange(colors, 2, colors.length));
+    barDataSet.setColors(colors);
     barDataSet.setDrawValues(false);
 
     barData = new BarData(barDataSet);
@@ -152,8 +147,9 @@ public class StatisticsFragment extends Fragment {
     xAxis.setDrawAxisLine(false);
     xAxis.setGranularity(1f);
     xAxis.setLabelCount(xAxisLabel.size());
-    barChart.getAxisLeft().setGridColor(colors[0]);
-    barChart.getAxisLeft().setTextColor(colors[1]);
+    xAxis.setLabelRotationAngle(-90);
+    barChart.getAxisLeft().setGridColor(baseColors.getColor(0, 0));
+    barChart.getAxisLeft().setTextColor(baseColors.getColor(1, 0));
     barChart.getAxisRight().setEnabled(false);
     barChart.setFitBars(true);
     barChart.setData(barData);
@@ -167,7 +163,8 @@ public class StatisticsFragment extends Fragment {
       List<Expense> expensesList,
       ArrayList<String> xAxisLabel,
       String type,
-      int[] colors,
+      TypedArray palette,
+      TypedArray baseColors,
       TextView tvMax,
       TextView tvMin,
       TextView expenseCount) {
@@ -176,21 +173,23 @@ public class StatisticsFragment extends Fragment {
     float minSum = Float.POSITIVE_INFINITY;
     SimpleDateFormat df;
     float[] sumByDay;
+    int[] colors = new int[expensesList.size()];
     if (type.equals("week")) {
       df = new SimpleDateFormat("EEE");
       sumByDay = new float[] {0, 0, 0, 0, 0, 0, 0};
     } else {
       df = new SimpleDateFormat("d");
-      sumByDay = new float[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+      sumByDay = new float[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
     }
     for (int i = 0; i < expensesList.size(); i++) {
       Date d = new Date(expensesList.get(i).getDate());
       String day = df.format(d);
       if (xAxisLabel.contains(day)) {
-        float value = Float.parseFloat(expensesList.get(i).getValue().replace('-', ' '));
+        float value = Float.parseFloat(expensesList.get(i).getValue()); //.replace('-', ' '));
         Log.d("value", value + "");
         sumByDay[xAxisLabel.indexOf(day)] += value;
       }
+      colors[i] = palette.getColor(i, 0);
     }
     for (int i = 0; i < sumByDay.length; i++) {
       dataExpenses.add(new BarEntry(i, sumByDay[i]));
@@ -198,7 +197,7 @@ public class StatisticsFragment extends Fragment {
       if (sumByDay[i] > maxSum) {
         maxSum = sumByDay[i];
       }
-      if (sumByDay[i] < minSum && sumByDay[i] > 0) {
+      if (sumByDay[i] < minSum && sumByDay[i] < maxSum) {
         minSum = sumByDay[i];
       }
     }
@@ -209,7 +208,7 @@ public class StatisticsFragment extends Fragment {
     expenseCount.setText(exCount);
     tvMin.setText(minCount);
     tvMax.setText(maxCount);
-    defaultBarSettings(barChart, dataExpenses, xAxisLabel, maxSum, colors);
+    defaultBarSettings(barChart, dataExpenses, xAxisLabel, maxSum, colors, baseColors);
   }
 
   private void initViews() {
@@ -233,18 +232,9 @@ public class StatisticsFragment extends Fragment {
       tvNoInfo.setVisibility(View.VISIBLE);
       // TODO: dialog
     } else {
-      int[] colors = {
-        getResources().getColor(R.color.primary_200),
-        getResources().getColor(R.color.base_500),
-        getResources().getColor(R.color.menu_1),
-        getResources().getColor(R.color.menu_2),
-        getResources().getColor(R.color.menu_3),
-        getResources().getColor(R.color.menu_4),
-        getResources().getColor(R.color.menu_5),
-        getResources().getColor(R.color.menu_6),
-        getResources().getColor(R.color.error_100)
-      };
-      initBarChart(barChart, expenses, xAxisLabel, "week", colors, tvMax, tvMin, expenseCount);
+      TypedArray colors = getResources().obtainTypedArray(R.array.colors);
+      TypedArray baseColors = getResources().obtainTypedArray(R.array.base_colors);
+      initBarChart(barChart, expenses, xAxisLabel, "week", colors, baseColors, tvMax, tvMin, expenseCount);
       tvNoInfo.setVisibility(View.INVISIBLE);
     }
   }
@@ -259,18 +249,9 @@ public class StatisticsFragment extends Fragment {
       tvNoInfo.setVisibility(View.VISIBLE);
       // TODO: dialog
     } else {
-      int[] colors = {
-        getResources().getColor(R.color.primary_200),
-        getResources().getColor(R.color.base_500),
-        getResources().getColor(R.color.menu_1),
-        getResources().getColor(R.color.menu_2),
-        getResources().getColor(R.color.menu_3),
-        getResources().getColor(R.color.menu_4),
-        getResources().getColor(R.color.menu_5),
-        getResources().getColor(R.color.menu_6),
-        getResources().getColor(R.color.error_100)
-      };
-      initBarChart(barChart, expenses, xAxisLabel, "month", colors, tvMax, tvMin, expenseCount);
+      TypedArray colors = getResources().obtainTypedArray(R.array.colors);
+      TypedArray baseColors = getResources().obtainTypedArray(R.array.base_colors);
+      initBarChart(barChart, expenses, xAxisLabel, "month", colors, baseColors, tvMax, tvMin, expenseCount);
       tvNoInfo.setVisibility(View.INVISIBLE);
     }
   }
@@ -311,8 +292,6 @@ public class StatisticsFragment extends Fragment {
           @Override
           public void onItemLongClick(int position, View v) {}
         });
-    //    BottomNavigationView nav_view = StatisticsActivity.getNavigationview();
-    //    rv.setOnTouchListener(new TranslateAnimUtil(this.getContext(), nav_view));
   }
 
   private void showCategoriesWeek() {
@@ -387,8 +366,6 @@ public class StatisticsFragment extends Fragment {
           @Override
           public void onItemLongClick(int position, View v) {}
         });
-    //    BottomNavigationView nav_view = StatisticsActivity.getNavigationview();
-    //    rv.setOnTouchListener(new TranslateAnimUtil(this.getContext(), nav_view));
   }
 
   private void showDaysWeek() {

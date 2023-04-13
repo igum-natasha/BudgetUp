@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="payment">
+        <item>Cash</item>
+        <item>Credit card</item>
+    </string-array>
+
+    <string-array name="week">
+        <item>Mon</item>
+        <item>Tue</item>
+        <item>Wed</item>
+        <item>Thu</item>
+        <item>Fri</item>
+        <item>Sat</item>
+        <item>Sun</item>
+    </string-array>
+
+    <string-array name="month">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+        <item>18</item>
+        <item>19</item>
+        <item>20</item>
+        <item>21</item>
+        <item>22</item>
+        <item>23</item>
+        <item>24</item>
+        <item>25</item>
+        <item>26</item>
+        <item>27</item>
+        <item>28</item>
+        <item>29</item>
+        <item>30</item>
+        <item>31</item>
+    </string-array>
+
+    <string-array name="phone">
+        <item>ЖКХ, связь, интернет </item>
+        <item>Мобильная связь</item>
+    </string-array>
+
+    <string-array name="cafe">
+        <item>Фастфуд</item>
+        <item>Рестораны</item>
+        <item>Рестораны и кафе</item>
+    </string-array>
+
+    <string-array name="clothes">
+        <item>Одежда и аксессуары</item>
+        <item>Одежда и обувь</item>
+    </string-array>
+
+    <string-array name="services">
+        <item>Онлайн-маркеты</item>
+        <item>Сервис</item>
+        <item>Различные товары</item>
+    </string-array>
+
+    <string-array name="food">
+        <item>Супермаркеты</item>
+    </string-array>
+
+    <string-array name="gifts">
+        <item>Развлечения и хобби</item>
+        <item>Детские товары</item>
+    </string-array>
+
+    <string-array name="health">
+        <item>Аптеки</item>
+        <item>Здоровье и красота</item>
+    </string-array>
+
+    <string-array name="house">
+        <item>Дом и ремонт</item>
+        <item>Все для дома</item>
+        <item>ЖКХ</item>
+    </string-array>
+
+    <string-array name="pets">
+        <item>Животные</item>
+    </string-array>
+
+    <string-array name="sports">
+        <item>Спорттовары</item>
+    </string-array>
+
+    <string-array name="transport">
+        <item>Транспорт</item>
+        <item>Путешествия</item>
+        <item>Авиабилеты</item>
+    </string-array>
+
+    <string-array name="others">
+        <item>Переводы людям</item>
+        <item>Снятие наличных</item>
+        <item>Наличные</item>
+        <item>Подписки</item>
+        <item>Переводы</item>
+        <item>Остальное</item>
+    </string-array>
+
+    <string-array name="salary">
+        <item>Зарплата</item>
+    </string-array>
+
+    <array name="base_colors">
+        <item>#ACA8D9</item>
+        <item>#7B7B7B</item>
+    </array>
+
+    <array name="colors">
+        <item>#FBE38E</item>
+        <item>#D0E8FC</item>
+        <item>#FED0EE</item>
+        <item>#A9F4D0</item>
+        <item>#DBAEFF</item>
+        <item>#FDD09F</item>
+        <item>#CDCAE8</item>
+        <item>#FFCFD4</item>
+        <item>#E4F3EE</item>
+        <item>#E9E9E9</item>
+    </array>
+
+    <string-array name="template">
+        <item>food</item>
+        <item>clothes</item>
+        <item>car</item>
+        <item>gift</item>
+        <item>house</item>
+        <item>transport</item>
+    </string-array>
+</resources>

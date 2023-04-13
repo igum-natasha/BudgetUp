@@ -51,7 +51,6 @@ public class RVAdapterDays extends RecyclerView.Adapter<RVAdapterDays.DaysViewHo
     }
   }
 
-  //    List<Expense> expenses;
   List<Date[]> days_list;
   String type;
 
@@ -76,11 +75,6 @@ public class RVAdapterDays extends RecyclerView.Adapter<RVAdapterDays.DaysViewHo
 
   @Override
   public void onBindViewHolder(RVAdapterDays.DaysViewHolder ViewHolder, int i) {
-    //        int img = expenses.get(i).getImage();
-    //        deviceViewHolder.expenseName.setText(expenses.get(i).getExpenseName());
-    //        deviceViewHolder.expenseCost.setText(expenses.get(i).getExpenseCost());
-    //        deviceViewHolder.expensePhoto.setBackgroundResource(img);
-
     SimpleDateFormat formatYear = new SimpleDateFormat("yyyy");
     switch (type) {
       case "week":

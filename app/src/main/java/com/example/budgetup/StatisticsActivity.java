@@ -58,7 +58,6 @@ public class StatisticsActivity extends AppCompatActivity {
 
     tabLayout = findViewById(R.id.tabLayout);
     viewPager = findViewById(R.id.viewPager);
-
     tabLayout.setupWithViewPager(viewPager);
 
     VPAdapter vpAdapter =

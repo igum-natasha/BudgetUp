@@ -18,7 +18,6 @@ public class MainActivity extends AppCompatActivity {
   Button btnSkip, btnNext;
 
   TextView[] dots;
-
   ViewPagerAdapter viewPagerAdapter;
 
   @Override

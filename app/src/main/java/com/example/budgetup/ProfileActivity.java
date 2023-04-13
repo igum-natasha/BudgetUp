@@ -44,8 +44,6 @@ public class ProfileActivity extends AppCompatActivity {
         new View.OnClickListener() {
           @Override
           public void onClick(View view) {
-            AppDatabase db = AppDatabase.build(getApplicationContext());
-            User user = db.userDao().getByStatus("online");
             user.setStatus("offline");
             startActivity(new Intent(ProfileActivity.this, FirstActivity.class));
           }
@@ -86,7 +84,7 @@ public class ProfileActivity extends AppCompatActivity {
           public void onClick(View view) {
             Intent intent = new Intent(Intent.ACTION_SENDTO);
             intent.putExtra(
-                Intent.EXTRA_EMAIL, "igum.natasha@gmail.com"); // TODO: get email from db
+                Intent.EXTRA_EMAIL, user.getEmail());
             intent.putExtra(Intent.EXTRA_SUBJECT, getResources().getString(R.string.app_name));
             intent.putExtra(Intent.EXTRA_TEXT, getResources().getString(R.string.share_email));
             intent.setData(Uri.parse("mailto: igum.natasha@gmail.com"));

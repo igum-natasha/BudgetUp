@@ -61,26 +61,21 @@ public class DataParser {
   }
 
   private void updateDB(Map<Integer, List<String>> data, View view) throws ParseException {
-    // temp solution start
-    Map<String, String[]> new_data = new HashMap<>();
-    new_data.put("phone", new String[] {"ЖКХ, связь, интернет ", "Мобильная связь"});
-    new_data.put("cafe", new String[] {"Фастфуд", "Рестораны", "Рестораны и кафе"});
-    new_data.put("clothes", new String[] {"Одежда и аксессуары", "Одежда и обувь"});
-    new_data.put("services", new String[] {"Онлайн-маркеты", "Сервис", "Различные товары"});
-    new_data.put("food", new String[] {"Супермаркеты"});
-    new_data.put("gifts", new String[] {"Развлечения и хобби", "Детские товары"});
-    new_data.put("health", new String[] {"Аптеки", "Здоровье и красота"});
-    new_data.put("house", new String[] {"Дом и ремонт", "Все для дома", "ЖКХ"});
-    new_data.put("pets", new String[] {"Животные"});
-    new_data.put("sports", new String[] {"Спорттовары"});
-    new_data.put("transport", new String[] {"Транспорт", "Путешествия", "Авиабилеты"});
-    new_data.put(
-        "others",
-        new String[] {
-          "Переводы людям", "Снятие наличных", "Наличные", "Подписки", "Переводы", "Остальное"
-        });
-    new_data.put("salary", new String[] {"Зарплата"});
-    // temp solution end
+    Map<String, Integer> new_data = new HashMap<>();
+    new_data.put("phone", R.array.phone);
+    new_data.put("cafe", R.array.cafe);
+    new_data.put("clothes", R.array.clothes);
+    new_data.put("services", R.array.services);
+    new_data.put("food", R.array.food);
+    new_data.put("gifts", R.array.gifts);
+    new_data.put("health", R.array.health);
+    new_data.put("house", R.array.house);
+    new_data.put("pets", R.array.pets);
+    new_data.put("sports", R.array.sports);
+    new_data.put("transport", R.array.transport);
+    new_data.put("others", R.array.others);
+    new_data.put("salary", R.array.salary);
+
     List<String> headers = data.get(0);
     Locale locale = new Locale("ru");
     SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
@@ -132,7 +127,8 @@ public class DataParser {
           case "Категория":
             value = null;
             for (String key : new_data.keySet()) {
-              if (Arrays.asList(new_data.get(key)).contains(data.get(i).get(j))) {
+              List<String> array = Arrays.asList(view.getResources().getStringArray(new_data.get(key)));
+              if (array.contains(data.get(i).get(j))) {
                 value = key;
                 break;
               }

@@ -2,6 +2,7 @@ package com.example.budgetup;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.res.TypedArray;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -49,8 +50,6 @@ public class JournalFragment extends Fragment {
   BarChart barChart;
   String category;
   List<String> xAxisLabel = new ArrayList<>();
-  ArrayList<String> template =
-      new ArrayList<>(Arrays.asList("food", "clothes", "car", "gift", "house", "transport"));
   float[] sumByCategory = {0, 0, 0, 0, 0, 0};
   float maxSum = 0, sum = 0;
   BarDataSet barDataSet;
@@ -81,17 +80,12 @@ public class JournalFragment extends Fragment {
     sumByCategory = new float[] {0, 0, 0, 0, 0, 0};
     maxSum = 0;
     sum = 0;
+    int[] colors = new int[sumByCategory.length];
+    TypedArray palette = getResources().obtainTypedArray(R.array.colors);
     for (int i = 0; i < sumByCategory.length; i++) {
       data_expenses.add(new BarEntry(i, sumByCategory[i]));
+      colors[i] = palette.getColor(i, 0);
     }
-    int[] colors = {
-      getResources().getColor(R.color.menu_1),
-      getResources().getColor(R.color.menu_2),
-      getResources().getColor(R.color.menu_3),
-      getResources().getColor(R.color.menu_4),
-      getResources().getColor(R.color.menu_5),
-      getResources().getColor(R.color.menu_6)
-    };
     String exCount = sum + " RUB";
     @SuppressLint("SimpleDateFormat")
     SimpleDateFormat formatDay = new SimpleDateFormat("dd");
@@ -103,7 +97,7 @@ public class JournalFragment extends Fragment {
   }
 
   private void defaultBarSettings(
-      int[] colors, String exCount, String currentDay, String currentMonth) {
+          int[] colors, String exCount, String currentDay, String currentMonth) {
     XAxis xAxis = barChart.getXAxis();
     xAxis.setValueFormatter(new IndexAxisValueFormatter(xAxisLabel));
     barDataSet = new BarDataSet(data_expenses, "Expenses");
@@ -137,6 +131,8 @@ public class JournalFragment extends Fragment {
     data_expenses.clear();
     maxSum = sum = 0;
     sumByCategory = new float[] {0, 0, 0, 0, 0, 0};
+    int[] colors = new int[expenses.size()];
+    TypedArray palette = getResources().obtainTypedArray(R.array.colors);
     for (int i = 0; i < expenses.size(); i++) {
       category = expenses.get(i).getCategory();
       if (xAxisLabel.size() < 6 && !xAxisLabel.contains(category)) {
@@ -144,11 +140,12 @@ public class JournalFragment extends Fragment {
       }
       if (xAxisLabel.contains(category)) {
         sumByCategory[xAxisLabel.indexOf(category)] +=
-            Float.parseFloat(expenses.get(i).getValue().replace('-', ' '));
+            Float.parseFloat(expenses.get(i).getValue()); //.replace('-', ' '));
       }
+      colors[i] = palette.getColor(i, 0);
     }
     if (xAxisLabel.size() < 6) {
-      xAxisLabel.addAll(template);
+      xAxisLabel.addAll(Arrays.asList(getResources().getStringArray(R.array.template)));
       xAxisLabel = xAxisLabel.subList(0, 6);
     }
     for (int i = 0; i < sumByCategory.length; i++) {
@@ -158,14 +155,6 @@ public class JournalFragment extends Fragment {
         maxSum = sumByCategory[i];
       }
     }
-    int[] colors = {
-      getResources().getColor(R.color.menu_1),
-      getResources().getColor(R.color.menu_2),
-      getResources().getColor(R.color.menu_3),
-      getResources().getColor(R.color.menu_4),
-      getResources().getColor(R.color.menu_5),
-      getResources().getColor(R.color.menu_6)
-    };
     String exCount = sum + " " + expenses.get(0).getCurrency();
     @SuppressLint("SimpleDateFormat")
     SimpleDateFormat formatDay = new SimpleDateFormat("dd");

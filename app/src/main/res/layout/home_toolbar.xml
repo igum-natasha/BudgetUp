@@ -28,14 +28,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
             android:layout_toEndOf="@+id/avatar_icon"
-            android:scaleType="fitCenter"
+            android:layout_toRightOf="@+id/avatar_icon"
             android:fontFamily="@font/poppins"
+            android:scaleType="fitCenter"
             android:text="@string/hi"
             android:textColor="@color/base_900"
-            android:textSize="16sp"
-            android:layout_marginLeft="16dp"
-            android:layout_toRightOf="@+id/avatar_icon" />
+            android:textSize="16sp" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/avatar_icon"

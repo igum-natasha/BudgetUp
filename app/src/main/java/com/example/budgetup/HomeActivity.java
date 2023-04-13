@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -45,7 +46,7 @@ public class HomeActivity extends AppCompatActivity {
   int expensePos;
   int dayPos = 30;
   ShadowView shadowView;
-  TextView tvInfoExp, tvToday, tvNoInfo;
+  TextView tvInfoExp, tvToday, tvNoInfo, userName;
   Dialog addDialog, expenseInfoDialog;
   Button btnTrack;
   Calendar date = Calendar.getInstance();
@@ -221,7 +222,11 @@ public class HomeActivity extends AppCompatActivity {
     btnRight = findViewById(R.id.right);
     shadowView = findViewById(R.id.shadowView);
     pieChart = findViewById(R.id.pieChart);
+    userName = findViewById(R.id.user_name);
 
+    AppDatabase db = AppDatabase.build(getApplicationContext());
+    User user = db.userDao().getByStatus("online");
+    userName.setText(getResources().getString(R.string.hi, user.getName()));
     tvNoInfo.setVisibility(View.INVISIBLE);
     tvInfoExp.setVisibility(View.INVISIBLE);
     btnTrack.setVisibility(View.INVISIBLE);
@@ -272,19 +277,8 @@ public class HomeActivity extends AppCompatActivity {
 
   @SuppressLint("DefaultLocale")
   private void initPieChart() {
-    int[] palette = {
-      getResources().getColor(R.color.menu_1),
-      getResources().getColor(R.color.menu_2),
-      getResources().getColor(R.color.menu_3),
-      getResources().getColor(R.color.menu_4),
-      getResources().getColor(R.color.menu_5),
-      getResources().getColor(R.color.menu_6),
-      getResources().getColor(R.color.menu_7),
-      getResources().getColor(R.color.primary_100),
-      getResources().getColor(R.color.error_100),
-      getResources().getColor(R.color.info_100),
-      getResources().getColor(R.color.base_100)
-    };
+    @SuppressLint("Recycle")
+    TypedArray palette = getResources().obtainTypedArray(R.array.colors);
     colors = new int[expenses.size()];
     float max_income = 0, max_expense = 0;
     String currency = expenses.get(0).getCurrency();
@@ -301,7 +295,7 @@ public class HomeActivity extends AppCompatActivity {
       if (value < 0) {
         max_expense += value;
       }
-      colors[i] = palette[i];
+      colors[i] = palette.getColor(i, 0);
     }
     String text = String.format("%s %.2f\n%s %.2f", currency, max_income, currency, max_expense);
     defaultPieSettings(text, R.color.primary_400);
