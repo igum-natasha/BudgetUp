@@ -127,7 +127,9 @@ public class BankDataActivity extends AppCompatActivity implements PickiTCallbac
               intent.setType("*/*");
               intent.setAction(Intent.ACTION_GET_CONTENT);
               startActivityForResult(
-                  Intent.createChooser(intent, getApplicationContext().getString(R.string.upload_title)), PICK_FILE_REQUEST);
+                  Intent.createChooser(
+                      intent, getApplicationContext().getString(R.string.upload_title)),
+                  PICK_FILE_REQUEST);
             }
           }
         });

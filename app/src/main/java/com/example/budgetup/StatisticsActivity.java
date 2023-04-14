@@ -64,8 +64,10 @@ public class StatisticsActivity extends AppCompatActivity {
         new VPAdapter(
             getSupportFragmentManager(),
             FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-    vpAdapter.addFragment(new JournalFragment(), getApplicationContext().getString(R.string.journal));
-    vpAdapter.addFragment(new StatisticsFragment(), getApplicationContext().getString(R.string.statistic));
+    vpAdapter.addFragment(
+        new JournalFragment(), getApplicationContext().getString(R.string.journal));
+    vpAdapter.addFragment(
+        new StatisticsFragment(), getApplicationContext().getString(R.string.statistic));
     viewPager.setAdapter(vpAdapter);
 
     defineInfoDialog();

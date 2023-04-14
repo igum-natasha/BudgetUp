@@ -11,7 +11,6 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 

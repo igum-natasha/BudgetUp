@@ -195,11 +195,11 @@ public class ProfileActivity extends AppCompatActivity {
           public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
             if (b) {
               language = "en";
-                Locale locale = new Locale(language);
-                Resources resources = getResources();
-                Configuration configuration = resources.getConfiguration();
-                configuration.setLocale(locale);
-                resources.updateConfiguration(configuration, resources.getDisplayMetrics());
+              Locale locale = new Locale(language);
+              Resources resources = getResources();
+              Configuration configuration = resources.getConfiguration();
+              configuration.setLocale(locale);
+              resources.updateConfiguration(configuration, resources.getDisplayMetrics());
               user.setLanguage(language);
               db.userDao().update(user);
               rus.setChecked(false);
@@ -250,7 +250,9 @@ public class ProfileActivity extends AppCompatActivity {
             if (intent.resolveActivity(getPackageManager()) != null) {
               startActivity(intent);
             } else {
-              Toast.makeText(ProfileActivity.this, getString(R.string.fill_field), Toast.LENGTH_LONG).show();
+              Toast.makeText(
+                      ProfileActivity.this, getString(R.string.fill_field), Toast.LENGTH_LONG)
+                  .show();
             }
           }
         });

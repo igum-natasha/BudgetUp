@@ -23,7 +23,6 @@ import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
-import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
@@ -261,9 +260,14 @@ public class HomeActivity extends AppCompatActivity {
         new OnChartValueSelectedListener() {
           @Override
           public void onValueSelected(Entry e, Highlight h) {
-            int x = pieChart.getData().getDataSetForEntry(e).getEntryIndex((PieEntry)e);
+            int x = pieChart.getData().getDataSetForEntry(e).getEntryIndex((PieEntry) e);
             Toast.makeText(
-                    getApplicationContext(), data_expenses.get(x).getLabel() + ": " + data_expenses.get(x).getValue() + " RUB", Toast.LENGTH_LONG)
+                    getApplicationContext(),
+                    data_expenses.get(x).getLabel()
+                        + ": "
+                        + data_expenses.get(x).getValue()
+                        + " RUB",
+                    Toast.LENGTH_LONG)
                 .show();
           }
 
@@ -391,17 +395,17 @@ public class HomeActivity extends AppCompatActivity {
     infoDialog.getWindow().setGravity(Gravity.BOTTOM);
     infoDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
     infoDialog
-            .getWindow()
-            .setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        .getWindow()
+        .setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
     infoDialog.setCancelable(false);
     Button track = infoDialog.findViewById(R.id.btnTrack);
     track.setOnClickListener(
-      new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-          Intent intent = new Intent(HomeActivity.this, NewExpenseActivity.class);
-          startActivity(intent);
-        }
-      });
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+            Intent intent = new Intent(HomeActivity.this, NewExpenseActivity.class);
+            startActivity(intent);
+          }
+        });
   }
 }

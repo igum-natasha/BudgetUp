@@ -48,8 +48,8 @@ public class NewIncomeActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_new_income);
-      paymentItem.add(getApplicationContext().getString(R.string.cash));
-      paymentItem.add(getApplicationContext().getString(R.string.cr_card));
+    paymentItem.add(getApplicationContext().getString(R.string.cash));
+    paymentItem.add(getApplicationContext().getString(R.string.cr_card));
     initViews();
     definePaymentMenu();
     defineCategoryDialog();
