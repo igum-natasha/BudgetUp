@@ -2,6 +2,7 @@ package com.example.budgetup;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -10,6 +11,7 @@ import android.os.Bundle;
 import java.util.List;
 import java.util.Locale;
 
+@SuppressLint("CustomSplashScreen")
 public class SplashActivity extends AppCompatActivity {
 
   @Override
@@ -29,7 +31,7 @@ public class SplashActivity extends AppCompatActivity {
       startActivity(new Intent(SplashActivity.this, HomeActivity.class));
 
     } else {
-      startActivity(new Intent(SplashActivity.this, FirstActivity.class));
+      startActivity(new Intent(SplashActivity.this, MainActivity.class));
     }
   }
 }

@@ -100,7 +100,7 @@ public class JournalFragment extends Fragment {
       int[] colors, String exCount, String currentDay, String currentMonth) {
     XAxis xAxis = barChart.getXAxis();
     xAxis.setValueFormatter(new IndexAxisValueFormatter(xAxisLabel));
-    barDataSet = new BarDataSet(data_expenses, "Expenses");
+    barDataSet = new BarDataSet(data_expenses, getString(R.string.expense));
     barDataSet.setColors(colors);
     barDataSet.setDrawValues(false);
 

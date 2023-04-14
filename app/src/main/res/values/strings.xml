@@ -16,8 +16,8 @@
     <string name="questions">FAQ &amp; Questions</string>
     <string name="delete">Delete all data</string>
     <string name="delete_desc">All data will be removed, include your data synchronized on the cloud</string>
-    <string name="ok">ok</string>
-    <string name="cancel">cancel</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
     <string name="sign_in">sign in</string>
     <string name="sign_up">sign up</string>
     <string name="login_title">Log in</string>
@@ -40,7 +40,7 @@
     <string name="week">Mon</string>
     <string name="average">Average</string>
     <string name="min">min</string>
-    <string name="category_title">Category: Food</string>
+    <string name="category_title">Category: %1$s</string>
     <string name="year">2023</string>
     <string name="monthTitle">Month</string>
     <string name="weekTitle">Week</string>
@@ -89,6 +89,7 @@
     <string name="expense_add_suc">Expense has been added successfully!</string>
     <string name="income_add_suc">Income has been added successfully!</string>
     <string name="no_info">No information</string>
+    <string name="no_info_short">No info</string>
     <string name="add_bank">Info from bank</string>
     <string name="choose_bank">Choose bank</string>
     <string name="add_file">OR add Excel file</string>
@@ -96,6 +97,14 @@
     <string name="submit">Submit</string>
     <string name="add_success">Add data successfully!</string>
     <string name="add_fail">Add data failed!</string>
+    <string name="upload_title">Choose File to Upload..</string>
+    <string name="select_path">Selected File Path:\n %1$s</string>
+    <string name="fill_field">Please fill fields</string>
+    <string name="journal">Journal</string>
+    <string name="statistic">Statistics</string>
+    <string name="cr_card">Credit card</string>
+    <string name="cash">Cash</string>
+
 
     <string name="title_onboarding1">Painless budgeting</string>
     <string name="title_onboarding2">The whole picture in one place</string>
@@ -104,6 +113,4 @@
     <string name="desc_onboarding1">Control expenses for different categories. It takes seconds to record daily transactions</string>
     <string name="desc_onboarding2">One report to give a clear view on your spending patterns </string>
     <string name="desc_onboarding3">Easily and quickly analysis your expenses and profit</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

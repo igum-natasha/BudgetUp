@@ -127,7 +127,7 @@ public class BankDataActivity extends AppCompatActivity implements PickiTCallbac
               intent.setType("*/*");
               intent.setAction(Intent.ACTION_GET_CONTENT);
               startActivityForResult(
-                  Intent.createChooser(intent, "Choose File to Upload.."), PICK_FILE_REQUEST);
+                  Intent.createChooser(intent, getApplicationContext().getString(R.string.upload_title)), PICK_FILE_REQUEST);
             }
           }
         });
@@ -203,7 +203,7 @@ public class BankDataActivity extends AppCompatActivity implements PickiTCallbac
     //  Chick if it was successful
     if (wasSuccessful) {
       btnIconFile.setVisibility(View.GONE);
-      fileName.setText("Selected File Path:\n" + path);
+      fileName.setText(getString(R.string.select_path, path));
     }
   }
 

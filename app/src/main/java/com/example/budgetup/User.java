@@ -25,7 +25,7 @@ public class User {
   public String language;
 
   @NonNull
-  @ColumnInfo(name = "status", defaultValue = "online")
+  @ColumnInfo(name = "status", defaultValue = "offline")
   public String status;
 
   @NonNull

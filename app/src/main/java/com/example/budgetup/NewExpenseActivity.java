@@ -25,12 +25,14 @@ import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 public class NewExpenseActivity extends AppCompatActivity {
 
-  String[] paymentItem = null;
+  List<String> paymentItem = new ArrayList<>();
   String payment, category;
   int image;
   AutoCompleteTextView autoCompleteTextView;
@@ -46,7 +48,9 @@ public class NewExpenseActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_new_expense);
-    paymentItem = getResources().getStringArray(R.array.payment);
+    paymentItem = new ArrayList<>();
+    paymentItem.add(getApplicationContext().getString(R.string.cash));
+    paymentItem.add(getApplicationContext().getString(R.string.cr_card));
     initViews();
     definePaymentMenu();
     defineCategoryDialog();
@@ -128,7 +132,7 @@ public class NewExpenseActivity extends AppCompatActivity {
           @Override
           public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
             payment = adapterView.getItemAtPosition(i).toString();
-            if (payment.equals(paymentItem[1])) {
+            if (payment.equals(paymentItem.get(1))) {
               lCard.setVisibility(View.VISIBLE);
             } else {
               entCard.setText("None");

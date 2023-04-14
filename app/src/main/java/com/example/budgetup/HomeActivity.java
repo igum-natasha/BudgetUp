@@ -10,6 +10,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
@@ -46,9 +48,8 @@ public class HomeActivity extends AppCompatActivity {
   int expensePos;
   int dayPos = 30;
   ShadowView shadowView;
-  TextView tvInfoExp, tvToday, tvNoInfo, userName;
-  Dialog addDialog, expenseInfoDialog;
-  Button btnTrack;
+  TextView tvToday, tvNoInfo, userName;
+  Dialog addDialog, expenseInfoDialog, infoDialog;
   Calendar date = Calendar.getInstance();
   List<Date> dateList = new ArrayList<>();
   ImageButton btnAdd, btnLeft, btnRight;
@@ -63,6 +64,7 @@ public class HomeActivity extends AppCompatActivity {
     setContentView(R.layout.activity_home);
     initViews();
     defineAddDialog();
+    defineNoInfoDialog();
     date.set(Calendar.HOUR_OF_DAY, 0);
     date.set(Calendar.MINUTE, 0);
     date.set(Calendar.SECOND, 0);
@@ -167,9 +169,8 @@ public class HomeActivity extends AppCompatActivity {
     List<Expense> expensesAll = db.expenseDao().getAll();
     if (expensesAll.isEmpty()) {
       tvToday.setVisibility(View.INVISIBLE);
-      tvInfoExp.setVisibility(View.VISIBLE);
-      btnTrack.setVisibility(View.VISIBLE);
       shadowView.setVisibility(View.INVISIBLE);
+      infoDialog.show();
       initEmptyPieChart();
     } else {
       if (expenses.isEmpty()) {
@@ -214,8 +215,6 @@ public class HomeActivity extends AppCompatActivity {
 
   private void initViews() {
     tvToday = findViewById(R.id.tvToday);
-    btnTrack = findViewById(R.id.btnTrack);
-    tvInfoExp = findViewById(R.id.tvInfoExp);
     tvNoInfo = findViewById(R.id.noInfoTV);
     btnAdd = findViewById(R.id.plus_icon);
     btnLeft = findViewById(R.id.left);
@@ -228,8 +227,6 @@ public class HomeActivity extends AppCompatActivity {
     User user = db.userDao().getByStatus("online");
     userName.setText(getResources().getString(R.string.hi, user.getName()));
     tvNoInfo.setVisibility(View.INVISIBLE);
-    tvInfoExp.setVisibility(View.INVISIBLE);
-    btnTrack.setVisibility(View.INVISIBLE);
   }
 
   @SuppressLint("DefaultLocale")
@@ -239,12 +236,12 @@ public class HomeActivity extends AppCompatActivity {
     data_expenses.add(new PieEntry(1, ""));
     colors = new int[1];
     colors[0] = palette[0];
-    String text = "No info";
+    String text = getApplicationContext().getString(R.string.no_info_short);
     defaultPieSettings(text, R.color.primary_900);
   }
 
   private void defaultPieSettings(String centreText, int centreColor) {
-    pieDataSet = new PieDataSet(data_expenses, "Expenses");
+    pieDataSet = new PieDataSet(data_expenses, getString(R.string.expense));
     pieDataSet.setColors(colors);
     pieDataSet.setDrawValues(false);
 
@@ -264,8 +261,9 @@ public class HomeActivity extends AppCompatActivity {
         new OnChartValueSelectedListener() {
           @Override
           public void onValueSelected(Entry e, Highlight h) {
+            int x = pieChart.getData().getDataSetForEntry(e).getEntryIndex((PieEntry)e);
             Toast.makeText(
-                    getApplicationContext(), h.toString() + " " + e.toString(), Toast.LENGTH_LONG)
+                    getApplicationContext(), data_expenses.get(x).getLabel() + ": " + data_expenses.get(x).getValue() + " RUB", Toast.LENGTH_LONG)
                 .show();
           }
 
@@ -384,5 +382,26 @@ public class HomeActivity extends AppCompatActivity {
             //                startActivity(intent);
           }
         });
+  }
+
+  @SuppressLint("UseCompatLoadingForDrawables")
+  private void defineNoInfoDialog() {
+    infoDialog = new Dialog(HomeActivity.this);
+    infoDialog.setContentView(R.layout.no_info_dialog);
+    infoDialog.getWindow().setGravity(Gravity.BOTTOM);
+    infoDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+    infoDialog
+            .getWindow()
+            .setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+    infoDialog.setCancelable(false);
+    Button track = infoDialog.findViewById(R.id.btnTrack);
+    track.setOnClickListener(
+      new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+          Intent intent = new Intent(HomeActivity.this, NewExpenseActivity.class);
+          startActivity(intent);
+        }
+      });
   }
 }

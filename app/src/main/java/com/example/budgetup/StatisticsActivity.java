@@ -64,11 +64,11 @@ public class StatisticsActivity extends AppCompatActivity {
         new VPAdapter(
             getSupportFragmentManager(),
             FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-    vpAdapter.addFragment(new JournalFragment(), "Journal");
-    vpAdapter.addFragment(new StatisticsFragment(), "Statistics");
+    vpAdapter.addFragment(new JournalFragment(), getApplicationContext().getString(R.string.journal));
+    vpAdapter.addFragment(new StatisticsFragment(), getApplicationContext().getString(R.string.statistic));
     viewPager.setAdapter(vpAdapter);
 
-    defineAddDialog();
+    defineInfoDialog();
     AppDatabase db = AppDatabase.build(getApplicationContext());
     List<Expense> expensesAll = db.expenseDao().getAll();
     if (expensesAll.isEmpty()) {
@@ -77,7 +77,7 @@ public class StatisticsActivity extends AppCompatActivity {
   }
 
   @SuppressLint("UseCompatLoadingForDrawables")
-  private void defineAddDialog() {
+  private void defineInfoDialog() {
     infoDialog = new Dialog(StatisticsActivity.this);
     infoDialog.setContentView(R.layout.no_info_dialog);
     infoDialog.getWindow().setGravity(Gravity.BOTTOM);

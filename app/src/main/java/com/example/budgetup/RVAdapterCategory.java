@@ -91,7 +91,7 @@ public class RVAdapterCategory extends RecyclerView.Adapter<RVAdapterCategory.Ca
     TypedArray baseColors =
         ViewHolder.itemView.getResources().obtainTypedArray(R.array.base_colors);
     String category = expenses.get(i).get(0).getCategory();
-    ViewHolder.categoryName.setText("Category: " + category);
+    ViewHolder.categoryName.setText(ViewHolder.itemView.getContext().getString(R.string.category_title, category));
     StatisticsFragment.initBarChart(
         ViewHolder.barChart,
         expenses.get(i),

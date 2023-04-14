@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
   ViewPager sliderViewPager;
@@ -32,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         new View.OnClickListener() {
           @Override
           public void onClick(View view) {
-            Intent i = new Intent(MainActivity.this, SplashActivity.class);
+            Intent i = new Intent(MainActivity.this, FirstActivity.class);
             startActivity(i);
             finish();
           }
@@ -45,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
             if (getItem(0) < 2) {
               sliderViewPager.setCurrentItem(getItem(1), true);
             } else {
-              Intent i = new Intent(MainActivity.this, SplashActivity.class);
+              Intent i = new Intent(MainActivity.this, FirstActivity.class);
               startActivity(i);
               finish();
             }

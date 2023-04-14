@@ -141,7 +141,7 @@ public class StatisticsFragment extends Fragment {
     BarData barData;
     XAxis xAxis = barChart.getXAxis();
     xAxis.setValueFormatter(new IndexAxisValueFormatter(xAxisLabel));
-    barDataSet = new BarDataSet(dataExpenses, "Expenses");
+    barDataSet = new BarDataSet(dataExpenses, barChart.getRootView().getContext().getString(R.string.expense));
     barDataSet.setColors(colors);
     barDataSet.setDrawValues(false);
 

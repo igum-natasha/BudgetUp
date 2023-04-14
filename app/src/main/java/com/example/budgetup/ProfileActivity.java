@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -45,6 +47,7 @@ public class ProfileActivity extends AppCompatActivity {
           @Override
           public void onClick(View view) {
             user.setStatus("offline");
+            db.userDao().update(user);
             startActivity(new Intent(ProfileActivity.this, FirstActivity.class));
           }
         });
@@ -161,8 +164,7 @@ public class ProfileActivity extends AppCompatActivity {
     Switch rus = languageDialog.findViewById(R.id.swRus);
     Switch eng = languageDialog.findViewById(R.id.swEng);
     ImageButton close = languageDialog.findViewById(R.id.close_icon);
-    String lng = Locale.getDefault().getLanguage();
-    if ("en".equals(lng)) {
+    if ("en".equals(user.getLanguage())) {
       eng.setChecked(true);
     } else {
       rus.setChecked(true);
@@ -173,18 +175,15 @@ public class ProfileActivity extends AppCompatActivity {
           public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
             if (b) {
               language = "ru";
-              //                            Locale locale = new Locale(language);
-              //                            Resources resources = getResources();
-              //                            Configuration configuration =
-              // resources.getConfiguration();
-              //                            configuration.setLocale(locale);
-              //                            resources.updateConfiguration(configuration,
-              // resources.getDisplayMetrics());
-              //                            startActivity(new Intent(ProfileActivity.this,
-              // HomeActivity.class));
-              Toast.makeText(ProfileActivity.this, language, Toast.LENGTH_LONG).show();
+              Locale locale = new Locale(language);
+              Resources resources = getResources();
+              Configuration configuration = resources.getConfiguration();
+              configuration.setLocale(locale);
+              resources.updateConfiguration(configuration, resources.getDisplayMetrics());
               user.setLanguage(language);
+              db.userDao().update(user);
               eng.setChecked(false);
+              startActivity(new Intent(ProfileActivity.this, HomeActivity.class));
             } else {
               eng.setChecked(true);
             }
@@ -196,9 +195,15 @@ public class ProfileActivity extends AppCompatActivity {
           public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
             if (b) {
               language = "en";
-              Toast.makeText(ProfileActivity.this, language, Toast.LENGTH_LONG).show();
+                Locale locale = new Locale(language);
+                Resources resources = getResources();
+                Configuration configuration = resources.getConfiguration();
+                configuration.setLocale(locale);
+                resources.updateConfiguration(configuration, resources.getDisplayMetrics());
               user.setLanguage(language);
+              db.userDao().update(user);
               rus.setChecked(false);
+              startActivity(new Intent(ProfileActivity.this, HomeActivity.class));
             } else {
               rus.setChecked(true);
             }
@@ -245,7 +250,7 @@ public class ProfileActivity extends AppCompatActivity {
             if (intent.resolveActivity(getPackageManager()) != null) {
               startActivity(intent);
             } else {
-              Toast.makeText(ProfileActivity.this, "Please fill field", Toast.LENGTH_LONG).show();
+              Toast.makeText(ProfileActivity.this, getString(R.string.fill_field), Toast.LENGTH_LONG).show();
             }
           }
         });
