@@ -105,6 +105,7 @@
     <string name="statistic">Статистика</string>
     <string name="cr_card">Кредитная карта</string>
     <string name="cash">Наличные</string>
+    <string name="notification">Как ты провел эту неделю? Добавь информацию о своем бюджете!</string>
 
 
     <string name="title_onboarding1">Легкое составление бюджета</string>

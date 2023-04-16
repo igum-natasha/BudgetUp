@@ -3,6 +3,7 @@
     package="com.example.budgetup">
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -11,6 +12,9 @@
         android:supportsRtl="true"
         android:requestLegacyExternalStorage="true"
         android:theme="@style/Theme.BudgetUp">
+        <receiver
+            android:name=".Receiver"
+            android:exported="true"/>
         <activity
             android:name=".SplashActivity"
             android:exported="true" >
