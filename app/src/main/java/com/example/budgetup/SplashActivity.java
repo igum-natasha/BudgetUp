@@ -20,6 +20,7 @@ import java.util.Locale;
 public class SplashActivity extends AppCompatActivity {
 
   int REQUEST_CODE = 0;
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -36,9 +37,14 @@ public class SplashActivity extends AppCompatActivity {
       resources.updateConfiguration(configuration, resources.getDisplayMetrics());
 
       Intent intent = new Intent(SplashActivity.this, Receiver.class);
-      PendingIntent pendingIntent = PendingIntent.getBroadcast(SplashActivity.this, REQUEST_CODE, intent, 0);
-      AlarmManager am = (AlarmManager)getSystemService(ALARM_SERVICE);
-      am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), AlarmManager.INTERVAL_DAY *7, pendingIntent);
+      PendingIntent pendingIntent =
+          PendingIntent.getBroadcast(SplashActivity.this, REQUEST_CODE, intent, 0);
+      AlarmManager am = (AlarmManager) getSystemService(ALARM_SERVICE);
+      am.setRepeating(
+          AlarmManager.RTC_WAKEUP,
+          System.currentTimeMillis(),
+          AlarmManager.INTERVAL_DAY * 7,
+          pendingIntent);
       startActivity(new Intent(SplashActivity.this, HomeActivity.class));
 
     } else {
