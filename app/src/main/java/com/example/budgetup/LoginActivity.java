@@ -33,8 +33,9 @@ public class LoginActivity extends AppCompatActivity {
             if (user.getPassword().equals(password)) {
               user.setStatus("online");
               db.userDao().update(user);
-              List<Notification> notificationList = db.notificationDao().getNotificationsByEmail(user.getEmail());
-              for (Notification notification: notificationList) {
+              List<Notification> notificationList =
+                  db.notificationDao().getNotificationsByEmail(user.getEmail());
+              for (Notification notification : notificationList) {
                 notification.setStatus(true);
                 db.notificationDao().update(notification);
               }

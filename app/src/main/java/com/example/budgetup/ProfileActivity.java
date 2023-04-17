@@ -51,10 +51,11 @@ public class ProfileActivity extends AppCompatActivity {
           public void onClick(View view) {
             user.setStatus("offline");
             db.userDao().update(user);
-            List<Notification> notificationList = db.notificationDao().getNotificationsByEmail(user.getEmail());
-            for (Notification notification: notificationList) {
-                notification.setStatus(false);
-                db.notificationDao().update(notification);
+            List<Notification> notificationList =
+                db.notificationDao().getNotificationsByEmail(user.getEmail());
+            for (Notification notification : notificationList) {
+              notification.setStatus(false);
+              db.notificationDao().update(notification);
             }
             startActivity(new Intent(ProfileActivity.this, FirstActivity.class));
           }
@@ -67,12 +68,13 @@ public class ProfileActivity extends AppCompatActivity {
           }
         });
 
-    btnNotification.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
+    btnNotification.setOnClickListener(
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
             startActivity(new Intent(ProfileActivity.this, NotificationActivity.class));
-        }
-    });
+          }
+        });
     deleteDataLayout.setOnClickListener(
         new View.OnClickListener() {
           @Override
@@ -154,11 +156,14 @@ public class ProfileActivity extends AppCompatActivity {
         new View.OnClickListener() {
           @Override
           public void onClick(View view) {
-              List<Notification> notificationList = db.notificationDao().getNotificationsByEmail(user.getEmail());
-              for (Notification notification: notificationList) {
-                  NotificationManager nMgr = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
-                  nMgr.cancel(notification.getId());
-              }
+            List<Notification> notificationList =
+                db.notificationDao().getNotificationsByEmail(user.getEmail());
+            for (Notification notification : notificationList) {
+              NotificationManager nMgr =
+                  (NotificationManager)
+                      getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
+              nMgr.cancel(notification.getId());
+            }
             db.userDao().deleteByEmail(user.getEmail());
             Toast.makeText(
                     ProfileActivity.this,

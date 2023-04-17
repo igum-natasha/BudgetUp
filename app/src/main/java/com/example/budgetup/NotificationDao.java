@@ -11,22 +11,21 @@ import java.util.List;
 @Dao
 public interface NotificationDao {
 
-    @Query("DELETE FROM notifications WHERE userEmail LIKE :email")
-    void deleteByEmail(String email);
+  @Query("DELETE FROM notifications WHERE userEmail LIKE :email")
+  void deleteByEmail(String email);
 
-    @Query("DELETE FROM notifications WHERE id LIKE :id")
-    void deleteById(String id);
+  @Query("DELETE FROM notifications WHERE id LIKE :id")
+  void deleteById(String id);
 
-    @Query("SELECT * FROM notifications WHERE id LIKE :id")
-    Notification getById(String id);
+  @Query("SELECT * FROM notifications WHERE id LIKE :id")
+  Notification getById(String id);
 
-    @Query("SELECT * FROM notifications WHERE userEmail LIKE :email")
-    List<Notification> getNotificationsByEmail(String email);
+  @Query("SELECT * FROM notifications WHERE userEmail LIKE :email")
+  List<Notification> getNotificationsByEmail(String email);
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertNotification(Notification notification);
+  @Insert(onConflict = OnConflictStrategy.REPLACE)
+  void insertNotification(Notification notification);
 
-    @Update
-    void update(Notification notification);
-
+  @Update
+  void update(Notification notification);
 }
