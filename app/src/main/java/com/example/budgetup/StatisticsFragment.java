@@ -45,6 +45,7 @@ public class StatisticsFragment extends Fragment {
   private ImageButton btnLeft, btnRight;
   int weekPos = 3, monthPos = 3;
   BarChart barChart;
+  User user;
   TextView tvMax, tvMin, expenseCount, tvNoInfo;
   ArrayList<String> xAxisLabel = new ArrayList<>();
   float[] sumByDay = {0, 0, 0, 0, 0, 0, 0};
@@ -233,12 +234,14 @@ public class StatisticsFragment extends Fragment {
     tvNoInfo = view.findViewById(R.id.noInfoTV);
     tvMax = view.findViewById(R.id.maxCount);
     tvMin = view.findViewById(R.id.minCount);
+    AppDatabase db = AppDatabase.build(view.getContext());
+    user = db.userDao().getByStatus("online");
   }
 
   private void initializeDataWeek() {
     AppDatabase db = AppDatabase.build(view.getContext());
     Date[] week = days.get(weekPos);
-    expenses = db.expenseDao().getByDate(week[0].getTime(), week[1].getTime());
+    expenses = db.expenseDao().getByDate(user.getEmail(), week[0].getTime(), week[1].getTime());
 
     if (expenses.isEmpty()) {
       initEmptyBarChart("week");
@@ -256,7 +259,7 @@ public class StatisticsFragment extends Fragment {
   private void initializeDataMonth() {
     AppDatabase db = AppDatabase.build(view.getContext());
     Date[] month = daysMonth.get(monthPos);
-    expenses = db.expenseDao().getByDate(month[0].getTime(), month[1].getTime());
+    expenses = db.expenseDao().getByDate(user.getEmail(), month[0].getTime(), month[1].getTime());
 
     if (expenses.isEmpty()) {
       initEmptyBarChart("month");

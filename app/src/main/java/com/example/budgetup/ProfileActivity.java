@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -22,12 +24,13 @@ import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.List;
 import java.util.Locale;
 
 public class ProfileActivity extends AppCompatActivity {
 
   Dialog deleteDialog, languageDialog, questionsDialog;
-  ImageButton btnExit, btnBack;
+  ImageButton btnExit, btnBack, btnNotification;
   LinearLayout backupGoogle, deleteDataLayout, languageLayout, shareLayout, questionsLayout;
   TextView userName, userEmail;
   String language;
@@ -48,6 +51,11 @@ public class ProfileActivity extends AppCompatActivity {
           public void onClick(View view) {
             user.setStatus("offline");
             db.userDao().update(user);
+            List<Notification> notificationList = db.notificationDao().getNotificationsByEmail(user.getEmail());
+            for (Notification notification: notificationList) {
+                notification.setStatus(false);
+                db.notificationDao().update(notification);
+            }
             startActivity(new Intent(ProfileActivity.this, FirstActivity.class));
           }
         });
@@ -58,6 +66,13 @@ public class ProfileActivity extends AppCompatActivity {
             finish();
           }
         });
+
+    btnNotification.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            startActivity(new Intent(ProfileActivity.this, NotificationActivity.class));
+        }
+    });
     deleteDataLayout.setOnClickListener(
         new View.OnClickListener() {
           @Override
@@ -139,6 +154,11 @@ public class ProfileActivity extends AppCompatActivity {
         new View.OnClickListener() {
           @Override
           public void onClick(View view) {
+              List<Notification> notificationList = db.notificationDao().getNotificationsByEmail(user.getEmail());
+              for (Notification notification: notificationList) {
+                  NotificationManager nMgr = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
+                  nMgr.cancel(notification.getId());
+              }
             db.userDao().deleteByEmail(user.getEmail());
             Toast.makeText(
                     ProfileActivity.this,
@@ -267,6 +287,7 @@ public class ProfileActivity extends AppCompatActivity {
     userEmail.setText(user.getEmail());
     btnBack = findViewById(R.id.left_icon);
     btnExit = findViewById(R.id.exit_icon);
+    btnNotification = findViewById(R.id.notification_icon);
     backupGoogle = findViewById(R.id.google);
     deleteDataLayout = findViewById(R.id.delete);
     languageLayout = findViewById(R.id.language);

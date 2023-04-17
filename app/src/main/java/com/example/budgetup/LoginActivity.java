@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.List;
+
 public class LoginActivity extends AppCompatActivity {
 
   Button btnLogin;
@@ -30,6 +32,12 @@ public class LoginActivity extends AppCompatActivity {
             User user = db.userDao().getByEmail(email);
             if (user.getPassword().equals(password)) {
               user.setStatus("online");
+              db.userDao().update(user);
+              List<Notification> notificationList = db.notificationDao().getNotificationsByEmail(user.getEmail());
+              for (Notification notification: notificationList) {
+                notification.setStatus(true);
+                db.notificationDao().update(notification);
+              }
               Toast.makeText(
                       LoginActivity.this,
                       getResources().getString(R.string.login_suc),

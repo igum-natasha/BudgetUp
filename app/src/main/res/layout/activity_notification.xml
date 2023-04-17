@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".NewNotificationActivity">
+
+    <include
+        android:id="@+id/include"
+        layout="@layout/toolbar" />
+
+    <TextView
+        android:id="@+id/nameTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="22dp"
+        android:textColor="@color/base_500"
+        android:fontFamily="@font/poppins"
+        android:textSize="14sp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/titleName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/include"/>
+
+    <LinearLayout
+        android:id="@+id/nameNotification"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="2dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/nameTitle">
+
+        <EditText
+            android:id="@+id/entName"
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:background="@drawable/feedback_background"
+            android:fontFamily="@font/poppins"
+            android:hint="@string/note"
+            android:importantForAutofill="yes"
+            android:inputType="none"
+            android:maxLength="14"
+            android:padding="8dp"
+            android:textSize="16sp" />
+
+        <ImageButton
+            android:id="@+id/btnOk"
+            android:layout_marginLeft="-40dp"
+            android:src="@drawable/right"
+            android:background="@color/base_100"
+            android:scaleType="fitCenter"
+            app:tint="@color/base_700"
+            android:layout_width="24dp"
+            android:layout_height="24dp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/infoTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="22dp"
+        android:textColor="@color/base_500"
+        android:fontFamily="@font/poppins"
+        android:textSize="14sp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/infoTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/nameNotification"/>
+
+    <LinearLayout
+        android:id="@+id/messageNotification"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="2dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/infoTitle">
+
+        <EditText
+            android:id="@+id/entMessage"
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:background="@drawable/feedback_background"
+            android:fontFamily="@font/poppins"
+            android:hint="@string/message"
+            android:importantForAutofill="yes"
+            android:inputType="none"
+            android:maxLength="20"
+            android:padding="8dp"
+            android:textSize="16sp" />
+
+        <ImageButton
+            android:id="@+id/btnOkMessage"
+            android:layout_marginLeft="-40dp"
+            android:src="@drawable/right"
+            android:background="@color/base_100"
+            android:scaleType="fitCenter"
+            app:tint="@color/base_700"
+            android:layout_width="24dp"
+            android:layout_height="24dp" />
+    </LinearLayout>
+    
+    <LinearLayout
+        android:id="@+id/spinners"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/messageNotification">
+        
+        <DatePicker
+            android:id="@+id/datePicker"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:datePickerMode="spinner"
+            android:layout_gravity="center"
+            android:scaleX="0.7"
+            android:scaleY="0.7"
+            android:calendarViewShown="false"/>
+
+        <TimePicker
+            android:id="@+id/timePicker"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:timePickerMode="spinner"
+            android:layout_gravity="center"
+            android:scaleX="0.7"
+            android:scaleY="0.7"
+            android:calendarViewShown="false"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnSubmit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/submit"
+        android:layout_margin="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/spinners"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

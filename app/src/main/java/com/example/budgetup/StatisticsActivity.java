@@ -72,7 +72,7 @@ public class StatisticsActivity extends AppCompatActivity {
 
     defineInfoDialog();
     AppDatabase db = AppDatabase.build(getApplicationContext());
-    List<Expense> expensesAll = db.expenseDao().getAll();
+    List<Expense> expensesAll = db.expenseDao().getExpensesByEmail(db.userDao().getByStatus("online").getEmail());
     if (expensesAll.isEmpty()) {
       infoDialog.show();
     }

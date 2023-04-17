@@ -46,6 +46,7 @@ public class HomeActivity extends AppCompatActivity {
   private RecyclerView rv, rvDays;
   int expensePos;
   int dayPos = 30;
+  User user;
   ShadowView shadowView;
   TextView tvToday, tvNoInfo, userName;
   Dialog addDialog, expenseInfoDialog, infoDialog;
@@ -164,8 +165,8 @@ public class HomeActivity extends AppCompatActivity {
     AppDatabase db = AppDatabase.build(getApplicationContext());
     long today = dateList.get(dayPos).getTime();
     long tomr = dateList.get(dayPos + 1).getTime();
-    expenses = db.expenseDao().getByDate(today, tomr);
-    List<Expense> expensesAll = db.expenseDao().getAll();
+    expenses = db.expenseDao().getByDate(user.getEmail(), today, tomr);
+    List<Expense> expensesAll = db.expenseDao().getExpensesByEmail(user.getEmail());
     if (expensesAll.isEmpty()) {
       tvToday.setVisibility(View.INVISIBLE);
       shadowView.setVisibility(View.INVISIBLE);
@@ -223,7 +224,7 @@ public class HomeActivity extends AppCompatActivity {
     userName = findViewById(R.id.user_name);
 
     AppDatabase db = AppDatabase.build(getApplicationContext());
-    User user = db.userDao().getByStatus("online");
+    user = db.userDao().getByStatus("online");
     userName.setText(getResources().getString(R.string.hi, user.getName()));
     tvNoInfo.setVisibility(View.INVISIBLE);
   }

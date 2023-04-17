@@ -32,6 +32,17 @@
             android:textSize="16sp" />
 
         <ImageButton
+            android:id="@+id/notification_icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:background="@color/base_50"
+            android:scaleType="fitCenter"
+            android:src="@drawable/bell"
+            android:layout_marginEnd="16dp"
+            android:layout_toStartOf="@id/exit_icon"
+            app:tint="@color/base_600" />
+
+        <ImageButton
             android:id="@+id/left_icon"
             android:layout_width="24dp"
             android:layout_height="24dp"

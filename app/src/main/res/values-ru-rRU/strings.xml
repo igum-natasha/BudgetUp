@@ -62,12 +62,14 @@
     <string name="ent_expense">Величина траты</string>
     <string name="date_exmp">Wednesday, May 26</string>
     <string name="menu_title">Выберите способ оплаты</string>
-    <string name="note">Введите имя</string>
+    <string name="note">Введите название</string>
+    <string name="message">Введите сообщение</string>
     <string name="card">Введите последние 4 символа карты</string>
     <string name="ch_category">Выберите категорию</string>
     <string name="login_suc">Успешный вход!</string>
     <string name="login_fail">Войти в систему не удалось с ошибкой! Попробуйте еще раз!</string>
     <string name="regist_fail">Регистрация не удалась! Пожалуйста, заполните все поля!</string>
+    <string name="regist_fail_email">Регистрация не удалась! Пользователь с электронной почтой %1$s уже существует!</string>
     <string name="regist_suc">Успешная регистрация!</string>
     <string name="delete_suc">Данные были успешно удалены!</string>
     <string name="deposits">Депозиты</string>
@@ -105,7 +107,10 @@
     <string name="statistic">Статистика</string>
     <string name="cr_card">Кредитная карта</string>
     <string name="cash">Наличные</string>
-    <string name="notification">Как ты провел эту неделю? Добавь информацию о своем бюджете!</string>
+    <string name="notification_title">Как ты провел эту неделю?</string>
+    <string name="notification_desc">Добавь информацию о своем бюджете!</string>
+    <string name="new_notification">Новое уведомление</string>
+    <string name="notification">Уведомления</string>
 
 
     <string name="title_onboarding1">Легкое составление бюджета</string>

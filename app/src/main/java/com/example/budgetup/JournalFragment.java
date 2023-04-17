@@ -42,6 +42,7 @@ public class JournalFragment extends Fragment {
   private RecyclerView rvToday;
   private RecyclerView rv;
   int position = 15, expensePos;
+  User user;
   Calendar date = Calendar.getInstance();
   List<Date> dateList = new ArrayList<>();
   TextView tvMonthName, tvMonthDay, expenseCount, tvNoInfo;
@@ -210,7 +211,7 @@ public class JournalFragment extends Fragment {
     AppDatabase db = AppDatabase.build(view.getContext());
     long today = dateList.get(position).getTime();
     long tomr = dateList.get(position + 1).getTime();
-    expenses = db.expenseDao().getByDate(today, tomr);
+    expenses = db.expenseDao().getByDate(user.getEmail(), today, tomr);
     if (expenses.isEmpty()) {
       initEmptyBarChart();
       tvNoInfo.setVisibility(View.VISIBLE);
@@ -261,6 +262,8 @@ public class JournalFragment extends Fragment {
     barChart = (BarChart) view.findViewById(R.id.barChart);
 
     tvNoInfo.setVisibility(View.INVISIBLE);
+    AppDatabase db = AppDatabase.build(view.getContext());
+    user = db.userDao().getByStatus("online");
   }
 
   @SuppressLint("UseCompatLoadingForDrawables")

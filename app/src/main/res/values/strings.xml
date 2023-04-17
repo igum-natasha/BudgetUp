@@ -62,11 +62,13 @@
     <string name="date_exmp">Wednesday, May 26</string>
     <string name="menu_title">Select payment</string>
     <string name="note">Enter name</string>
+    <string name="message">Enter message</string>
     <string name="card">Enter last 4 chars of the card</string>
     <string name="ch_category">Choose category</string>
     <string name="login_suc">Login successful!</string>
     <string name="login_fail">Login failed with error! Try again!</string>
     <string name="regist_fail">Registration failed! Please fill all fields!</string>
+    <string name="regist_fail_email">Registration failed! user with email %1$s already exists!</string>
     <string name="regist_suc">Registration successful!</string>
     <string name="delete_suc">Data delete successful!</string>
     <string name="deposits">Deposits</string>
@@ -104,7 +106,10 @@
     <string name="statistic">Statistics</string>
     <string name="cr_card">Credit card</string>
     <string name="cash">Cash</string>
-    <string name="notification">What did you do this week? Add information about your budget!</string>
+    <string name="notification_title">What did you do this week?</string>
+    <string name="notification_desc">Add information about your budget!</string>
+    <string name="new_notification">New notification</string>
+    <string name="notification">Notifications</string>
 
 
     <string name="title_onboarding1">Painless budgeting</string>

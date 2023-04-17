@@ -19,10 +19,10 @@ public interface ExpenseDao {
   List<Expense> getAll();
 
   @Query("SELECT * FROM expenses WHERE userEmail LIKE :email")
-  Expense getByEmail(String email);
+  List<Expense> getExpensesByEmail(String email);
 
-  @Query("SELECT * FROM expenses WHERE date BETWEEN :dayStart AND :dayEnd")
-  List<Expense> getByDate(long dayStart, long dayEnd);
+  @Query("SELECT * FROM expenses WHERE userEmail LIKE :email AND date BETWEEN :dayStart AND :dayEnd")
+  List<Expense> getByDate(String email, long dayStart, long dayEnd);
 
   @Insert(onConflict = OnConflictStrategy.REPLACE)
   void insertExpense(Expense expense);
