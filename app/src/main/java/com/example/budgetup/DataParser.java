@@ -110,7 +110,7 @@ public class DataParser {
             break;
           case "Сумма платежа":
           case "Сумма":
-            value = data.get(i).get(j);
+            value = data.get(i).get(j).replace("-", "").trim();
             expense.setValue(value);
             break;
           case "Номер счета/карты зачисления":

@@ -199,6 +199,7 @@ public class StatisticsFragment extends Fragment {
       Date d = new Date(expensesList.get(i).getDate());
       String day = df.format(d);
       if (xAxisLabel.contains(day)) {
+        Log.d("value_before", expensesList.get(i).getValue() + "");
         float value = Float.parseFloat(expensesList.get(i).getValue()); // .replace('-', ' '));
         Log.d("value", value + "");
         sumByDay[xAxisLabel.indexOf(day)] += value;

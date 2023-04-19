@@ -100,7 +100,7 @@
     <string name="add_success">Add data successfully!</string>
     <string name="add_fail">Add data failed!</string>
     <string name="upload_title">Choose File to Upload..</string>
-    <string name="select_path">Selected File Path:\n %1$s</string>
+    <string name="select_path">Selected File Path:\n%1$s</string>
     <string name="fill_field">Please fill fields</string>
     <string name="journal">Journal</string>
     <string name="statistic">Statistics</string>

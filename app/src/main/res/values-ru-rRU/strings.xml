@@ -101,7 +101,7 @@
     <string name="add_success">Данные успешно добавлены!</string>
     <string name="add_fail">Добавить данные не удалось!</string>
     <string name="upload_title">Выберите файл для загрузки…</string>
-    <string name="select_path">Выбранный путь к файлу:\n %1$s</string>
+    <string name="select_path">Выбранный путь к файлу:\n%1$s</string>
     <string name="fill_field">Пожалуйста, заполните поля</string>
     <string name="journal">Дневник</string>
     <string name="statistic">Статистика</string>

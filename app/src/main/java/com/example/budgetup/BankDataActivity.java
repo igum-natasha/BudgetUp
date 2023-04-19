@@ -88,6 +88,8 @@ public class BankDataActivity extends AppCompatActivity implements PickiTCallbac
                 Toast.makeText(
                         getApplicationContext(), getString(R.string.add_success), Toast.LENGTH_LONG)
                     .show();
+                fileName.setText(R.string.select_file);
+                btnIconFile.setVisibility(View.VISIBLE);
               } catch (IOException e) {
                 e.printStackTrace();
                 Toast.makeText(
