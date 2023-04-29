@@ -110,6 +110,7 @@
     <string name="notification_desc">Add information about your budget!</string>
     <string name="new_notification">New notification</string>
     <string name="notification">Notifications</string>
+    <string name="errorGoogle">Google: something went wrong</string>
 
 
     <string name="title_onboarding1">Painless budgeting</string>

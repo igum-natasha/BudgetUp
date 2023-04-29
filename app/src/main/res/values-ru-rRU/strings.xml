@@ -111,6 +111,7 @@
     <string name="notification_desc">Добавь информацию о своем бюджете!</string>
     <string name="new_notification">Новое уведомление</string>
     <string name="notification">Уведомления</string>
+    <string name="errorGoogle">Google: что-то пошло не так</string>
 
 
     <string name="title_onboarding1">Легкое составление бюджета</string>

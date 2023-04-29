@@ -1,5 +1,6 @@
 package com.example.budgetup;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
@@ -18,12 +19,29 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.RadioGroup;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.Scopes;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.api.client.extensions.android.http.AndroidHttp;
+import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
+import com.google.api.client.googleapis.extensions.android.gms.auth.UserRecoverableAuthIOException;
+import com.google.api.client.http.FileContent;
+import com.google.api.client.json.gson.GsonFactory;
+import com.google.api.services.drive.Drive;
+import com.google.api.services.drive.model.File;
 
+import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
@@ -36,6 +54,8 @@ public class ProfileActivity extends AppCompatActivity {
   String language;
   User user;
   AppDatabase db;
+  GoogleSignInClient gsc;
+    GoogleSignInOptions gso;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +65,9 @@ public class ProfileActivity extends AppCompatActivity {
     defineDeleteDialog();
     defineLanguageDialog();
     defineQuestionsDialog();
+//    defineGoogleSync();
+    gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
+    gsc = GoogleSignIn.getClient(this, gso);
     btnExit.setOnClickListener(
         new View.OnClickListener() {
           @Override
@@ -67,7 +90,12 @@ public class ProfileActivity extends AppCompatActivity {
             finish();
           }
         });
-
+    backupGoogle.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            signIn();
+        }
+    });
     btnNotification.setOnClickListener(
         new View.OnClickListener() {
           @Override
@@ -134,7 +162,34 @@ public class ProfileActivity extends AppCompatActivity {
         });
   }
 
-  @SuppressLint("UseCompatLoadingForDrawables")
+  void signIn() {
+      Intent signInIntent = gsc.getSignInIntent();
+      startActivityForResult(signInIntent, 1000);
+  }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == 1000) {
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+
+            try {
+                task.getResult(ApiException.class);
+
+            } catch (ApiException e) {
+                Toast.makeText(
+                        ProfileActivity.this,
+                        getResources().getString(R.string.errorGoogle),
+                        Toast.LENGTH_LONG)
+                        .show();
+            }
+
+        }
+        defineGoogleSync();
+//        gsc.signOut();
+    }
+
+    @SuppressLint("UseCompatLoadingForDrawables")
   private void defineDeleteDialog() {
     deleteDialog = new Dialog(ProfileActivity.this);
     deleteDialog.setContentView(R.layout.delete_data_dialog);
@@ -177,6 +232,28 @@ public class ProfileActivity extends AppCompatActivity {
         });
   }
 
+  private void defineGoogleSync() {
+      GoogleSignInAccount googleSignInAccount = GoogleSignIn.getLastSignedInAccount(this);
+      GoogleAccountCredential credential = GoogleAccountCredential.usingOAuth2(this, Collections.singleton(Scopes.DRIVE_FILE));
+      if (googleSignInAccount != null) {
+          credential.setSelectedAccount(googleSignInAccount.getAccount());
+          com.google.api.services.drive.Drive googleDriveService = new Drive.Builder(
+                  AndroidHttp.newCompatibleTransport(),
+                  new GsonFactory(),
+                  credential)
+                  .setApplicationName(getString(R.string.app_name))
+                  .build();
+          String currentDBPath=getDatabasePath("database.db").getAbsolutePath();
+          upload(currentDBPath, googleDriveService);
+//          Toast.makeText(
+//                  ProfileActivity.this,
+//                  currentDBPath,
+//                  Toast.LENGTH_LONG)
+//                  .show();
+
+      }
+      gsc.signOut();
+  }
   @SuppressLint({"UseCompatLoadingForDrawables", "UseSwitchCompatOrMaterialCode"})
   private void defineLanguageDialog() {
     languageDialog = new Dialog(ProfileActivity.this);
@@ -186,62 +263,37 @@ public class ProfileActivity extends AppCompatActivity {
         .getWindow()
         .setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
     languageDialog.setCancelable(false);
-    Switch rus = languageDialog.findViewById(R.id.swRus);
-    Switch eng = languageDialog.findViewById(R.id.swEng);
-    ImageButton close = languageDialog.findViewById(R.id.close_icon);
-    if ("en".equals(user.getLanguage())) {
-      eng.setChecked(true);
-    } else {
-      rus.setChecked(true);
-    }
-    rus.setOnCheckedChangeListener(
-        new CompoundButton.OnCheckedChangeListener() {
-          @Override
-          public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-            if (b) {
-              language = "ru";
-              Locale locale = new Locale(language);
-              Resources resources = getResources();
-              Configuration configuration = resources.getConfiguration();
-              configuration.setLocale(locale);
-              resources.updateConfiguration(configuration, resources.getDisplayMetrics());
-              user.setLanguage(language);
-              db.userDao().update(user);
-              eng.setChecked(false);
-              startActivity(new Intent(ProfileActivity.this, HomeActivity.class));
-            } else {
-              eng.setChecked(true);
-            }
-          }
-        });
-    eng.setOnCheckedChangeListener(
-        new CompoundButton.OnCheckedChangeListener() {
-          @Override
-          public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-            if (b) {
-              language = "en";
-              Locale locale = new Locale(language);
-              Resources resources = getResources();
-              Configuration configuration = resources.getConfiguration();
-              configuration.setLocale(locale);
-              resources.updateConfiguration(configuration, resources.getDisplayMetrics());
-              user.setLanguage(language);
-              db.userDao().update(user);
-              rus.setChecked(false);
-              startActivity(new Intent(ProfileActivity.this, HomeActivity.class));
-            } else {
-              rus.setChecked(true);
-            }
-          }
-        });
 
-    close.setOnClickListener(
-        new View.OnClickListener() {
-          @Override
-          public void onClick(View view) {
-            languageDialog.dismiss();
-          }
-        });
+      ImageButton close = languageDialog.findViewById(R.id.close_icon);
+      close.setOnClickListener(
+              new View.OnClickListener() {
+                  @Override
+                  public void onClick(View view) {
+                      languageDialog.dismiss();
+                  }
+              });
+    RadioGroup radGrp = languageDialog.findViewById(R.id.radioGr);
+    radGrp.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(RadioGroup radioGroup, int id) {
+            switch (id) {
+                case R.id.radioRus:
+                    language = "ru";
+                    break;
+                case R.id.radioEng:
+                    language = "en";
+                    break;
+            }
+            Locale locale = new Locale(language);
+            Resources resources = getResources();
+            Configuration configuration = resources.getConfiguration();
+            configuration.setLocale(locale);
+            resources.updateConfiguration(configuration, resources.getDisplayMetrics());
+            user.setLanguage(language);
+            db.userDao().update(user);
+            startActivity(new Intent(ProfileActivity.this, HomeActivity.class));
+        }
+    });
   }
 
   @SuppressLint("UseCompatLoadingForDrawables")
@@ -299,4 +351,47 @@ public class ProfileActivity extends AppCompatActivity {
     shareLayout = findViewById(R.id.share);
     questionsLayout = findViewById(R.id.questions);
   }
+
+    private void upload(String dbPath, com.google.api.services.drive.Drive drive){
+        File storageFile = new File();
+        storageFile.setParents(Collections.singletonList("appDataFolder"));
+        storageFile.setName("budgetdb");
+
+//        File storageFileShm = new File();
+//        storageFileShm.setParents(Collections.singletonList("appDataFolder"));
+//        storageFileShm.setName("studentdb-shm");
+//
+//        File storageFileWal = new File();
+//        storageFileWal.setParents(Collections.singletonList("appDataFolder"));
+//        storageFileWal.setName("studentdb-wal");
+
+        java.io.File filePath = new java.io.File(dbPath);
+//        java.io.File filePathShm = new java.io.File(dbPathShm);
+//        java.io.File filePathWal = new java.io.File(dbPathWal);
+        FileContent mediaContent = new FileContent("",filePath);
+//        FileContent mediaContentShm = new FileContent("",filePathShm);
+//        FileContent mediaContentWal = new FileContent("",filePathWal);
+        try {
+            File file = drive.files().create(storageFile, mediaContent).execute();
+            Toast.makeText(
+                  ProfileActivity.this,
+                    "Filename: " + file.getName()+ "File ID: " + file.getId(),
+                  Toast.LENGTH_LONG)
+                  .show();
+//            System.out.printf("Filename: %s File ID: %s \n", file.getName(), file.getId());
+
+//            File fileShm = googleDriveService.files().create(storageFileShm, mediaContentShm)                    .execute();
+//            System.out.printf("Filename: %s File ID: %s \n", fileShm.getName(), fileShm.getId());
+//
+//            File fileWal = googleDriveService.files().create(storageFileWal, mediaContentWal)                  .execute();
+//            System.out.printf("Filename: %s File ID: %s \n", fileWal.getName(), fileWal.getId());
+    }
+    catch(UserRecoverableAuthIOException e){
+        startActivityForResult(e.getIntent(), 1);
+    }
+    catch(Exception e){
+        e.printStackTrace();
+    }
+
+}
 }

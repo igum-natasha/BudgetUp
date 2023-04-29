@@ -128,7 +128,7 @@ public class NewNotificationActivity extends AppCompatActivity {
     timePicker.setIs24HourView(true);
     datePicker = findViewById(R.id.datePicker);
     toolbarName = findViewById(R.id.toolbarName);
-    btnBack = findViewById(R.id.left_icon);
+    btnBack = findViewById(R.id.leftIcon);
 
     toolbarName.setText(R.string.new_notification);
   }
