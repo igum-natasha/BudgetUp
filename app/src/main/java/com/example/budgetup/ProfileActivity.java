@@ -12,7 +12,6 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,16 +34,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
-import com.google.api.client.googleapis.extensions.android.gms.auth.UserRecoverableAuthIOException;
-import com.google.api.client.http.FileContent;
 import com.google.api.client.json.gson.GsonFactory;
 import com.google.api.services.drive.Drive;
-import com.google.api.services.drive.model.File;
-import com.hbisoft.pickit.PickiT;
-import com.hbisoft.pickit.PickiTCallbacks;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
@@ -61,7 +54,8 @@ public class ProfileActivity extends AppCompatActivity {
   GoogleSignInClient gsc;
   GoogleSignInOptions gso;
   public static final Scope SCOPE_FILE = new Scope("https://www.googleapis.com/auth/drive.file");
-  public static final Scope SCOPE_APPFOLDER = new Scope("https://www.googleapis.com/auth/drive.appdata");
+  public static final Scope SCOPE_APPFOLDER =
+      new Scope("https://www.googleapis.com/auth/drive.appdata");
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -73,10 +67,10 @@ public class ProfileActivity extends AppCompatActivity {
     defineQuestionsDialog();
     gso =
         new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-              .requestScopes(SCOPE_FILE)
-              .requestScopes(SCOPE_APPFOLDER)
-              .requestEmail()
-              .build();
+            .requestScopes(SCOPE_FILE)
+            .requestScopes(SCOPE_APPFOLDER)
+            .requestEmail()
+            .build();
     gsc = GoogleSignIn.getClient(this, gso);
     btnExit.setOnClickListener(
         new View.OnClickListener() {
@@ -251,26 +245,27 @@ public class ProfileActivity extends AppCompatActivity {
           new Drive.Builder(AndroidHttp.newCompatibleTransport(), new GsonFactory(), credential)
               .setApplicationName(getString(R.string.app_name))
               .build();
-        String currentDBPath = AppDatabase.build(getApplicationContext()).getOpenHelper().getWritableDatabase().getPath();
-        Toast.makeText(
-                        ProfileActivity.this,
-                currentDBPath,
-                        Toast.LENGTH_LONG)
-                        .show();
-        GoogleDriveBackup backup = new GoogleDriveBackup(googleDriveService, currentDBPath);
-        AsyncTask<Void, Void, Void> task = new AsyncTask<Void, Void, Void>() {
+      String currentDBPath =
+          AppDatabase.build(getApplicationContext())
+              .getOpenHelper()
+              .getWritableDatabase()
+              .getPath();
+      Toast.makeText(ProfileActivity.this, currentDBPath, Toast.LENGTH_LONG).show();
+      GoogleDriveBackup backup = new GoogleDriveBackup(googleDriveService, currentDBPath);
+      AsyncTask<Void, Void, Void> task =
+          new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
-                try {
-                    backup.upload();
-                    backup.download();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                return null;
+              try {
+                backup.upload();
+                backup.download();
+              } catch (IOException e) {
+                e.printStackTrace();
+              }
+              return null;
             }
-        };
-        task.execute();
+          };
+      task.execute();
     }
     gsc.signOut();
   }
