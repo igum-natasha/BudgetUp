@@ -11,6 +11,8 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.net.Uri;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +30,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.Scopes;
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.common.api.Scope;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.api.client.extensions.android.http.AndroidHttp;
@@ -37,7 +40,11 @@ import com.google.api.client.http.FileContent;
 import com.google.api.client.json.gson.GsonFactory;
 import com.google.api.services.drive.Drive;
 import com.google.api.services.drive.model.File;
+import com.hbisoft.pickit.PickiT;
+import com.hbisoft.pickit.PickiTCallbacks;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
@@ -53,6 +60,8 @@ public class ProfileActivity extends AppCompatActivity {
   AppDatabase db;
   GoogleSignInClient gsc;
   GoogleSignInOptions gso;
+  public static final Scope SCOPE_FILE = new Scope("https://www.googleapis.com/auth/drive.file");
+  public static final Scope SCOPE_APPFOLDER = new Scope("https://www.googleapis.com/auth/drive.appdata");
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -62,9 +71,12 @@ public class ProfileActivity extends AppCompatActivity {
     defineDeleteDialog();
     defineLanguageDialog();
     defineQuestionsDialog();
-    //    defineGoogleSync();
     gso =
-        new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
+        new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+              .requestScopes(SCOPE_FILE)
+              .requestScopes(SCOPE_APPFOLDER)
+              .requestEmail()
+              .build();
     gsc = GoogleSignIn.getClient(this, gso);
     btnExit.setOnClickListener(
         new View.OnClickListener() {
@@ -184,7 +196,6 @@ public class ProfileActivity extends AppCompatActivity {
       }
     }
     defineGoogleSync();
-    //        gsc.signOut();
   }
 
   @SuppressLint("UseCompatLoadingForDrawables")
@@ -236,18 +247,30 @@ public class ProfileActivity extends AppCompatActivity {
         GoogleAccountCredential.usingOAuth2(this, Collections.singleton(Scopes.DRIVE_FILE));
     if (googleSignInAccount != null) {
       credential.setSelectedAccount(googleSignInAccount.getAccount());
-      com.google.api.services.drive.Drive googleDriveService =
+      Drive googleDriveService =
           new Drive.Builder(AndroidHttp.newCompatibleTransport(), new GsonFactory(), credential)
               .setApplicationName(getString(R.string.app_name))
               .build();
-      String currentDBPath = getDatabasePath("database.db").getAbsolutePath();
-      upload(currentDBPath, googleDriveService);
-      //          Toast.makeText(
-      //                  ProfileActivity.this,
-      //                  currentDBPath,
-      //                  Toast.LENGTH_LONG)
-      //                  .show();
-
+        String currentDBPath = AppDatabase.build(getApplicationContext()).getOpenHelper().getWritableDatabase().getPath();
+        Toast.makeText(
+                        ProfileActivity.this,
+                currentDBPath,
+                        Toast.LENGTH_LONG)
+                        .show();
+        GoogleDriveBackup backup = new GoogleDriveBackup(googleDriveService, currentDBPath);
+        AsyncTask<Void, Void, Void> task = new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                try {
+                    backup.upload();
+                    backup.download();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+        };
+        task.execute();
     }
     gsc.signOut();
   }
@@ -349,49 +372,5 @@ public class ProfileActivity extends AppCompatActivity {
     languageLayout = findViewById(R.id.language);
     shareLayout = findViewById(R.id.share);
     questionsLayout = findViewById(R.id.questions);
-  }
-
-  private void upload(String dbPath, com.google.api.services.drive.Drive drive) {
-    File storageFile = new File();
-    storageFile.setParents(Collections.singletonList("appDataFolder"));
-    storageFile.setName("budgetdb");
-
-    //        File storageFileShm = new File();
-    //        storageFileShm.setParents(Collections.singletonList("appDataFolder"));
-    //        storageFileShm.setName("studentdb-shm");
-    //
-    //        File storageFileWal = new File();
-    //        storageFileWal.setParents(Collections.singletonList("appDataFolder"));
-    //        storageFileWal.setName("studentdb-wal");
-
-    java.io.File filePath = new java.io.File(dbPath);
-    //        java.io.File filePathShm = new java.io.File(dbPathShm);
-    //        java.io.File filePathWal = new java.io.File(dbPathWal);
-    FileContent mediaContent = new FileContent("", filePath);
-    //        FileContent mediaContentShm = new FileContent("",filePathShm);
-    //        FileContent mediaContentWal = new FileContent("",filePathWal);
-    try {
-      File file = drive.files().create(storageFile, mediaContent).execute();
-      Toast.makeText(
-              ProfileActivity.this,
-              "Filename: " + file.getName() + "File ID: " + file.getId(),
-              Toast.LENGTH_LONG)
-          .show();
-      //            System.out.printf("Filename: %s File ID: %s \n", file.getName(), file.getId());
-
-      //            File fileShm = googleDriveService.files().create(storageFileShm,
-      // mediaContentShm)                    .execute();
-      //            System.out.printf("Filename: %s File ID: %s \n", fileShm.getName(),
-      // fileShm.getId());
-      //
-      //            File fileWal = googleDriveService.files().create(storageFileWal,
-      // mediaContentWal)                  .execute();
-      //            System.out.printf("Filename: %s File ID: %s \n", fileWal.getName(),
-      // fileWal.getId());
-    } catch (UserRecoverableAuthIOException e) {
-      startActivityForResult(e.getIntent(), 1);
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
   }
 }
