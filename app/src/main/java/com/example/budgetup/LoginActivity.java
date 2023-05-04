@@ -30,39 +30,35 @@ public class LoginActivity extends AppCompatActivity {
             password = etPassword.getText().toString();
             AppDatabase db = AppDatabase.build(getApplicationContext());
             List<User> users = db.userDao().getAll();
-            Toast.makeText(
-                    LoginActivity.this,
-                    users.size()+"",
-                    Toast.LENGTH_LONG)
-                    .show();
+            Toast.makeText(LoginActivity.this, users.size() + "", Toast.LENGTH_LONG).show();
             if (users.isEmpty()) {
               finish();
             } else {
-            User user = db.userDao().getByEmail(email);
-            if (user.getPassword().equals(password)) {
-              user.setStatus("online");
-              db.userDao().update(user);
-              List<Notification> notificationList =
-                  db.notificationDao().getNotificationsByEmail(user.getEmail());
-              for (Notification notification : notificationList) {
-                notification.setStatus(true);
-                db.notificationDao().update(notification);
+              User user = db.userDao().getByEmail(email);
+              if (user.getPassword().equals(password)) {
+                user.setStatus("online");
+                db.userDao().update(user);
+                List<Notification> notificationList =
+                    db.notificationDao().getNotificationsByEmail(user.getEmail());
+                for (Notification notification : notificationList) {
+                  notification.setStatus(true);
+                  db.notificationDao().update(notification);
+                }
+                Toast.makeText(
+                        LoginActivity.this,
+                        getResources().getString(R.string.login_suc),
+                        Toast.LENGTH_LONG)
+                    .show();
+                startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+              } else {
+                Toast.makeText(
+                        LoginActivity.this,
+                        getResources().getString(R.string.login_fail),
+                        Toast.LENGTH_LONG)
+                    .show();
+                startActivity(new Intent(LoginActivity.this, FirstActivity.class));
               }
-              Toast.makeText(
-                      LoginActivity.this,
-                      getResources().getString(R.string.login_suc),
-                      Toast.LENGTH_LONG)
-                  .show();
-              startActivity(new Intent(LoginActivity.this, HomeActivity.class));
-            } else {
-              Toast.makeText(
-                      LoginActivity.this,
-                      getResources().getString(R.string.login_fail),
-                      Toast.LENGTH_LONG)
-                  .show();
-              startActivity(new Intent(LoginActivity.this, FirstActivity.class));
             }
-          }
           }
         });
   }

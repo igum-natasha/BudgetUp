@@ -39,21 +39,21 @@ public class GoogleDriveBackup {
     if (dir.isDirectory()) {
       String[] children = dir.list();
       for (String child : children) {
-          new java.io.File(dir, child).delete();
+        new java.io.File(dir, child).delete();
       }
     }
 
     FileList files =
-            driver
-                    .files()
-                    .list()
-                    .setSpaces("appDataFolder")
-                    .setFields("nextPageToken, files(id, name, createdTime)")
-                    .setPageSize(10)
-                    .execute();
+        driver
+            .files()
+            .list()
+            .setSpaces("appDataFolder")
+            .setFields("nextPageToken, files(id, name, createdTime)")
+            .setPageSize(10)
+            .execute();
     for (File file : files.getFiles()) {
       System.out.printf(
-              "Found file: %s (%s) %s\n", file.getName(), file.getId(), file.getCreatedTime());
+          "Found file: %s (%s) %s\n", file.getName(), file.getId(), file.getCreatedTime());
       if (file.getName().equals("budgetdb")) {
         OutputStream outputStream = new FileOutputStream(currentDBPath);
         driver.files().get(file.getId()).executeMediaAndDownloadTo(outputStream);

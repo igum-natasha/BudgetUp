@@ -307,9 +307,7 @@ public class JournalFragment extends Fragment {
             AppDatabase db = AppDatabase.build(getContext());
             db.expenseDao().deleteById(currentExpense.getId());
             expenseInfoDialog.dismiss();
-            Intent intent =
-                    new Intent(
-                            view.getContext(), HomeActivity.class);
+            Intent intent = new Intent(view.getContext(), HomeActivity.class);
             startActivity(intent);
           }
         });

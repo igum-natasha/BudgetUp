@@ -99,8 +99,7 @@ public class NewNotificationActivity extends AppCompatActivity {
               PendingIntent pendingIntent =
                   PendingIntent.getBroadcast(NewNotificationActivity.this, REQUEST_CODE, intent, 0);
               AlarmManager am = (AlarmManager) getSystemService(ALARM_SERVICE);
-              Toast.makeText(view.getContext(), time+"", Toast.LENGTH_LONG)
-                      .show();
+              Toast.makeText(view.getContext(), time + "", Toast.LENGTH_LONG).show();
               am.setRepeating(
                   AlarmManager.RTC_WAKEUP, time, AlarmManager.INTERVAL_DAY, pendingIntent);
             }

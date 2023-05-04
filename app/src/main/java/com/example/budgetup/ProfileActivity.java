@@ -238,80 +238,81 @@ public class ProfileActivity extends AppCompatActivity {
   }
 
   private void defineGoogleSync() {
-      googleDialog = new Dialog(ProfileActivity.this);
-      googleDialog.setContentView(R.layout.google_dialog);
-      googleDialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.background_dialog));
-      googleDialog
-              .getWindow()
-              .setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-      googleDialog.setCancelable(false);
-      GoogleSignInAccount googleSignInAccount = GoogleSignIn.getLastSignedInAccount(this);
-      GoogleAccountCredential credential =
-              GoogleAccountCredential.usingOAuth2(this, Collections.singleton(Scopes.DRIVE_FILE));
+    googleDialog = new Dialog(ProfileActivity.this);
+    googleDialog.setContentView(R.layout.google_dialog);
+    googleDialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.background_dialog));
+    googleDialog
+        .getWindow()
+        .setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+    googleDialog.setCancelable(false);
+    GoogleSignInAccount googleSignInAccount = GoogleSignIn.getLastSignedInAccount(this);
+    GoogleAccountCredential credential =
+        GoogleAccountCredential.usingOAuth2(this, Collections.singleton(Scopes.DRIVE_FILE));
     if (googleSignInAccount == null) {
-        finish();
+      finish();
     } else {
-        credential.setSelectedAccount(googleSignInAccount.getAccount());
-        Drive googleDriveService =
-                new Drive.Builder(AndroidHttp.newCompatibleTransport(), new GsonFactory(), credential)
-                        .setApplicationName(getString(R.string.app_name))
-                        .build();
-        String currentDBPath =
-                AppDatabase.build(getApplicationContext())
-                        .getOpenHelper()
-                        .getWritableDatabase()
-                        .getPath();
-        Toast.makeText(ProfileActivity.this, currentDBPath, Toast.LENGTH_LONG).show();
-        GoogleDriveBackup backup = new GoogleDriveBackup(googleDriveService, currentDBPath);
-        ImageButton close = googleDialog.findViewById(R.id.closeIcon);
-        close.setOnClickListener(new View.OnClickListener() {
+      credential.setSelectedAccount(googleSignInAccount.getAccount());
+      Drive googleDriveService =
+          new Drive.Builder(AndroidHttp.newCompatibleTransport(), new GsonFactory(), credential)
+              .setApplicationName(getString(R.string.app_name))
+              .build();
+      String currentDBPath =
+          AppDatabase.build(getApplicationContext())
+              .getOpenHelper()
+              .getWritableDatabase()
+              .getPath();
+      Toast.makeText(ProfileActivity.this, currentDBPath, Toast.LENGTH_LONG).show();
+      GoogleDriveBackup backup = new GoogleDriveBackup(googleDriveService, currentDBPath);
+      ImageButton close = googleDialog.findViewById(R.id.closeIcon);
+      close.setOnClickListener(
+          new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                googleDialog.dismiss();
+              googleDialog.dismiss();
             }
-        });
-        RadioGroup radGrp = googleDialog.findViewById(R.id.radioGr);
-        radGrp.setOnCheckedChangeListener(
-                new RadioGroup.OnCheckedChangeListener() {
-                    @SuppressLint("NonConstantResourceId")
-                    @Override
-                    public void onCheckedChanged(RadioGroup radioGroup, int id) {
-                        switch (id) {
-                            case R.id.radioBack:
-                                AsyncTask<Void, Void, Void> taskUpload =
-                                        new AsyncTask<Void, Void, Void>() {
-                                            @Override
-                                            protected Void doInBackground(Void... voids) {
-                                                try {
-                                                    backup.upload();
-                                                } catch (IOException ex) {
-                                                    ex.printStackTrace();
-                                                }
-                                                return null;
-                                            }
-                                        };
-                                taskUpload.execute();
-                                startActivity(new Intent(ProfileActivity.this, HomeActivity.class));
-                                break;
-                            case R.id.radioRec:
-                                AsyncTask<Void, Void, Void> taskDownload =
-                                        new AsyncTask<Void, Void, Void>() {
-                                            @Override
-                                            protected Void doInBackground(Void... voids) {
-                                                try {
-                                                    backup.download();
-                                                } catch (IOException ex) {
-                                                    ex.printStackTrace();
-                                                }
-                                                return null;
-                                            }
-                                        };
-                                taskDownload.execute();
-                                startActivity(new Intent(ProfileActivity.this, HomeActivity.class));
-                                break;
+          });
+      RadioGroup radGrp = googleDialog.findViewById(R.id.radioGr);
+      radGrp.setOnCheckedChangeListener(
+          new RadioGroup.OnCheckedChangeListener() {
+            @SuppressLint("NonConstantResourceId")
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int id) {
+              switch (id) {
+                case R.id.radioBack:
+                  AsyncTask<Void, Void, Void> taskUpload =
+                      new AsyncTask<Void, Void, Void>() {
+                        @Override
+                        protected Void doInBackground(Void... voids) {
+                          try {
+                            backup.upload();
+                          } catch (IOException ex) {
+                            ex.printStackTrace();
+                          }
+                          return null;
                         }
-                    }
-                });
+                      };
+                  taskUpload.execute();
+                  startActivity(new Intent(ProfileActivity.this, HomeActivity.class));
+                  break;
+                case R.id.radioRec:
+                  AsyncTask<Void, Void, Void> taskDownload =
+                      new AsyncTask<Void, Void, Void>() {
+                        @Override
+                        protected Void doInBackground(Void... voids) {
+                          try {
+                            backup.download();
+                          } catch (IOException ex) {
+                            ex.printStackTrace();
+                          }
+                          return null;
+                        }
+                      };
+                  taskDownload.execute();
+                  startActivity(new Intent(ProfileActivity.this, HomeActivity.class));
+                  break;
+              }
+            }
+          });
     }
   }
 
