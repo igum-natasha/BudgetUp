@@ -29,6 +29,15 @@ public class LoginActivity extends AppCompatActivity {
             email = etEmail.getText().toString();
             password = etPassword.getText().toString();
             AppDatabase db = AppDatabase.build(getApplicationContext());
+            List<User> users = db.userDao().getAll();
+            Toast.makeText(
+                    LoginActivity.this,
+                    users.size()+"",
+                    Toast.LENGTH_LONG)
+                    .show();
+            if (users.isEmpty()) {
+              finish();
+            } else {
             User user = db.userDao().getByEmail(email);
             if (user.getPassword().equals(password)) {
               user.setStatus("online");
@@ -53,6 +62,7 @@ public class LoginActivity extends AppCompatActivity {
                   .show();
               startActivity(new Intent(LoginActivity.this, FirstActivity.class));
             }
+          }
           }
         });
   }

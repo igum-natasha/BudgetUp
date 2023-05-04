@@ -2,6 +2,7 @@ package com.example.budgetup;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.Intent;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 
@@ -216,8 +217,6 @@ public class JournalFragment extends Fragment {
       initEmptyBarChart();
       tvNoInfo.setVisibility(View.VISIBLE);
       shadowView.setVisibility(View.INVISIBLE);
-      //      deleteDialog.show();
-      // TODO: dialog
     } else {
       initBarChart();
       tvNoInfo.setVisibility(View.INVISIBLE);
@@ -308,10 +307,10 @@ public class JournalFragment extends Fragment {
             AppDatabase db = AppDatabase.build(getContext());
             db.expenseDao().deleteById(currentExpense.getId());
             expenseInfoDialog.dismiss();
-            //                Intent intent =
-            //                        new Intent(
-            //                                HomeActivity.this, HomeActivity.class);
-            //                startActivity(intent);
+            Intent intent =
+                    new Intent(
+                            view.getContext(), HomeActivity.class);
+            startActivity(intent);
           }
         });
   }

@@ -381,10 +381,7 @@ public class HomeActivity extends AppCompatActivity {
             AppDatabase db = AppDatabase.build(getApplicationContext());
             db.expenseDao().deleteById(currentExpense.getId());
             expenseInfoDialog.dismiss();
-            //                Intent intent =
-            //                        new Intent(
-            //                                HomeActivity.this, HomeActivity.class);
-            //                startActivity(intent);
+            recreate();
           }
         });
   }

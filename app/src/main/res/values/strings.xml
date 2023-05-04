@@ -111,6 +111,8 @@
     <string name="new_notification">New notification</string>
     <string name="notification">Notifications</string>
     <string name="errorGoogle">Google: something went wrong</string>
+    <string name="backup">Backup copying</string>
+    <string name="recovery">Data recovery</string>
 
 
     <string name="title_onboarding1">Painless budgeting</string>

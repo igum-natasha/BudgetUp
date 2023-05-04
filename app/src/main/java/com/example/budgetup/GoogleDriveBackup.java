@@ -28,48 +28,37 @@ public class GoogleDriveBackup {
     FileContent mediaContent = new FileContent("", filePath);
     try {
       File file = driver.files().create(storageFile, mediaContent).execute();
-      //            Toast.makeText(
-      //                    ProfileActivity.this,
-      //                    "Filename: " + file.getName() + "File ID: " + file.getId(),
-      //                    Toast.LENGTH_LONG)
-      //                    .show();
       System.out.printf("Filename: %s File ID: %s \n", file.getName(), file.getId());
     } catch (Exception e) {
       e.printStackTrace();
     }
   }
 
-  public void download() {
-    try {
-      java.io.File dir = new java.io.File("/data/data/com.example.budgetup/databases");
-      if (dir.isDirectory()) {
-        String[] children = dir.list();
-        for (int i = 0; i < children.length; i++) {
-          new java.io.File(dir, children[i]).delete();
-        }
+  public void download() throws IOException {
+    java.io.File dir = new java.io.File(currentDBPath);
+    if (dir.isDirectory()) {
+      String[] children = dir.list();
+      for (String child : children) {
+          new java.io.File(dir, child).delete();
       }
+    }
 
-      FileList files =
-          driver
-              .files()
-              .list()
-              .setSpaces("appDataFolder")
-              .setFields("nextPageToken, files(id, name, createdTime)")
-              .setPageSize(10)
-              .execute();
-      //            if(files.getFiles().size() == 0)
-      //                Log.e(db,"No DB file exists in Drive");
-      for (File file : files.getFiles()) {
-        System.out.printf(
-            "Found file: %s (%s) %s\n", file.getName(), file.getId(), file.getCreatedTime());
-        if (file.getName().equals("budgetdb")) {
-          OutputStream outputStream = new FileOutputStream(currentDBPath);
-          driver.files().get(file.getId()).executeMediaAndDownloadTo(outputStream);
-        }
+    FileList files =
+            driver
+                    .files()
+                    .list()
+                    .setSpaces("appDataFolder")
+                    .setFields("nextPageToken, files(id, name, createdTime)")
+                    .setPageSize(10)
+                    .execute();
+    for (File file : files.getFiles()) {
+      System.out.printf(
+              "Found file: %s (%s) %s\n", file.getName(), file.getId(), file.getCreatedTime());
+      if (file.getName().equals("budgetdb")) {
+        OutputStream outputStream = new FileOutputStream(currentDBPath);
+        driver.files().get(file.getId()).executeMediaAndDownloadTo(outputStream);
+        break;
       }
-
-    } catch (IOException e) {
-      e.printStackTrace();
     }
   }
 }

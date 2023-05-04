@@ -1,7 +1,5 @@
 package com.example.budgetup;
 
-import static java.util.UUID.*;
-
 import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.PendingIntent;

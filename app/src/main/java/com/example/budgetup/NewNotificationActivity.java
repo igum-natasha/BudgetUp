@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import java.util.Calendar;
 import java.util.List;
@@ -98,8 +99,10 @@ public class NewNotificationActivity extends AppCompatActivity {
               PendingIntent pendingIntent =
                   PendingIntent.getBroadcast(NewNotificationActivity.this, REQUEST_CODE, intent, 0);
               AlarmManager am = (AlarmManager) getSystemService(ALARM_SERVICE);
+              Toast.makeText(view.getContext(), time+"", Toast.LENGTH_LONG)
+                      .show();
               am.setRepeating(
-                  AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), time, pendingIntent);
+                  AlarmManager.RTC_WAKEUP, time, AlarmManager.INTERVAL_DAY, pendingIntent);
             }
             startActivity(new Intent(NewNotificationActivity.this, ProfileActivity.class));
           }

@@ -121,9 +121,9 @@ public class StatisticsFragment extends Fragment {
       data_expenses.add(new BarEntry(i, sumByDay[i]));
       colors[i] = palette.getColor(i, 0);
     }
-    String exCount = sum + " " + "RUB"; // FIXME: format?
-    String minCount = minSum + " " + "RUB";
-    String maxCount = maxSum + " " + "RUB";
+    String exCount = String.format("%s RUB", sum);
+    String minCount = String.format("%s RUB", minSum);
+    String maxCount = String.format("%s RUB", maxSum);
     expenseCount.setText(exCount);
     tvMin.setText(minCount);
     tvMax.setText(maxCount);
@@ -199,9 +199,7 @@ public class StatisticsFragment extends Fragment {
       Date d = new Date(expensesList.get(i).getDate());
       String day = df.format(d);
       if (xAxisLabel.contains(day)) {
-        Log.d("value_before", expensesList.get(i).getValue() + "");
-        float value = Float.parseFloat(expensesList.get(i).getValue()); // .replace('-', ' '));
-        Log.d("value", value + "");
+        float value = Float.parseFloat(expensesList.get(i).getValue());
         sumByDay[xAxisLabel.indexOf(day)] += value;
       }
       colors[i] = palette.getColor(i, 0);
@@ -247,7 +245,6 @@ public class StatisticsFragment extends Fragment {
     if (expenses.isEmpty()) {
       initEmptyBarChart("week");
       tvNoInfo.setVisibility(View.VISIBLE);
-      // TODO: dialog
     } else {
       TypedArray colors = getResources().obtainTypedArray(R.array.colors);
       TypedArray baseColors = getResources().obtainTypedArray(R.array.base_colors);
@@ -265,7 +262,6 @@ public class StatisticsFragment extends Fragment {
     if (expenses.isEmpty()) {
       initEmptyBarChart("month");
       tvNoInfo.setVisibility(View.VISIBLE);
-      // TODO: dialog
     } else {
       TypedArray colors = getResources().obtainTypedArray(R.array.colors);
       TypedArray baseColors = getResources().obtainTypedArray(R.array.base_colors);
@@ -410,9 +406,6 @@ public class StatisticsFragment extends Fragment {
           @Override
           public void onClick(View view) {
             weekPos = llm.findFirstVisibleItemPosition() + 1;
-            //            Toast.makeText(view.getContext(), weekPos + " " + days.size(),
-            // Toast.LENGTH_LONG)
-            //                .show();
             if (weekPos < days.size() - 1) {
               llm.scrollToPositionWithOffset(weekPos, 0);
             }
@@ -428,10 +421,6 @@ public class StatisticsFragment extends Fragment {
 
   private void showDaysMonth() {
     rvDays = view.findViewById(R.id.rvDays);
-    //    Toast.makeText(
-    //            view.getContext(), getResources().getString(R.string.monthTitle),
-    // Toast.LENGTH_LONG)
-    //        .show();
     LinearLayoutManager llm =
         new LinearLayoutManager(view.getContext(), LinearLayoutManager.HORIZONTAL, false);
     rvDays.setLayoutManager(llm);
@@ -452,8 +441,6 @@ public class StatisticsFragment extends Fragment {
           @Override
           public void onClick(View view) {
             monthPos = llm.findFirstVisibleItemPosition() + 1;
-            Toast.makeText(view.getContext(), monthPos + " " + daysMonth.size(), Toast.LENGTH_LONG)
-                .show();
             if (monthPos < daysMonth.size() - 1) {
               llm.scrollToPositionWithOffset(monthPos, 0);
             }

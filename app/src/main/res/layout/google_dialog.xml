@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="250dp"
+    android:layout_height="130dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center"
+    android:background="@color/base_50">
+
+    <ImageButton
+        android:id="@+id/closeIcon"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:background="@color/base_50"
+        android:scaleType="fitCenter"
+        android:src="@drawable/close"
+        android:layout_margin="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/base_400" />
+
+    <RadioGroup
+        android:id="@+id/radioGr"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/base_50"
+        android:orientation="vertical"
+        android:layout_margin="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/closeIcon">
+        <RadioButton
+            android:id="@+id/radioBack"
+            android:layout_height="24dp"
+            android:layout_width="wrap_content"
+            android:text="@string/backup"
+            android:fontFamily="@font/poppins"
+            android:textColor="@color/base_900"
+            android:textSize="16sp"
+            android:layout_margin="8dp"/>
+        <RadioButton
+            android:id="@+id/radioRec"
+            android:layout_height="24dp"
+            android:layout_width="wrap_content"
+            android:text="@string/recovery"
+            android:fontFamily="@font/poppins"
+            android:textColor="@color/base_900"
+            android:textSize="16sp"
+            android:layout_margin="8dp"/>
+    </RadioGroup>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
