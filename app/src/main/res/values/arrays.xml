@@ -125,10 +125,17 @@
         <item>#A9F4D0</item>
         <item>#DBAEFF</item>
         <item>#FDD09F</item>
-        <item>#CDCAE8</item>
+        <item>#CCC7FB</item>
         <item>#FFCFD4</item>
-        <item>#E4F3EE</item>
-        <item>#E9E9E9</item>
+        <item>#70B8A0</item>
+        <item>#EAC7C7</item>
+        <item>#86C6C6</item>
+        <item>#F17FE5</item>
+        <item>#F3A16A</item>
+        <item>#7BBDEF</item>
+        <item>#9EDFAC</item>
+        <item>#E8ED9A</item>
+        <item>#9E72ED</item>
     </array>
 
     <string-array name="template">

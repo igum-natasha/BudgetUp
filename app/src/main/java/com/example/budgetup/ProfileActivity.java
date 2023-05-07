@@ -50,7 +50,6 @@ public class ProfileActivity extends AppCompatActivity {
   TextView userName, userEmail;
   String language;
   User user;
-  boolean upload = false;
   AppDatabase db;
   GoogleSignInClient gsc;
   GoogleSignInOptions gso;
@@ -261,7 +260,6 @@ public class ProfileActivity extends AppCompatActivity {
               .getOpenHelper()
               .getWritableDatabase()
               .getPath();
-      Toast.makeText(ProfileActivity.this, currentDBPath, Toast.LENGTH_LONG).show();
       GoogleDriveBackup backup = new GoogleDriveBackup(googleDriveService, currentDBPath);
       ImageButton close = googleDialog.findViewById(R.id.closeIcon);
       close.setOnClickListener(

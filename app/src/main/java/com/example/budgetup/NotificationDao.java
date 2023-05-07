@@ -15,10 +15,10 @@ public interface NotificationDao {
   void deleteByEmail(String email);
 
   @Query("DELETE FROM notifications WHERE id LIKE :id")
-  void deleteById(String id);
+  void deleteById(int id);
 
   @Query("SELECT * FROM notifications WHERE id LIKE :id")
-  Notification getById(String id);
+  Notification getById(int id);
 
   @Query("SELECT * FROM notifications WHERE userEmail LIKE :email")
   List<Notification> getNotificationsByEmail(String email);

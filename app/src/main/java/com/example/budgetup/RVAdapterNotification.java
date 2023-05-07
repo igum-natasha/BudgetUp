@@ -83,7 +83,7 @@ public class RVAdapterNotification
     } else {
       image = "close";
     }
-    ViewHolder.status.setBackgroundResource(
+    ViewHolder.status.setImageResource(
         ViewHolder.itemView
             .getResources()
             .getIdentifier(image, "drawable", ViewHolder.itemView.getContext().getPackageName()));

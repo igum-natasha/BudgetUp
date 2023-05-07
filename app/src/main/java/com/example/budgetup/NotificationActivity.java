@@ -4,14 +4,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +29,7 @@ public class NotificationActivity extends AppCompatActivity {
   CircleImageView btnLeft;
   private TextView title;
   private RecyclerView rvNotification;
+  Dialog notificationDialog;
   List<Notification> notificationList = new ArrayList<>();
 
   @Override
@@ -77,7 +84,10 @@ public class NotificationActivity extends AppCompatActivity {
     adapter.setOnItemClickListener(
         new RVAdapterNotification.ClickListener() {
           @Override
-          public void onItemClick(int position, View v) {}
+          public void onItemClick(int position, View v) {
+            defineNotificationDialog(position);
+            notificationDialog.show();
+          }
 
           @Override
           public void onItemLongClick(int position, View v) {}
@@ -100,5 +110,53 @@ public class NotificationActivity extends AppCompatActivity {
     title = findViewById(R.id.user_name);
 
     title.setText(getResources().getString(R.string.notification));
+  }
+
+  private void defineNotificationDialog(int position) {
+    notificationDialog = new Dialog(NotificationActivity.this);
+    notificationDialog.setContentView(R.layout.notification_dialog);
+    notificationDialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.background_dialog));
+    notificationDialog
+            .getWindow()
+            .setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+    notificationDialog.getWindow().setGravity(Gravity.CENTER);
+    notificationDialog.setCancelable(false);
+    ImageView status = notificationDialog.findViewById(R.id.notifStatus);
+    TextView date = notificationDialog.findViewById(R.id.dateTitle);
+    TextView name = notificationDialog.findViewById(R.id.notifName);
+    TextView message = notificationDialog.findViewById(R.id.notifMessage);
+    Notification selectedNotification = notificationList.get(position);
+    ImageButton close = notificationDialog.findViewById(R.id.closeIcon);
+    ImageButton delete = notificationDialog.findViewById(R.id.deleteIcon);
+    String image;
+    if (selectedNotification.getStatus()) {
+      image = "check";
+    } else {
+      image = "close";
+    }
+    status.setBackgroundResource(getApplicationContext().getResources()
+                    .getIdentifier(image, "drawable", getApplicationContext().getPackageName()));
+    @SuppressLint("SimpleDateFormat")
+    SimpleDateFormat df = new SimpleDateFormat("yyyy.MM.dd, HH:mm");
+    date.setText(df.format(selectedNotification.getDate()));
+    name.setText(selectedNotification.getName());
+    message.setText(selectedNotification.getMessage());
+    close.setOnClickListener(
+            new View.OnClickListener() {
+              @Override
+              public void onClick(View view) {
+                notificationDialog.dismiss();
+              }
+            });
+    delete.setOnClickListener(
+            new View.OnClickListener() {
+              @Override
+              public void onClick(View view) {
+                AppDatabase db = AppDatabase.build(getApplicationContext());
+                db.notificationDao().deleteById(selectedNotification.getId());
+                notificationDialog.dismiss();
+                finish();
+              }
+            });
   }
 }
