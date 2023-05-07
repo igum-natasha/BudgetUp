@@ -117,8 +117,8 @@ public class NotificationActivity extends AppCompatActivity {
     notificationDialog.setContentView(R.layout.notification_dialog);
     notificationDialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.background_dialog));
     notificationDialog
-            .getWindow()
-            .setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        .getWindow()
+        .setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
     notificationDialog.getWindow().setGravity(Gravity.CENTER);
     notificationDialog.setCancelable(false);
     ImageView status = notificationDialog.findViewById(R.id.notifStatus);
@@ -134,29 +134,31 @@ public class NotificationActivity extends AppCompatActivity {
     } else {
       image = "close";
     }
-    status.setBackgroundResource(getApplicationContext().getResources()
-                    .getIdentifier(image, "drawable", getApplicationContext().getPackageName()));
+    status.setBackgroundResource(
+        getApplicationContext()
+            .getResources()
+            .getIdentifier(image, "drawable", getApplicationContext().getPackageName()));
     @SuppressLint("SimpleDateFormat")
     SimpleDateFormat df = new SimpleDateFormat("yyyy.MM.dd, HH:mm");
     date.setText(df.format(selectedNotification.getDate()));
     name.setText(selectedNotification.getName());
     message.setText(selectedNotification.getMessage());
     close.setOnClickListener(
-            new View.OnClickListener() {
-              @Override
-              public void onClick(View view) {
-                notificationDialog.dismiss();
-              }
-            });
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+            notificationDialog.dismiss();
+          }
+        });
     delete.setOnClickListener(
-            new View.OnClickListener() {
-              @Override
-              public void onClick(View view) {
-                AppDatabase db = AppDatabase.build(getApplicationContext());
-                db.notificationDao().deleteById(selectedNotification.getId());
-                notificationDialog.dismiss();
-                finish();
-              }
-            });
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+            AppDatabase db = AppDatabase.build(getApplicationContext());
+            db.notificationDao().deleteById(selectedNotification.getId());
+            notificationDialog.dismiss();
+            finish();
+          }
+        });
   }
 }
