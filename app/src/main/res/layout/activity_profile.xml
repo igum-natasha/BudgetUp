@@ -134,7 +134,8 @@
                 android:layout_weight="1"
                 android:contentDescription="@string/sync"
                 android:gravity="start"
-                android:src="@drawable/sync" />
+                android:src="@drawable/sync"
+                app:tint="@color/base_500" />
 
         </LinearLayout>
     </com.loopeer.shadow.ShadowView>
